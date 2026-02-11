@@ -1,0 +1,95 @@
+import { Given, When, Then, DataTable } from "@cucumber/cucumber";
+import { buildHeadersDynamic } from "../api/header/builderHeadersDynamic";
+import { buildPayload } from "../api/payload/builderPayloadDynamic";
+import { buildQueryFromTable } from "../api/endpoint_query/builderQueryDynamic";
+import { executeDynamicRequest } from "../api/restApi/requestExecutor";
+import { readJsonPath } from "../api/response/jsonPath";
+import type { CustomWorld } from "../support/world";
+import { Utils } from "../common/utils/utils";
+
+type TableRow = { key: string; value: string };
+
+// Shared values
+Given("I set shared values:", function (this: CustomWorld, dataTable: DataTable) {
+    const rows = dataTable.hashes() as { key: string; value: string }[];
+    for (const r of rows) {
+        const k = String(r.key || "").trim();
+        if (!k) continue;
+        // Store resolved string for immediate reuse
+        this.dynamicValues[k] = this.resolveValue(String(r.value ?? ""));
+    }
+});
+
+// Dynamic headers
+Given("I build dynamic headers with:", function (this: CustomWorld, dataTable: DataTable) {
+    const rows = dataTable.hashes() as TableRow[];
+    (this as any).dynamicHeaders = buildHeadersDynamic(rows, this.resolveValue.bind(this));
+});
+
+// build payload without override file
+Given("I build payload from {string}", function (this: CustomWorld, payloadName: string) {
+    (this as any).payload = buildPayload({ payloadName, resolve: this.resolveValue.bind(this) });
+});
+
+// Dynamic payload with override from table
+Given("I build dynamic payload from {string} with:", function (this: CustomWorld, payloadName: string, dataTable: DataTable) {
+    const rows = dataTable.hashes() as TableRow[];
+    (this as any).payload = buildPayload({ payloadName, rows, resolve: this.resolveValue.bind(this) });
+});
+
+// Dynamic query params
+Given("I build dynamic query params with:", function (this: CustomWorld, dataTable: DataTable) {
+    const rows = dataTable.hashes() as TableRow[];
+    this.dynamicQuery = buildQueryFromTable(rows, this.resolveValue.bind(this));
+});
+
+// Path params
+Given("I set path params:", function (this: CustomWorld, dataTable: DataTable) {
+    const rows = dataTable.hashes() as { key: string; value: string }[];
+    (this as any).pathParams = {};
+    for (const r of rows) {
+        const k = String(r.key || "").trim();
+        if (!k) continue;
+        (this as any).pathParams[k] = this.resolveValue(String(r.value ?? ""));
+    }
+});
+
+// Send request
+When("I send {string} request to {string}", async function (this: CustomWorld, method: string, pathTemplate: string) {
+    await executeDynamicRequest(this, method, pathTemplate);
+});
+
+When("I store response field {string} as {string}", function (this: CustomWorld, fieldPath: string, paramName: string) {
+    if (!this.response?.data) {
+        throw new Error("❌ Response data is empty");
+    }
+
+    const value = Utils.getValueByPath(this.response.data, fieldPath);
+
+    if (value === undefined) {
+        throw new Error(`❌ Field '${fieldPath}' not found in response`);
+    }
+
+    this.sharedParams[paramName] = value;
+
+    console.log(`✅ Stored response field [${fieldPath}] → {{${paramName}}}`);
+    console.log(`📦 sharedParams:\n${JSON.stringify(this.sharedParams, null, 2)}`);
+});
+
+Then("response status should be {int}", function (this: CustomWorld, expected: number) {
+    if ((this as any).responseStatus !== expected) {
+        throw new Error(`Expected status ${expected} but got ${(this as any).responseStatus}`);
+    }
+});
+
+Then("I save response path {string} as {string}", function (this: CustomWorld, path: string, key: string) {
+    const from = (this as any).responseBody;
+    const value = readJsonPath(from, path);
+    this.dynamicValues[key] = String(value);
+});
+
+Then("I save response body as {string}", function (this: CustomWorld, key: string) {
+    const from = (this as any).responseBody;
+    console.log(from);
+    this.dynamicValues[key] = JSON.stringify(from);
+});
