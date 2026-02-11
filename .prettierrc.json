@@ -1,5 +1,4 @@
 {
-    "plugins": ["prettier-plugin-gherkin"],
     "printWidth": 250,
     "tabWidth": 4,
     "useTabs": false,
