@@ -14,9 +14,14 @@ import { config, Role } from "../../support/config";
 type TokenEntry = {
     token: string; // JWT token string
     expiresAt: number; // Expiration timestamp (Unix seconds)
-    role: Role; // User role
     createdAt: number; // Creation timestamp (Unix seconds)
 };
+
+// ============================================================================
+// AUTH TYPES
+// ============================================================================
+
+export type AuthStatus = "valid_token" | "invalid_token" | "no_token";
 
 // ============================================================================
 // CONFIGURATION
@@ -24,6 +29,9 @@ type TokenEntry = {
 
 // Directory to store token files
 const TOKEN_DIR = path.resolve(process.cwd(), "src/api/auth/saveAuth/tokens");
+
+// Single token file (no role)
+const TOKEN_FILE = path.join(TOKEN_DIR, "token.json");
 
 // Create token directory if it doesn't exist
 if (!fs.existsSync(TOKEN_DIR)) {
@@ -37,29 +45,29 @@ if (!fs.existsSync(TOKEN_DIR)) {
 /**
  * Get file path for a role's token
  */
-function getTokenFilePath(role: Role): string {
-    return path.join(TOKEN_DIR, `${role}.json`);
-}
+// function getTokenFilePath(role: Role): string {
+//     return path.join(TOKEN_DIR, `${role}.json`);
+// }
 
 /**
  * Load token from file
  * @returns TokenEntry if file exists and is valid, null if file doesn't exist or invalid
  */
-function loadTokenFromFile(role: Role): TokenEntry | null {
-    const filePath = getTokenFilePath(role);
+function loadTokenFromFile(): TokenEntry | null {
+    //const filePath = getTokenFilePath(role);
 
     // Check if file exists first (avoid error when reading non-existent file)
-    if (!fs.existsSync(filePath)) {
+    if (!fs.existsSync(TOKEN_FILE)) {
         return null;
     }
 
     // File exists → try to read and parse
     try {
-        const content = fs.readFileSync(filePath, "utf-8");
+        const content = fs.readFileSync(TOKEN_FILE, "utf-8");
         return JSON.parse(content) as TokenEntry;
     } catch (error) {
         // File exists but invalid/corrupted → return null (will trigger token fetch)
-        console.warn(`⚠️ Failed to parse token file for ${role}:`, error);
+        console.warn(`Failed to parse token file`, error);
         return null;
     }
 }
@@ -67,13 +75,13 @@ function loadTokenFromFile(role: Role): TokenEntry | null {
 /**
  * Save token to file
  */
-function saveTokenToFile(role: Role, entry: TokenEntry): void {
-    const filePath = getTokenFilePath(role);
+function saveTokenToFile(entry: TokenEntry): void {
+    //const filePath = getTokenFilePath(role);
     try {
-        fs.writeFileSync(filePath, JSON.stringify(entry, null, 2), "utf-8");
-        console.log(`✅ Token saved for role: ${role}`);
+        fs.writeFileSync(TOKEN_FILE, JSON.stringify(entry, null, 2), "utf-8");
+        console.log(`Token saved`);
     } catch (error) {
-        console.error(`❌ Failed to save token for ${role}:`, error);
+        console.error(`Failed to save token`, error);
     }
 }
 
@@ -90,18 +98,18 @@ function isTokenValid(entry: TokenEntry | null): boolean {
 /**
  * Fetch new token from API and save to file
  */
-async function fetchTokenForRole(role: Role): Promise<string> {
-    console.log(`🔐 Fetching new token for role: ${role}`);
+async function fetchToken(): Promise<string> {
+    console.log(`Fetching new token`);
 
     // Prepare OAuth2 password grant request
-    const creds = config.credentials[role];
+    //const creds = config.credentials[role];
     const form = new URLSearchParams();
     form.append("client_id", config.clientId);
     form.append("client_secret", config.clientSecret);
     form.append("scope", config.scope);
-    form.append("grant_type", "password");
-    form.append("username", creds.username);
-    form.append("password", creds.password);
+    form.append("grant_type", "client_credentials");
+    //form.append("username", creds.username);
+    //form.append("password", creds.password);
 
     // Request token from API
     const res = await axios.post(config.url.token, form, {
@@ -120,12 +128,11 @@ async function fetchTokenForRole(role: Role): Promise<string> {
     const entry: TokenEntry = {
         token,
         expiresAt: exp,
-        role,
         createdAt: Math.floor(Date.now() / 1000),
     };
 
     // Save to file for future use
-    saveTokenToFile(role, entry);
+    saveTokenToFile(entry);
     return token;
 }
 
@@ -143,25 +150,25 @@ async function fetchTokenForRole(role: Role): Promise<string> {
  * 4. If not valid → fetch new token and save to file
  * 5. If valid → use existing token
  */
-export async function getTokenForRole(role: Role): Promise<string> {
+export async function getValidToken(): Promise<string> {
     // Try to load token from file
-    const tokenEntry = loadTokenFromFile(role);
+    const tokenEntry = loadTokenFromFile();
 
     // File doesn't exist → fetch new token
     if (!tokenEntry) {
-        console.log(`📁 Token file not found for role: ${role}. Fetching new token...`);
-        return await fetchTokenForRole(role);
+        console.log(`Token file not found. Fetching new token...`);
+        return await fetchToken();
     }
 
     // Token is still valid → use it
     if (isTokenValid(tokenEntry)) {
-        console.log(`✅ Using valid token for role: ${role} (from file)`);
+        console.log(`Using valid token from file`);
         return tokenEntry.token;
     }
 
     // Token expired → fetch new token
-    console.log(`⏰ Token expired for role: ${role}. Fetching new token...`);
-    return await fetchTokenForRole(role);
+    console.log(`Token expired for role. Fetching new token...`);
+    return await fetchToken();
 }
 
 /**
@@ -176,7 +183,7 @@ export async function getTokenForRole(role: Role): Promise<string> {
  * - getToken('invalid_token') → { Authorization: 'Bearer invalid_token' }
  * - getToken('no_token') → {}
  */
-export async function getToken(status: string, role?: Role | string): Promise<Record<string, string>> {
+export async function getToken(status: string): Promise<Record<string, string>> {
     // Normalize status (case insensitive, trim whitespace)
     const normalizedStatus = status.toLowerCase().trim() as "valid_token" | "invalid_token" | "no_token";
 
@@ -192,10 +199,7 @@ export async function getToken(status: string, role?: Role | string): Promise<Re
 
     // Case 3: valid_token → get valid token for role and add to header
     if (normalizedStatus === "valid_token") {
-        if (!role) {
-            throw new Error("Role is required when status is 'valid_token'");
-        }
-        const token = await getTokenForRole(role as Role);
+        const token = await getValidToken();
         return { Authorization: `Bearer ${token}` };
     }
 
@@ -206,10 +210,10 @@ export async function getToken(status: string, role?: Role | string): Promise<Re
 /**
  * Clear token file for a role (useful for testing token refresh)
  */
-export function clearTokenForRole(role: Role): void {
-    const filePath = getTokenFilePath(role);
-    if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-        console.log(`🗑️ Token cleared for role: ${role}`);
+export function clearToken(): void {
+    //const filePath = getTokenFilePath(role);
+    if (fs.existsSync(TOKEN_FILE)) {
+        fs.unlinkSync(TOKEN_FILE);
+        console.log(`🗑️ Token cleared`);
     }
 }

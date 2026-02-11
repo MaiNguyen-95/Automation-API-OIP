@@ -1,0 +1,51 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "api-validation;validate-products-list-response-schema",
+        "keyword": "Scenario",
+        "line": 14,
+        "name": "Validate products list response schema",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 15,
+            "name": "I am authenticated as 'valid_token'",
+            "match": {
+              "location": "src/steps/authSteps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 630167
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@test",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "api-validation",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "API validation",
+    "tags": [
+      {
+        "name": "@api",
+        "line": 1
+      }
+    ],
+    "uri": "src/features/commonApi.feature"
+  }
+]
