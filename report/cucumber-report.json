@@ -10,16 +10,72 @@
         "name": "Validate products list response schema",
         "steps": [
           {
-            "arguments": [],
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "tenantId",
+                      "{{tenantId}}"
+                    ]
+                  }
+                ]
+              }
+            ],
             "keyword": "Given ",
             "line": 15,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 291042
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 18,
             "name": "I am authenticated as 'valid_token'",
             "match": {
               "location": "src/steps/authSteps.ts:5"
             },
             "result": {
               "status": "passed",
-              "duration": 630167
+              "duration": 658749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 19,
+            "name": "I send \"GET\" request to \"discount\"",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:63"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 377146125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 20,
+            "name": "response status should be 404",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:84"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 183042
             }
           }
         ],

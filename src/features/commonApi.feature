@@ -12,9 +12,12 @@ Feature: API validation
 
     @test
     Scenario: Validate products list response schema
+        Given I build dynamic headers with:
+            | key      | value        |
+            | tenantId | {{tenantId}} |
         Given I am authenticated as 'valid_token'
-# When I send "GET" request to "productsList"
-# Then response status should be 200
+        When I send "GET" request to "discount"
+        Then response status should be 404
 # And I save response body as "responseBody"
 # And response matches schema "productsList"
 

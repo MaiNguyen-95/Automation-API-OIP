@@ -14,4 +14,5 @@ export const config = {
             create: process.env.CUSTOMER_CREATE_API!,
         },
     },
+    tenantId: process.env.TENANT_ID,
 } as const;

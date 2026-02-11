@@ -1,12 +1,11 @@
 import { setWorldConstructor, setDefaultTimeout, IWorldOptions, World } from "@cucumber/cucumber";
-import { config, Role } from "../support/config";
+import { config } from "../support/config";
 import { AxiosResponse } from "axios";
 
 setDefaultTimeout(120000);
 
 export class CustomWorld extends World {
     // -------- Core --------
-    role!: Role;
     config = config;
 
     // -------- Request --------
@@ -28,6 +27,7 @@ export class CustomWorld extends World {
 
     constructor(options: IWorldOptions) {
         super(options);
+        this.dynamicValues["tenantId"] = config.tenantId!;
     }
 
     resolveValue(raw: string): string {

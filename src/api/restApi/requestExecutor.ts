@@ -2,8 +2,9 @@ import { resolvePathTemplate } from "./pathResolver";
 import { CustomWorld } from "../../support/world";
 import axios from "axios";
 import { config } from "../../support/config";
+import { ApiEndpoints, ApiEndpointKey } from "../endpoints/apiEndpoints";
 
-export async function executeDynamicRequest(world: CustomWorld, method: string, pathTemplate: string): Promise<void> {
+export async function executeDynamicRequest(world: CustomWorld, method: string, endpointKey: ApiEndpointKey): Promise<void> {
     const resolver = world.resolveValue.bind(world);
 
     const client = axios.create({
@@ -12,7 +13,11 @@ export async function executeDynamicRequest(world: CustomWorld, method: string, 
         headers: { "Content-Type": "application/json" },
     });
 
-    const url = resolvePathTemplate(pathTemplate, world.pathParams, resolver);
+    const rawPath = ApiEndpoints[endpointKey];
+    if (!rawPath) {
+        throw new Error(`❌ Endpoint key "${endpointKey}" not found in ApiEndpoints`);
+    }
+    const url = resolvePathTemplate(rawPath, world.pathParams, resolver);
 
     try {
         const response = await client.request({
@@ -21,9 +26,9 @@ export async function executeDynamicRequest(world: CustomWorld, method: string, 
             data: world.requestPayload,
             params: world.dynamicQuery,
             headers: world.dynamicHeaders,
-            validateStatus: () => true, // không throw ở đây, để step assert
+            validateStatus: () => true,
         });
-
+        console.log("Dynamic Header:", world.dynamicHeaders);
         world.response = response;
         world.responseBody = response.data;
         world.responseStatus = response.status;

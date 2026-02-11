@@ -2,7 +2,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import fs from "node:fs";
 import path from "node:path";
-import { config, Role } from "../../support/config";
+import { config } from "../../support/config";
 
 // ============================================================================
 // TYPE DEFINITIONS
