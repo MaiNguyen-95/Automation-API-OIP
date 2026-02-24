@@ -17,8 +17,8 @@ Feature: API validation
             | tenantId | {{tenantId}} |
         Given I am authenticated as 'valid_token'
         When I send "GET" request to "discount"
-        Then response status should be 404
-# And I save response body as "responseBody"
+        Then The response status should be 404
+        And I save response body as "responseBody"
 # And response matches schema "productsList"
 
 # Scenario: Get products list via dynamic API

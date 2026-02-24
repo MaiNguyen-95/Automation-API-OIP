@@ -17,5 +17,3 @@ export function readJsonPath(obj: any, path: string): any {
     }
     return cur;
 }
-
-

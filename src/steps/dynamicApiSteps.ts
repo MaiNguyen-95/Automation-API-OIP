@@ -7,6 +7,8 @@ import { readJsonPath } from "../api/response/jsonPath";
 import type { CustomWorld } from "../support/world";
 import { Utils } from "../common/utils/utils";
 import { ApiEndpoints, ApiEndpointKey } from "../api/endpoints/apiEndpoints";
+import { assertSchema } from "../api/response/validator";
+import { ApiValidator } from "../api/validator/validator";
 
 type TableRow = { key: string; value: string };
 
@@ -81,10 +83,11 @@ When("I store response field {string} as {string}", function (this: CustomWorld,
     console.log(`📦 sharedParams:\n${JSON.stringify(this.sharedParams, null, 2)}`);
 });
 
-Then("response status should be {int}", function (this: CustomWorld, expected: number) {
-    if (this.responseStatus !== expected) {
-        throw new Error(`Expected status ${expected} but got ${this.responseStatus}`);
-    }
+Then("The response status should be {int}", function (this: CustomWorld, expected: number) {
+    // if (this.responseStatus !== expected) {
+    //     throw new Error(`Expected status ${expected} but got ${this.responseStatus}`);
+    // }
+    ApiValidator.statusCode(this.response, expected);
 });
 
 Then("I save response path {string} as {string}", function (this: CustomWorld, path: string, key: string) {
@@ -97,4 +100,9 @@ Then("I save response body as {string}", function (this: CustomWorld, key: strin
     const from = this.responseBody;
     console.log(from);
     this.dynamicValues[key] = JSON.stringify(from);
+});
+
+Then("response matches schema {string}", function (this: CustomWorld, schemaName: string) {
+    const body = this.responseBody;
+    const result = assertSchema(schemaName, body);
 });

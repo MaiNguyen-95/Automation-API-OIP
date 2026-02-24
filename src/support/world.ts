@@ -15,11 +15,11 @@ export class CustomWorld extends World {
     pathParams?: Record<string, string>;
 
     // -------- Response --------
-    response?: AxiosResponse;
-    responseBody?: unknown;
-    responseStatus?: number;
-    responseHeaders?: any;
-    error?: any;
+    response!: AxiosResponse;
+    responseBody!: unknown;
+    responseStatus!: number;
+    responseHeaders!: any;
+    error!: any;
 
     // -------- Shared & dynamic --------
     sharedParams: Record<string, any> = {};
