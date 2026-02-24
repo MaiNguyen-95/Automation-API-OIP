@@ -1,10 +1,6 @@
 type Params = Record<string, string | number | boolean>;
 
-export function resolvePathTemplate(
-    template: string,
-    params: Params | undefined,
-    resolve: (s: string) => string
-): string {
+export function resolvePathTemplate(template: string, params: Params | undefined, resolve: (s: string) => string): string {
     let path = template || "";
 
     // Replace colon params e.g. /users/:id
@@ -27,5 +23,3 @@ export function resolvePathTemplate(
 function escapeRegExp(s: string) {
     return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
-
-

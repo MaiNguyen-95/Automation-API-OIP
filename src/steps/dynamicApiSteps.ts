@@ -52,7 +52,7 @@ Given("I build dynamic query params with:", function (this: CustomWorld, dataTab
 
 // Path params
 Given("I set path params:", function (this: CustomWorld, dataTable: DataTable) {
-    const rows = dataTable.hashes() as { key: string; value: string }[];
+    const rows = dataTable.hashes() as TableRow[];
     this.pathParams = {};
     for (const r of rows) {
         const k = String(r.key || "").trim();

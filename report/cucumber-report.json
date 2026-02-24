@@ -32,11 +32,11 @@
             "line": 15,
             "name": "I build dynamic headers with:",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:25"
+              "location": "src/steps/dynamicApiSteps.ts:27"
             },
             "result": {
               "status": "passed",
-              "duration": 291042
+              "duration": 246416
             }
           },
           {
@@ -49,33 +49,82 @@
             },
             "result": {
               "status": "passed",
-              "duration": 658749
+              "duration": 442832
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "uuid",
+                      "uuid123"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "id",
+                      "123"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 19,
+            "name": "I set path params:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39291
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 19,
-            "name": "I send \"GET\" request to \"discount\"",
+            "line": 23,
+            "name": "I send \"GET\" request to \"discountID\"",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:63"
+              "location": "src/steps/dynamicApiSteps.ts:65"
             },
             "result": {
               "status": "passed",
-              "duration": 377146125
+              "duration": 430196625
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 20,
-            "name": "response status should be 404",
+            "line": 24,
+            "name": "The response status should be 404",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:84"
+              "location": "src/steps/dynamicApiSteps.ts:86"
             },
             "result": {
               "status": "passed",
-              "duration": 183042
+              "duration": 1276124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 25,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:99"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 99290
             }
           }
         ],

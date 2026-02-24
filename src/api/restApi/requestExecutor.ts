@@ -1,4 +1,4 @@
-import { resolvePathTemplate } from "./pathResolver";
+import { resolvePathTemplate } from "../pathResolver/builderPathsDynamic";
 import { CustomWorld } from "../../support/world";
 import axios from "axios";
 import { config } from "../../support/config";
@@ -18,7 +18,7 @@ export async function executeDynamicRequest(world: CustomWorld, method: string, 
         throw new Error(`❌ Endpoint key "${endpointKey}" not found in ApiEndpoints`);
     }
     const url = resolvePathTemplate(rawPath, world.pathParams, resolver);
-
+    console.log("URL:", url);
     try {
         const response = await client.request({
             method: method.toLowerCase(),

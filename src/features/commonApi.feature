@@ -16,7 +16,11 @@ Feature: API validation
             | key      | value        |
             | tenantId | {{tenantId}} |
         Given I am authenticated as 'valid_token'
-        When I send "GET" request to "discount"
+        And I set path params:
+            | key  | value   |
+            | uuid | uuid123 |
+            | id   | 123     |
+        When I send "GET" request to "discountID"
         Then The response status should be 404
         And I save response body as "responseBody"
 # And response matches schema "productsList"
