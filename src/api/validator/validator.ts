@@ -3,7 +3,7 @@ import { AxiosResponse } from "axios";
 
 export class ApiValidator {
     // ===== INTERNAL HELPER =====
-    private static getValueByPath(obj: any, path: string): any {
+    static getValueByPath(obj: any, path: string): any {
         if (!obj || !path) return undefined;
 
         const normalizedPath = path

@@ -14,7 +14,7 @@ type TableRow = { key: string; value: string };
 
 // Shared values
 Given("I set shared values:", function (this: CustomWorld, dataTable: DataTable) {
-    const rows = dataTable.hashes() as { key: string; value: string }[];
+    const rows = dataTable.hashes() as TableRow[];
     for (const r of rows) {
         const k = String(r.key || "").trim();
         if (!k) continue;
@@ -71,7 +71,7 @@ When("I store response field {string} as {string}", function (this: CustomWorld,
         throw new Error("❌ Response data is empty");
     }
 
-    const value = Utils.getValueByPath(this.response.data, fieldPath);
+    const value = ApiValidator.getValueByPath(this.response.data, fieldPath);
 
     if (value === undefined) {
         throw new Error(`❌ Field '${fieldPath}' not found in response`);
@@ -84,9 +84,6 @@ When("I store response field {string} as {string}", function (this: CustomWorld,
 });
 
 Then("The response status should be {int}", function (this: CustomWorld, expected: number) {
-    // if (this.responseStatus !== expected) {
-    //     throw new Error(`Expected status ${expected} but got ${this.responseStatus}`);
-    // }
     ApiValidator.statusCode(this.response, expected);
 });
 
