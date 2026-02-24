@@ -36,7 +36,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 246416
+              "duration": 270582
             }
           },
           {
@@ -49,7 +49,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 442832
+              "duration": 571624
             }
           },
           {
@@ -85,46 +85,76 @@
             },
             "result": {
               "status": "passed",
-              "duration": 39291
+              "duration": 46417
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "page",
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 23,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 63499
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 23,
+            "line": 26,
             "name": "I send \"GET\" request to \"discountID\"",
             "match": {
               "location": "src/steps/dynamicApiSteps.ts:65"
             },
             "result": {
               "status": "passed",
-              "duration": 430196625
+              "duration": 358329541
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 24,
+            "line": 27,
             "name": "The response status should be 404",
             "match": {
               "location": "src/steps/dynamicApiSteps.ts:86"
             },
             "result": {
               "status": "passed",
-              "duration": 1276124
+              "duration": 1787334
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 25,
+            "line": 28,
             "name": "I save response body as \"responseBody\"",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:99"
+              "location": "src/steps/dynamicApiSteps.ts:96"
             },
             "result": {
               "status": "passed",
-              "duration": 99290
+              "duration": 124750
             }
           }
         ],

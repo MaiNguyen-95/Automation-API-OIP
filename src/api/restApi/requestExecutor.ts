@@ -29,6 +29,7 @@ export async function executeDynamicRequest(world: CustomWorld, method: string, 
             validateStatus: () => true,
         });
         console.log("Dynamic Header:", world.dynamicHeaders);
+        console.log("Query params:", world.dynamicQuery);
         world.response = response;
         world.responseBody = response.data;
         world.responseStatus = response.status;

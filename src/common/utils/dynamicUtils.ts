@@ -26,7 +26,7 @@ export function parseDynamicValue(raw: string, resolve: (rawValue: string) => st
     const number = Number(trimmed);
     if (!Number.isNaN(number) && trimmed !== "") return number;
 
-    return resolved;
+    return trimmed;
 }
 
 // Set value on object using dot and bracket notation (e.g. "user.profile.age" or "items[0].id")

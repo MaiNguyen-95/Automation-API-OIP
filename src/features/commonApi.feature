@@ -20,6 +20,9 @@ Feature: API validation
             | key  | value   |
             | uuid | uuid123 |
             | id   | 123     |
+        And I build dynamic query params with:
+            | key  | value |
+            | page | 1     |
         When I send "GET" request to "discountID"
         Then The response status should be 404
         And I save response body as "responseBody"
