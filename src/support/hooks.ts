@@ -1,7 +1,7 @@
 import { Before, After, AfterAll } from "@cucumber/cucumber";
 import { CustomWorld } from "./world";
 import path from "path";
-import { config, Role } from "../support/config";
+import { config } from "../support/config";
 
 // Track whether any non-API (UI) scenarios executed
 // let executedUiScenarios = 0;
