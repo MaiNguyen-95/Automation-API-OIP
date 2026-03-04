@@ -26,36 +26,39 @@ Feature: API validation
         When I send "GET" request to "discountID"
         Then The response status should be 404
         And I save response body as "responseBody"
-# And response matches schema "productsList"
+    # And response matches schema "productsList"
 
-# Scenario: Get products list via dynamic API
-# When I send "GET" request to "productsList"
-#     Then response status should be 200
-#     And I save response body as "responseBody"
+    # Scenario: Get products list via dynamic API
+    # When I send "GET" request to "productsList"
+    #     Then response status should be 200
+    #     And I save response body as "responseBody"
 
-# ============================================
-# TEST buildPayload FUNCTION - CÁC TRƯỜNG HỢP
-# ============================================
-# Function buildPayload có 3 trường hợp chính:
-# 1. Load từ file JSON (payloadName) → return payload từ file
-# 2. Load từ file + override bằng table (payloadName + rows) → merge và override
-# 3. Chỉ dùng table (rows) → build payload từ table
-# ============================================
+    # ============================================
+    # TEST buildPayload FUNCTION - CÁC TRƯỜNG HỢP
+    # ============================================
+    # Function buildPayload có 3 trường hợp chính:
+    # 1. Load từ file JSON (payloadName) → return payload từ file
+    # 2. Load từ file + override bằng table (payloadName + rows) → merge và override
+    # 3. Chỉ dùng table (rows) → build payload từ table
+    # ============================================
 
-# ============================================
-# TRƯỜNG HỢP 1: Override 1 field đơn giản từ file base
-# ============================================
-# File: searchProduct.json có {"search_product": "top"}
-# Override: thay "top" thành "tshirt"
-# Kết quả: {"search_product": "tshirt"}
-# ============================================
-# Scenario: Override single field - Change search_product from top to tshirt
-#     Given I build dynamic payload from "searchProduct" with:
-#         | key            | value  |
-#         | search_product | tshirt |
-#     When I send "POST" request to "searchProduct"
-#     Then response status should be 200
-#     And I save response body as "responseBody"
+    # ============================================
+    # TRƯỜNG HỢP 1: Override 1 field đơn giản từ file base
+    # ============================================
+    # File: searchProduct.json có {"search_product": "top"}
+    # Override: thay "top" thành "tshirt"
+    # Kết quả: {"search_product": "tshirt"}
+    # ============================================
+    @payload
+    Scenario: Override single field - Change search_product from top to tshirt
+        Given I build dynamic payload from "createProduct" with:
+            | key                                    | value   |
+            | name                                   | QA_MA   |
+            | messageLocalised.kn                    | kn test |
+            | products[0].discountValueAndType.value | 5       |
+#When I send "POST" request to "searchProduct"
+#Then The response status should be 200
+#And I save response body as "responseBody"
 
 # # ============================================
 # # TRƯỜNG HỢP 2: Override nhiều fields từ file base

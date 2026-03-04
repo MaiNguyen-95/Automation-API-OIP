@@ -6,12 +6,15 @@ type TableRow = { key: string; value: string };
 
 export function buildPayload(options: { payloadName?: string; rows?: TableRow[]; resolve: (rawValue: string) => string }): Record<string, any> {
     let payload: Record<string, any> = {};
-    // 1️⃣ Load payload base
+    // Load payload base
     if (options.payloadName) {
-        const payloadPath = path.resolve(process.cwd(), "payloads", `${options.payloadName}.json`);
-
+        const payloadPath = path.resolve(process.cwd(), "src", "data", "requestPayloads", `${options.payloadName}.json`);
+        if (!fs.existsSync(payloadPath)) {
+            throw new Error(`❌ Payload file not found: ${payloadPath}`);
+        }
         const raw = fs.readFileSync(payloadPath, "utf-8");
         payload = JSON.parse(raw);
+        //console.log("Base payload:", JSON.stringify(payload, null, 2));
     }
 
     // 2️⃣ no params table → return payload base
@@ -27,6 +30,8 @@ export function buildPayload(options: { payloadName?: string; rows?: TableRow[];
         const value = parseDynamicValue(row.value, options.resolve);
         setNestedValue(payload, key, value);
     }
-
+    // ✅ Log payload cuối cùng
+    console.log("🚀 Final payload:");
+    console.log(JSON.stringify(payload, null, 2));
     return payload;
 }
