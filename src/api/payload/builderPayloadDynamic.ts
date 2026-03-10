@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { parseDynamicValue, setNestedValue } from "../../common/utils/dynamicUtils";
+import { Utils } from "../../common/utils/utils";
 
 type TableRow = { key: string; value: string };
 
@@ -8,13 +9,8 @@ export function buildPayload(options: { payloadName?: string; rows?: TableRow[];
     let payload: Record<string, any> = {};
     // Load payload base
     if (options.payloadName) {
-        const payloadPath = path.resolve(process.cwd(), "src", "data", "requestPayloads", `${options.payloadName}.json`);
-        if (!fs.existsSync(payloadPath)) {
-            throw new Error(`❌ Payload file not found: ${payloadPath}`);
-        }
-        const raw = fs.readFileSync(payloadPath, "utf-8");
-        payload = JSON.parse(raw);
-        //console.log("Base payload:", JSON.stringify(payload, null, 2));
+        payload = Utils.loadRequestPayload(options.payloadName);
+        console.log("Base payload:", JSON.stringify(payload, null, 2));
     }
 
     // 2️⃣ no params table → return payload base

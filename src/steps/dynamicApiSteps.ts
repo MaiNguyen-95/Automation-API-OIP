@@ -103,3 +103,28 @@ Then("response matches schema {string}", function (this: CustomWorld, schemaName
     const body = this.responseBody;
     const result = assertSchema(schemaName, body);
 });
+
+Then("the response should match json {string}", function (fileName: string) {
+    ApiValidator.matchJsonFile(this.responseBody, fileName);
+});
+
+Then("the response body should contain {string}", function (text: string) {
+    ApiValidator.bodyContains(this.responseBody, text);
+});
+
+Then("the array {string} length should be {int}", function (path: string, expectedLength: number) {
+    ApiValidator.arrayLength(this.responseBody, path, expectedLength);
+});
+
+Then("the array {string} should have length greater than {int}", function (path: string, length: number) {
+    ApiValidator.expectArrayLengthGreaterThan(this.responseBody, path, length);
+});
+
+Then("the array {string} should have length less than {int}", function (path: string, length: number) {
+    ApiValidator.expectArrayLengthLessThan(this.responseBody, path, length);
+});
+
+Then("the response should contain:", function (dataTable: DataTable) {
+    const rows = dataTable.hashes() as TableRow[];
+    ApiValidator.containsJson(this.response.data, rows);
+});
