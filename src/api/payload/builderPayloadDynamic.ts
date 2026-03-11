@@ -1,17 +1,16 @@
 import fs from "fs";
 import path from "path";
 import { parseDynamicValue, setNestedValue } from "../../common/utils/dynamicUtils";
+import { Utils } from "../../common/utils/utils";
 
 type TableRow = { key: string; value: string };
 
 export function buildPayload(options: { payloadName?: string; rows?: TableRow[]; resolve: (rawValue: string) => string }): Record<string, any> {
     let payload: Record<string, any> = {};
-    // 1️⃣ Load payload base
+    // Load payload base
     if (options.payloadName) {
-        const payloadPath = path.resolve(process.cwd(), "payloads", `${options.payloadName}.json`);
-
-        const raw = fs.readFileSync(payloadPath, "utf-8");
-        payload = JSON.parse(raw);
+        payload = Utils.loadRequestPayload(options.payloadName);
+        console.log("Base payload:", JSON.stringify(payload, null, 2));
     }
 
     // 2️⃣ no params table → return payload base
@@ -27,6 +26,8 @@ export function buildPayload(options: { payloadName?: string; rows?: TableRow[];
         const value = parseDynamicValue(row.value, options.resolve);
         setNestedValue(payload, key, value);
     }
-
+    // ✅ Log payload cuối cùng
+    console.log("🚀 Final payload:");
+    console.log(JSON.stringify(payload, null, 2));
     return payload;
 }

@@ -1,5 +1,6 @@
 import { expect } from "@playwright/test";
 import { AxiosResponse } from "axios";
+import { Utils } from "../../common/utils/utils";
 
 export class ApiValidator {
     // ===== INTERNAL HELPER =====
@@ -25,31 +26,31 @@ export class ApiValidator {
     }
 
     // ===== FULL JSON COMPARE =====
-    static jsonEqual(actual: any, expected: any) {
-        expect(actual).toEqual(expected);
+    static matchJsonFile(actual: any, fileName: string) {
+        const expected = Utils.loadResponsePayload(fileName);
+        expect(actual).toStrictEqual(expected);
     }
 
-    // ===== PARTIAL FLAT (dot path) =====
-    static jsonContains(actual: any, partial: Record<string, any>) {
-        for (const key in partial) {
-            const actualValue = this.getValueByPath(actual, key);
-            expect(actualValue).toEqual(partial[key]);
-        }
+    // ===== PARTIAL JSON (dot path) =====
+    // static matchPartialJson(actual: any, partial: Record<string, any>) {
+    //     for (const key in partial) {
+    //         const actualValue = this.getValueByPath(actual, key);
+    //         expect(actualValue).toEqual(partial[key]);
+    //     }
+    // }
+
+    // ===== BODY CONTAINS TEXT =====
+    static bodyContains(actual: any, text: string) {
+        const json = JSON.stringify(actual);
+        expect(json).toContain(text);
     }
 
-    // ===== DEEP NESTED OBJECT =====
-    static jsonDeepContains(actual: any, expected: any) {
-        const check = (act: any, exp: any) => {
-            for (const key in exp) {
-                if (typeof exp[key] === "object" && exp[key] !== null && !Array.isArray(exp[key])) {
-                    check(act?.[key], exp[key]);
-                } else {
-                    expect(act?.[key]).toEqual(exp[key]);
-                }
-            }
-        };
-
-        check(actual, expected);
+    // ===== BODY CONTAINS JSON PATH VALUES =====
+    static containsJson(body: any, expected: Record<string, any>) {
+        Object.entries(expected).forEach(([path, value]) => {
+            const actual = this.getValueByPath(body, path);
+            expect(actual).toEqual(value);
+        });
     }
 
     // ===== ARRAY LENGTH =====
@@ -57,5 +58,17 @@ export class ApiValidator {
         const arr = this.getValueByPath(obj, path);
         expect(Array.isArray(arr)).toBeTruthy();
         expect(arr.length).toBe(expectedLength);
+    }
+
+    static expectArrayLengthGreaterThan(body: any, path: string, minLength: number) {
+        const arr = this.getValueByPath(body, path);
+        expect(Array.isArray(arr)).toBeTruthy();
+        expect(arr.length).toBeGreaterThan(minLength);
+    }
+
+    static expectArrayLengthLessThan(body: any, path: string, maxLength: number) {
+        const arr = this.getValueByPath(body, path);
+        expect(Array.isArray(arr)).toBeTruthy();
+        expect(arr.length).toBeLessThan(maxLength);
     }
 }
