@@ -15,7 +15,7 @@ Feature: API validation
         Given I build dynamic headers with:
             | key      | value        |
             | tenantId | {{tenantId}} |
-        Given I am authenticated as 'valid_token'
+        Given I am authenticated as 'user'
         And I set path params:
             | key  | value   |
             | uuid | uuid123 |

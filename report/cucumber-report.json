@@ -36,20 +36,20 @@
             },
             "result": {
               "status": "passed",
-              "duration": 270582
+              "duration": 251500
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
             "line": 18,
-            "name": "I am authenticated as 'valid_token'",
+            "name": "I am authenticated as 'user'",
             "match": {
               "location": "src/steps/authSteps.ts:5"
             },
             "result": {
               "status": "passed",
-              "duration": 571624
+              "duration": 459041
             }
           },
           {
@@ -85,7 +85,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 46417
+              "duration": 41165
             }
           },
           {
@@ -115,7 +115,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 63499
+              "duration": 62250
             }
           },
           {
@@ -128,7 +128,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 358329541
+              "duration": 259156292
             }
           },
           {
@@ -141,7 +141,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1787334
+              "duration": 1796292
             }
           },
           {
@@ -154,7 +154,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 124750
+              "duration": 120458
             }
           }
         ],
