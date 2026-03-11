@@ -101,7 +101,7 @@ async function fetchTokenForService(serviceName: ServiceName): Promise<string> {
         throw new Error(`Unknown serviceName '${serviceName}'. Check config.service.`);
     }
 
-    const tokenUrl = (svc as any).url || config.url.token;
+    const tokenUrl = (svc as any).tokenUrl || config.url.token;
     if (!tokenUrl) {
         throw new Error(`Missing token URL for service '${serviceName}'. Set config.service.${serviceName}.url or config.url.token.`);
     }
