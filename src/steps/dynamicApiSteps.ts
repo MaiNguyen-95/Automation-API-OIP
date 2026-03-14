@@ -9,6 +9,7 @@ import { Utils } from "../common/utils/utils";
 import { ApiEndpoints, ApiEndpointKey } from "../api/endpoints/apiEndpoints";
 import { assertSchema } from "../api/response/validator";
 import { ApiValidator } from "../api/validator/validator";
+import { config, ServiceName } from "../support/config";
 
 type TableRow = { key: string; value: string };
 
@@ -62,8 +63,11 @@ Given("I set path params:", function (this: CustomWorld, dataTable: DataTable) {
 });
 
 // Send request
-When("I send {string} request to {string}", async function (this: CustomWorld, method: string, endpoints: ApiEndpointKey) {
-    await executeDynamicRequest(this, method, endpoints);
+// When("I send {string} request to {string}", async function (this: CustomWorld, method: string, endpoints: ApiEndpointKey) {
+//     await executeDynamicRequest(this, method, endpoints);
+// });
+When("I send {string} request to {string} on {string} service", async function (this: CustomWorld, method: string, endpoint: ApiEndpointKey, service: ServiceName) {
+    await executeDynamicRequest(this, service, method, endpoint);
 });
 
 When("I store response field {string} as {string}", function (this: CustomWorld, fieldPath: string, paramName: string) {
