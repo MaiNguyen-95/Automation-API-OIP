@@ -23,12 +23,12 @@ export const config = {
             clientSecret: process.env.DISCOUNT_SERVICE_CLIENT_SECRET!,
             scope: process.env.DISCOUNT_SERVICE_SCOPE!,
         },
-        farmer_service: {
-            baseURL: process.env.PAYMENT_BASE_URL!,
-            tokenUrl: process.env.PAYMENT_TOKEN_URL!,
-            clientId: process.env.PAYMENT_CLIENT_ID!,
-            clientSecret: process.env.PAYMENT_CLIENT_SECRET!,
-            scope: process.env.PAYMENT_SCOPE!,
+        marketplace_service: {
+            baseURL: process.env.MARKETPLACE_SERVICE_BASE_URL!,
+            tokenUrl: process.env.MARKETPLACE_SERVICE_TOKEN_URL!,
+            clientId: process.env.MARKETPLACE_SERVICE_CLIENT_ID!,
+            clientSecret: process.env.MARKETPLACE_SERVICE_CLIENT_SECRET!,
+            scope: process.env.MARKETPLACE_SERVICE_SCOPE!,
         },
     },
 } as const;
