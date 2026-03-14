@@ -10,76 +10,15 @@ Feature: API validation
     #     | token_status | role | method | path         | payload_name   |
     #     | valid_token  | bo   | get    | productsList | createCustomer |
 
-    @test
-    Scenario: Validate products list response schema
+    @invalidToken
+    Scenario: Validate he token is invalid
         Given I build dynamic headers with:
             | key      | value        |
             | tenantId | {{tenantId}} |
-        Given I am authenticated as 'invalid_token'
+        Given I am '<token>' authenticated on 'discount_service' service
         And I set path params:
-            | key  | value   |
-            | uuid | uuid123 |
-            | id   | 123     |
-        And I build dynamic query params with:
-            | key  | value |
-            | page | 1     |
-        When I send "GET" request to "discountID"
-        Then The response status should be 404
-        And I save response body as "responseBody"
-
-    @invalid
-    Scenario: Validate the token is invalid
-        Given I build dynamic headers with:
-            | key      | value        |
-            | tenantId | {{tenantId}} |
-        Given I am authenticated as '<token>'
-        And I set path params:
-            | key  | value   |
-            | uuid | uuid123 |
-            | id   | 123     |
-        And I build dynamic query params with:
-            | key  | value |
-            | page | 1     |
-        # When I send "GET" request to "discountID"
-        Then The response status should be 401
-        And I save response body as "responseBody"
-        Examples:
-            | token         |
-            | invalid_token |
-            | no_token      |
-
-    @invalid_discount
-    Scenario: Validate the token is invalid
-        Given I build dynamic headers with:
-            | key      | value        |
-            | tenantId | {{tenantId}} |
-        Given I am 'invalid_token' authenticated on 'discount_service' service
-        And I set path params:
-            | key  | value   |
-            | uuid | uuid123 |
-            | id   | 123     |
-        And I build dynamic query params with:
-            | key  | value |
-            | page | 1     |
-        # When I send "GET" request to "discountID"
-        When I send 'GET' request to 'discountID' on 'discount_service' service
-        Then The response status should be 401
-        And I save response body as "responseBody"
-        Examples:
-            | token         |
-            | invalid_token |
-            | no_token      |
-
-    @valid_discount
-    Scenario: Validate the token is invalid
-        Given I build dynamic headers with:
-            | key      | value        |
-            | tenantId | {{tenantId}} |
-        Given I am 'valid_token' authenticated on 'discount_service' service
-        And I set path params:
-            | key  | value   |
-            | uuid | uuid123 |
-            | id   | 123     |
+            | key | value   |
+            | id  | uuid123 |
         # And I build dynamic query params with:
         #     | key  | value |
         #     | page | 1     |
@@ -92,33 +31,68 @@ Feature: API validation
             | invalid_token |
             | no_token      |
 
-    @valid_discount_post
-    Scenario: Validate the token is valid
+    @validToken
+    Scenario: Validate he token is valid
         Given I build dynamic headers with:
             | key      | value        |
             | tenantId | {{tenantId}} |
         Given I am 'valid_token' authenticated on 'discount_service' service
         And I set path params:
-            | key  | value   |
-            | uuid | uuid123 |
-            | id   | 123     |
+            | key | value                                |
+            | id  | 93d76a54-7ad8-49d1-a731-3f5b5f45c85e |
         # And I build dynamic query params with:
         #     | key  | value |
         #     | page | 1     |
-        # When I send "GET" request to "discountID"
-        And I build dynamic payload from "createProduct" with:
-            | key                                    | value   |
-            | name                                   | QA_MA   |
-            | messageLocalised.kn                    | kn test |
-            | products[0].discountValueAndType.value | 5       |
         When I send 'GET' request to 'discountID' on 'discount_service' service
-        Then The response status should be 401
+        Then The response status should be 200
         And I save response body as "responseBody"
-        Examples:
-            | token         |
-            | invalid_token |
-            | no_token      |
+        And The response should contain:
+            | key                               | value        |
+            | data.name                         | B2B discount |
+            | data.isEligibleForLoyaltyCampaign | false        |
+        And The response body should contain text: "PACKAGING_UNIT_TEST"
+    # | messageLocalised.kn                    | kn test      |
+    # | products[0].discountValueAndType.value | 5            |
+    # | couponCode                             | tesst1920    |
 
+    @validTokenPost
+    Scenario: Validate he token is valid
+        Given I build dynamic headers with:
+            | key      | value        |
+            | tenantId | {{tenantId}} |
+        Given I am 'valid_token' authenticated on 'discount_service' service
+        # And I set path params:
+        #     | key | value                                |
+        #     | id  | 93d76a54-7ad8-49d1-a731-3f5b5f45c85e |
+        # And I build dynamic query params with:
+        #     | key  | value |
+        #     | page | 1     |
+        And I build dynamic payload from 'createProduct' with:
+            | key                                    | value     |
+            | name                                   | QA_MA     |
+            | messageLocalised.kn                    | kn test   |
+            | products[0].discountValueAndType.value | 5         |
+            | couponCode                             | tesst1921 |
+        When I send 'POST' request to 'createDiscount' on 'discount_service' service
+        Then The response status should be 200
+        And I save response body as "responseBody"
+
+
+    # Scenario: Validate products list response schema
+    #     Given I build dynamic headers with:
+    #         | key      | value        |
+    #         | tenantId | {{tenantId}} |
+    #     Given I am authenticated as 'user'
+    #     And I set path params:
+    #         | key  | value   |
+    #         | uuid | uuid123 |
+    #         | id   | 123     |
+    #     And I build dynamic query params with:
+    #         | key  | value |
+    #         | page | 1     |
+    #     When I send "GET" request to "discountID"
+    #     Then The response status should be 404
+    #     And I save response body as "responseBody"
     # And response matches schema "productsList"
 
     # Scenario: Get products list via dynamic API

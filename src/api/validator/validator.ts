@@ -2,8 +2,11 @@ import { expect } from "@playwright/test";
 import { AxiosResponse } from "axios";
 import { Utils } from "../../common/utils/utils";
 
+type TableRow = { key: string; value: any };
+
 export class ApiValidator {
     // ===== INTERNAL HELPER =====
+
     static getValueByPath(obj: any, path: string): any {
         if (!obj || !path) return undefined;
 
@@ -20,6 +23,16 @@ export class ApiValidator {
         }, obj);
     }
 
+    // ===== PARSE DATATABLE VALUE =====
+    static parseValue(value: any): any {
+        if (value === "true") return true;
+        if (value === "false") return false;
+        if (value === "null") return null;
+
+        if (!isNaN(Number(value))) return Number(value);
+
+        return value;
+    }
     // ===== STATUS CODE =====
     static statusCode(response: AxiosResponse, expected: number) {
         expect(response.status).toBe(expected);
@@ -46,18 +59,19 @@ export class ApiValidator {
     }
 
     // ===== BODY CONTAINS JSON PATH VALUES =====
-    static containsJson(body: any, expected: Record<string, any> | Array<{ key: string; value: string }>) {
-        if (Array.isArray(expected)) {
-            for (const row of expected) {
-                const actual = this.getValueByPath(body, row.key);
-                expect(actual).toEqual(row.value);
-            }
-        } else {
-            Object.entries(expected).forEach(([path, value]) => {
-                const actual = this.getValueByPath(body, path);
-                expect(actual).toEqual(value);
-            });
-        }
+    // static containsJson(body: any, expected: Record<string, any>) {
+    //     Object.entries(expected).forEach(([path, value]) => {
+    //         const actual = this.getValueByPath(body, path);
+    //         expect(actual).toEqual(value);
+    //     });
+    // }
+
+    static containsJson(body: any, rows: TableRow[]) {
+        rows.forEach(({ key, value }) => {
+            const actual = this.getValueByPath(body, key);
+            const expected = this.parseValue(value);
+            expect(actual).toEqual(expected);
+        });
     }
 
     // ===== ARRAY LENGTH =====

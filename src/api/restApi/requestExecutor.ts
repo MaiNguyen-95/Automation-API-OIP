@@ -7,8 +7,13 @@ import { ApiEndpoints, ApiEndpointKey } from "../endpoints/apiEndpoints";
 async function executeRequest(world: CustomWorld, baseURL: string, serviceName: string, method: string, endpointKey: ApiEndpointKey): Promise<void> {
     const resolver = world.resolveValue.bind(world);
 
+    const serviceConfig = config.services[service];
+    if (!serviceConfig) {
+        throw new Error(`❌ Service "${service}" not found in config.services`);
+    }
+
     const client = axios.create({
-        baseURL,
+        baseURL: serviceConfig.baseURL,
         timeout: 60000,
         headers: { "Content-Type": "application/json" },
     });
@@ -20,8 +25,8 @@ async function executeRequest(world: CustomWorld, baseURL: string, serviceName: 
 
     const url = resolvePathTemplate(rawPath, world.pathParams, resolver);
 
-    console.log("Service:", serviceName);
-    console.log("URL:", `${baseURL}${url}`);
+    console.log("Service:", service);
+    console.log("URL:", `${serviceConfig.baseURL}${url}`);
 
     try {
         const response = await client.request({

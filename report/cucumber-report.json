@@ -4,10 +4,10 @@
     "elements": [
       {
         "description": "",
-        "id": "api-validation;validate-products-list-response-schema",
+        "id": "api-validation;validate-he-token-is-valid",
         "keyword": "Scenario",
-        "line": 14,
-        "name": "Validate products list response schema",
+        "line": 35,
+        "name": "Validate he token is valid",
         "steps": [
           {
             "arguments": [
@@ -29,27 +29,27 @@
               }
             ],
             "keyword": "Given ",
-            "line": 15,
+            "line": 36,
             "name": "I build dynamic headers with:",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:27"
+              "location": "src/steps/dynamicApiSteps.ts:28"
             },
             "result": {
               "status": "passed",
-              "duration": 251500
+              "duration": 364625
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 18,
-            "name": "I am authenticated as 'user'",
+            "line": 39,
+            "name": "I am 'valid_token' authenticated on 'discount_service' service",
             "match": {
-              "location": "src/steps/authSteps.ts:5"
+              "location": "src/steps/authSteps.ts:11"
             },
             "result": {
               "status": "passed",
-              "duration": 459041
+              "duration": 840500
             }
           },
           {
@@ -60,32 +60,65 @@
                     "cells": [
                       "key",
                       "value"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "uuid",
-                      "uuid123"
                     ]
                   },
                   {
                     "cells": [
                       "id",
-                      "123"
+                      "93d76a54-7ad8-49d1-a731-3f5b5f45c85e"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "And ",
-            "line": 19,
+            "line": 40,
             "name": "I set path params:",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:54"
+              "location": "src/steps/dynamicApiSteps.ts:55"
             },
             "result": {
               "status": "passed",
-              "duration": 41165
+              "duration": 84959
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 46,
+            "name": "I send 'GET' request to 'discountID' on 'discount_service' service",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 356301500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 47,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1142291
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 48,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3256041
             }
           },
           {
@@ -100,61 +133,23 @@
                   },
                   {
                     "cells": [
-                      "page",
-                      "1"
+                      "data.name",
+                      "B2B discount"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "And ",
-            "line": 23,
-            "name": "I build dynamic query params with:",
+            "line": 49,
+            "name": "the response should contain:",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:48"
+              "location": "src/steps/dynamicApiSteps.ts:131"
             },
             "result": {
-              "status": "passed",
-              "duration": 62250
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 26,
-            "name": "I send \"GET\" request to \"discountID\"",
-            "match": {
-              "location": "src/steps/dynamicApiSteps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 259156292
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 27,
-            "name": "The response status should be 404",
-            "match": {
-              "location": "src/steps/dynamicApiSteps.ts:86"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1796292
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 28,
-            "name": "I save response body as \"responseBody\"",
-            "match": {
-              "location": "src/steps/dynamicApiSteps.ts:96"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 120458
+              "status": "failed",
+              "duration": 1902540,
+              "error_message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\nExpected: \u001b[32m{\"key\": \"data.name\", \"value\": \"B2B discount\"}\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n    at Proxy.<anonymous> (/Users/abcmacbooktest/Documents/GitHub_s/Automation-API/node_modules/playwright/lib/matchers/expect.js:224:24)\n    at /Users/abcmacbooktest/Documents/GitHub_s/Automation-API/src/api/validator/validator.ts:52:28\n    at ApiValidator.containsJson (/Users/abcmacbooktest/Documents/GitHub_s/Automation-API/src/api/validator/validator.ts:50:34)\n    at CustomWorld.<anonymous> (/Users/abcmacbooktest/Documents/GitHub_s/Automation-API/src/steps/dynamicApiSteps.ts:133:18)"
             }
           }
         ],
@@ -164,8 +159,8 @@
             "line": 1
           },
           {
-            "name": "@test",
-            "line": 13
+            "name": "@validToken",
+            "line": 34
           }
         ],
         "type": "scenario"
