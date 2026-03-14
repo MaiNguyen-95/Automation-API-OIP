@@ -46,9 +46,11 @@ Feature: API validation
         When I send 'GET' request to 'discountID' on 'discount_service' service
         Then The response status should be 200
         And I save response body as "responseBody"
-        And the response should contain:
-            | key       | value        |
-            | data.name | B2B discount |
+        And The response should contain:
+            | key                               | value        |
+            | data.name                         | B2B discount |
+            | data.isEligibleForLoyaltyCampaign | false        |
+        And The response body should contain text: "PACKAGING_UNIT_TEST"
     # | messageLocalised.kn                    | kn test      |
     # | products[0].discountValueAndType.value | 5            |
     # | couponCode                             | tesst1920    |
@@ -70,7 +72,7 @@ Feature: API validation
             | name                                   | QA_MA     |
             | messageLocalised.kn                    | kn test   |
             | products[0].discountValueAndType.value | 5         |
-            | couponCode                             | tesst1920 |
+            | couponCode                             | tesst1921 |
         When I send 'POST' request to 'createDiscount' on 'discount_service' service
         Then The response status should be 200
         And I save response body as "responseBody"
