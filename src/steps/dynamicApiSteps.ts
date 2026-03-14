@@ -124,7 +124,7 @@ Then("I save response path {string} as {string}", function (this: CustomWorld, p
 
 Then("I save response body as {string}", function (this: CustomWorld, key: string) {
     const from = this.responseBody;
-    console.log(from);
+    console.log(JSON.stringify(this.response.data, null, 2));
     this.dynamicValues[key] = JSON.stringify(from);
 });
 
@@ -133,27 +133,27 @@ Then("response matches schema {string}", function (this: CustomWorld, schemaName
     const result = assertSchema(schemaName, body);
 });
 
-Then("the response should match json {string}", function (fileName: string) {
+Then("The response should match json {string}", function (fileName: string) {
     ApiValidator.matchJsonFile(this.responseBody, fileName);
 });
 
-Then("the response body should contain {string}", function (text: string) {
+Then("The response body should contain text: {string}", function (text: string) {
     ApiValidator.bodyContains(this.responseBody, text);
 });
 
-Then("the array {string} length should be {int}", function (path: string, expectedLength: number) {
+Then("The array {string} length should be {int}", function (path: string, expectedLength: number) {
     ApiValidator.arrayLength(this.responseBody, path, expectedLength);
 });
 
-Then("the array {string} should have length greater than {int}", function (path: string, length: number) {
+Then("The array {string} should have length greater than {int}", function (path: string, length: number) {
     ApiValidator.expectArrayLengthGreaterThan(this.responseBody, path, length);
 });
 
-Then("the array {string} should have length less than {int}", function (path: string, length: number) {
+Then("The array {string} should have length less than {int}", function (path: string, length: number) {
     ApiValidator.expectArrayLengthLessThan(this.responseBody, path, length);
 });
 
-Then("the response should contain:", function (dataTable: DataTable) {
+Then("The response should contain:", function (dataTable: DataTable) {
     const rows = dataTable.hashes() as TableRow[];
     ApiValidator.containsJson(this.response.data, rows);
 });
