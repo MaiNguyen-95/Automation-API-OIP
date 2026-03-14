@@ -15,7 +15,7 @@ Feature: API validation
         Given I build dynamic headers with:
             | key      | value        |
             | tenantId | {{tenantId}} |
-        Given I am authenticated as 'user'
+        Given I am authenticated as 'invalid_token'
         And I set path params:
             | key  | value   |
             | uuid | uuid123 |
@@ -26,6 +26,99 @@ Feature: API validation
         When I send "GET" request to "discountID"
         Then The response status should be 404
         And I save response body as "responseBody"
+
+    @invalid
+    Scenario: Validate the token is invalid
+        Given I build dynamic headers with:
+            | key      | value        |
+            | tenantId | {{tenantId}} |
+        Given I am authenticated as '<token>'
+        And I set path params:
+            | key  | value   |
+            | uuid | uuid123 |
+            | id   | 123     |
+        And I build dynamic query params with:
+            | key  | value |
+            | page | 1     |
+        # When I send "GET" request to "discountID"
+        Then The response status should be 401
+        And I save response body as "responseBody"
+        Examples:
+            | token         |
+            | invalid_token |
+            | no_token      |
+
+    @invalid_discount
+    Scenario: Validate the token is invalid
+        Given I build dynamic headers with:
+            | key      | value        |
+            | tenantId | {{tenantId}} |
+        Given I am 'invalid_token' authenticated on 'discount_service' service
+        And I set path params:
+            | key  | value   |
+            | uuid | uuid123 |
+            | id   | 123     |
+        And I build dynamic query params with:
+            | key  | value |
+            | page | 1     |
+        # When I send "GET" request to "discountID"
+        When I send 'GET' request to 'discountID' on 'discount_service' service
+        Then The response status should be 401
+        And I save response body as "responseBody"
+        Examples:
+            | token         |
+            | invalid_token |
+            | no_token      |
+
+    @valid_discount
+    Scenario: Validate the token is invalid
+        Given I build dynamic headers with:
+            | key      | value        |
+            | tenantId | {{tenantId}} |
+        Given I am 'valid_token' authenticated on 'discount_service' service
+        And I set path params:
+            | key  | value   |
+            | uuid | uuid123 |
+            | id   | 123     |
+        # And I build dynamic query params with:
+        #     | key  | value |
+        #     | page | 1     |
+        # When I send "GET" request to "discountID"
+        When I send 'GET' request to 'discountID' on 'discount_service' service
+        Then The response status should be 401
+        And I save response body as "responseBody"
+        Examples:
+            | token         |
+            | invalid_token |
+            | no_token      |
+
+    @valid_discount_post
+    Scenario: Validate the token is valid
+        Given I build dynamic headers with:
+            | key      | value        |
+            | tenantId | {{tenantId}} |
+        Given I am 'valid_token' authenticated on 'discount_service' service
+        And I set path params:
+            | key  | value   |
+            | uuid | uuid123 |
+            | id   | 123     |
+        # And I build dynamic query params with:
+        #     | key  | value |
+        #     | page | 1     |
+        # When I send "GET" request to "discountID"
+        And I build dynamic payload from "createProduct" with:
+            | key                                    | value   |
+            | name                                   | QA_MA   |
+            | messageLocalised.kn                    | kn test |
+            | products[0].discountValueAndType.value | 5       |
+        When I send 'GET' request to 'discountID' on 'discount_service' service
+        Then The response status should be 401
+        And I save response body as "responseBody"
+        Examples:
+            | token         |
+            | invalid_token |
+            | no_token      |
+
     # And response matches schema "productsList"
 
     # Scenario: Get products list via dynamic API

@@ -46,11 +46,18 @@ export class ApiValidator {
     }
 
     // ===== BODY CONTAINS JSON PATH VALUES =====
-    static containsJson(body: any, expected: Record<string, any>) {
-        Object.entries(expected).forEach(([path, value]) => {
-            const actual = this.getValueByPath(body, path);
-            expect(actual).toEqual(value);
-        });
+    static containsJson(body: any, expected: Record<string, any> | Array<{ key: string; value: string }>) {
+        if (Array.isArray(expected)) {
+            for (const row of expected) {
+                const actual = this.getValueByPath(body, row.key);
+                expect(actual).toEqual(row.value);
+            }
+        } else {
+            Object.entries(expected).forEach(([path, value]) => {
+                const actual = this.getValueByPath(body, path);
+                expect(actual).toEqual(value);
+            });
+        }
     }
 
     // ===== ARRAY LENGTH =====
