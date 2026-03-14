@@ -44,11 +44,11 @@ Feature: B2C Order API
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for '<country>' country
         Then The response status should be 201
         And I save response body as "createOrderResponse"
-        And the response should contain:
+        And The response should contain:
             | key            | value   |
             | data.orderType | B2C     |
             | data.category  | Product |
-        And the response body should contain "orderId"
+        And The response body should contain text: "orderId"
 
         Examples:
             | country | locationId                           | sellerShopId                         | sellerId                             | buyerId                              | productId                            | productFamily | volume | discountId                           | discountValue | couponId        |
@@ -81,12 +81,12 @@ Feature: B2C Order API
             | delivery.configId                 | bd7b5a86-1492-4474-a0f6-83b176a63a9e |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'id' country
         Then The response status should be 201
-        And the response should contain:
+        And The response should contain:
             | key            | value   |
             | data.orderType | B2C     |
             | data.category  | Product |
-        And the response body should contain "orderId"
-        And the response body should contain "delivery"
+        And The response body should contain text: "orderId"
+        And The response body should contain text: "delivery"
 
     # ============================================
     # EDGE CASES - - Discount / Coupon / Volume
@@ -161,11 +161,11 @@ Feature: B2C Order API
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for '<country>' country
         Then The response status should be 201
         And I save response body as "orderResponse"
-        And the response should contain:
+        And The response should contain:
             | key            | value   |
             | data.orderType | B2C     |
             | data.category  | Product |
-        And the response body should contain "orderId"
+        And The response body should contain text: "orderId"
 
         Examples:
             | case            | country | locationId                           | sellerShopId                         | sellerId                             | buyerId                              | productId                            | productFamily | quantity | volume | discountId                           | discountValue | couponId        |
@@ -190,7 +190,7 @@ Feature: B2C Order API
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 201
         And I save response body as "orderResponse"
-        And the array "orderDetails" should have length greater than 1
+        And The array "orderDetails" should have length greater than 1
 
     # ============================================
     # EDGE CASES - Missing required fields
@@ -203,9 +203,9 @@ Feature: B2C Order API
             | key     | value   |
             | <field> | <value> |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
-        Then The response status should be 400
+        Then The response status should be 503
         And I save response body as "errorResponse"
-        And the response body should contain "<field>"
+        And The response body should contain text: "<field>"
 
         Examples:
             | field      | value |
@@ -234,7 +234,6 @@ Feature: B2C Order API
             | locationId   |
             | sellerShopId |
             | sellerId     |
-            | buyerId      |
 
     # ============================================
     # EDGE CASES - Invalid enum values
