@@ -143,7 +143,7 @@ playwright-report/
 test-results/
 
 # token
-src/api/savAuth/
+src/api/auth/saveAuth/
 
 #env
 .env
