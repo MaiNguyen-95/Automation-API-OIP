@@ -11,7 +11,6 @@ Feature: B2C Order API
         And I build payload from '<payload file>'
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for '<countryCode>' country
         Then The response status should be <expected_status>
-        And I save response body as "orderResponse"
 
         Examples:
             | token_status  | expected_status | payload file     | countryCode |
@@ -43,7 +42,6 @@ Feature: B2C Order API
             | couponId                          | <couponId>      |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for '<country>' country
         Then The response status should be 201
-        And I save response body as "createOrderResponse"
         And The response should contain:
             | key            | value   |
             | data.orderType | B2C     |
@@ -109,7 +107,6 @@ Feature: B2C Order API
             | couponId                          | <couponId>      |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for '<country>' country
         Then The response status should be <expectedStatus>
-        And I save response body as "edgeCaseResponse"
 
         Examples:
             | case                   | country | expectedStatus | locationId                           | sellerShopId                         | sellerId                             | buyerId                              | productId                            | productFamily | volume  | discountId                           | discountValue | couponId          |
@@ -160,7 +157,6 @@ Feature: B2C Order API
             | couponId                          | <couponId>      |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for '<country>' country
         Then The response status should be 201
-        And I save response body as "orderResponse"
         And The response should contain:
             | key            | value   |
             | data.orderType | B2C     |
@@ -189,7 +185,6 @@ Feature: B2C Order API
             | orderDetails[1].metric            | L                                    |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 201
-        And I save response body as "orderResponse"
         And The array "orderDetails" should have length greater than 1
 
     # ============================================
@@ -204,7 +199,6 @@ Feature: B2C Order API
             | <field> | <value> |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 503
-        And I save response body as "errorResponse"
         And The response body should contain text: "<field>"
 
         Examples:
@@ -227,7 +221,6 @@ Feature: B2C Order API
             | <field> | invalid-uuid |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 400
-        And I save response body as "errorResponse"
 
         Examples:
             | field        |
@@ -247,7 +240,6 @@ Feature: B2C Order API
             | <field> | INVALID |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 400
-        And I save response body as "errorResponse"
 
         Examples:
             | field     |
@@ -267,7 +259,6 @@ Feature: B2C Order API
             | orderDetails[0].orderedQuantity | <quantity> |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 400
-        And I save response body as "errorResponse"
 
         Examples:
             | case     | quantity |
@@ -282,7 +273,6 @@ Feature: B2C Order API
             | orderDetails[0].volume | <volume> |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 400
-        And I save response body as "errorResponse"
 
         Examples:
             | case     | volume |
@@ -297,7 +287,6 @@ Feature: B2C Order API
             | orderDetails[0].metric | INVALID |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 400
-        And I save response body as "errorResponse"
 
     @b2c_order_invalid_product_id
     Scenario: B2C Create Order - Invalid productId in orderDetails
@@ -307,7 +296,6 @@ Feature: B2C Order API
             | orderDetails[0].productId | invalid-uuid |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 400
-        And I save response body as "errorResponse"
 
     # ============================================
     # EDGE CASES - Empty / missing body
@@ -321,11 +309,9 @@ Feature: B2C Order API
             | orderDetails | []    |
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 400
-        And I save response body as "errorResponse"
 
     @b2c_order_empty_body
     Scenario: B2C Create Order - Empty request body
         Given I am 'valid_token' authenticated on 'order_service' service for 'in' country
         When I send 'POST' request to 'b2cCreateOrder' on 'order_service' service for 'in' country
         Then The response status should be 400
-        And I save response body as "errorResponse"
