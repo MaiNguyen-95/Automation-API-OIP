@@ -1,8 +1,12 @@
 import { expect } from "@playwright/test";
 import { AxiosResponse } from "axios";
+import { Utils } from "../../common/utils/utils";
+
+type TableRow = { key: string; value: any };
 
 export class ApiValidator {
     // ===== INTERNAL HELPER =====
+
     static getValueByPath(obj: any, path: string): any {
         if (!obj || !path) return undefined;
 
@@ -19,37 +23,55 @@ export class ApiValidator {
         }, obj);
     }
 
+    // ===== PARSE DATATABLE VALUE =====
+    static parseValue(value: any): any {
+        if (value === "true") return true;
+        if (value === "false") return false;
+        if (value === "null") return null;
+
+        if (!isNaN(Number(value))) return Number(value);
+
+        return value;
+    }
     // ===== STATUS CODE =====
     static statusCode(response: AxiosResponse, expected: number) {
         expect(response.status).toBe(expected);
     }
 
     // ===== FULL JSON COMPARE =====
-    static jsonEqual(actual: any, expected: any) {
-        expect(actual).toEqual(expected);
+    static matchJsonFile(actual: any, fileName: string) {
+        const expected = Utils.loadResponsePayload(fileName);
+        expect(actual).toStrictEqual(expected);
     }
 
-    // ===== PARTIAL FLAT (dot path) =====
-    static jsonContains(actual: any, partial: Record<string, any>) {
-        for (const key in partial) {
-            const actualValue = this.getValueByPath(actual, key);
-            expect(actualValue).toEqual(partial[key]);
-        }
+    // ===== PARTIAL JSON (dot path) =====
+    // static matchPartialJson(actual: any, partial: Record<string, any>) {
+    //     for (const key in partial) {
+    //         const actualValue = this.getValueByPath(actual, key);
+    //         expect(actualValue).toEqual(partial[key]);
+    //     }
+    // }
+
+    // ===== BODY CONTAINS TEXT =====
+    static bodyContains(actual: any, text: string) {
+        const json = JSON.stringify(actual);
+        expect(json).toContain(text);
     }
 
-    // ===== DEEP NESTED OBJECT =====
-    static jsonDeepContains(actual: any, expected: any) {
-        const check = (act: any, exp: any) => {
-            for (const key in exp) {
-                if (typeof exp[key] === "object" && exp[key] !== null && !Array.isArray(exp[key])) {
-                    check(act?.[key], exp[key]);
-                } else {
-                    expect(act?.[key]).toEqual(exp[key]);
-                }
-            }
-        };
+    // ===== BODY CONTAINS JSON PATH VALUES =====
+    // static containsJson(body: any, expected: Record<string, any>) {
+    //     Object.entries(expected).forEach(([path, value]) => {
+    //         const actual = this.getValueByPath(body, path);
+    //         expect(actual).toEqual(value);
+    //     });
+    // }
 
-        check(actual, expected);
+    static containsJson(body: any, rows: TableRow[]) {
+        rows.forEach(({ key, value }) => {
+            const actual = this.getValueByPath(body, key);
+            const expected = this.parseValue(value);
+            expect(actual).toEqual(expected);
+        });
     }
 
     // ===== ARRAY LENGTH =====
@@ -57,5 +79,17 @@ export class ApiValidator {
         const arr = this.getValueByPath(obj, path);
         expect(Array.isArray(arr)).toBeTruthy();
         expect(arr.length).toBe(expectedLength);
+    }
+
+    static expectArrayLengthGreaterThan(body: any, path: string, minLength: number) {
+        const arr = this.getValueByPath(body, path);
+        expect(Array.isArray(arr)).toBeTruthy();
+        expect(arr.length).toBeGreaterThan(minLength);
+    }
+
+    static expectArrayLengthLessThan(body: any, path: string, maxLength: number) {
+        const arr = this.getValueByPath(body, path);
+        expect(Array.isArray(arr)).toBeTruthy();
+        expect(arr.length).toBeLessThan(maxLength);
     }
 }

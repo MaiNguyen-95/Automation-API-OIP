@@ -2,7 +2,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import fs from "node:fs";
 import path from "node:path";
-import { config } from "../../support/config";
+import { config, ServiceName, CountryServiceName, getCountryServiceConfig } from "../../support/config";
 
 // ============================================================================
 // TYPE DEFINITIONS
@@ -14,14 +14,9 @@ import { config } from "../../support/config";
 type TokenEntry = {
     token: string; // JWT token string
     expiresAt: number; // Expiration timestamp (Unix seconds)
+    serviceName: ServiceName; // OAuth service name
     createdAt: number; // Creation timestamp (Unix seconds)
 };
-
-// ============================================================================
-// AUTH TYPES
-// ============================================================================
-
-export type AuthStatus = "valid_token" | "invalid_token" | "no_token";
 
 // ============================================================================
 // CONFIGURATION
@@ -29,9 +24,6 @@ export type AuthStatus = "valid_token" | "invalid_token" | "no_token";
 
 // Directory to store token files
 const TOKEN_DIR = path.resolve(process.cwd(), "src/api/auth/saveAuth/tokens");
-
-// Single token file (no role)
-const TOKEN_FILE = path.join(TOKEN_DIR, "token.json");
 
 // Create token directory if it doesn't exist
 if (!fs.existsSync(TOKEN_DIR)) {
@@ -43,31 +35,34 @@ if (!fs.existsSync(TOKEN_DIR)) {
 // ============================================================================
 
 /**
- * Get file path for a role's token
+ * Get file path for a service token
  */
-// function getTokenFilePath(role: Role): string {
-//     return path.join(TOKEN_DIR, `${role}.json`);
-// }
+function getTokenFilePath(serviceName: ServiceName): string {
+    const safe = String(serviceName || "default")
+        .trim()
+        .replace(/[^a-zA-Z0-9._-]+/g, "_");
+    return path.join(TOKEN_DIR, `${safe}.json`);
+}
 
 /**
  * Load token from file
  * @returns TokenEntry if file exists and is valid, null if file doesn't exist or invalid
  */
-function loadTokenFromFile(): TokenEntry | null {
-    //const filePath = getTokenFilePath(role);
+function loadTokenFromFile(serviceName: ServiceName): TokenEntry | null {
+    const filePath = getTokenFilePath(serviceName);
 
     // Check if file exists first (avoid error when reading non-existent file)
-    if (!fs.existsSync(TOKEN_FILE)) {
+    if (!fs.existsSync(filePath)) {
         return null;
     }
 
     // File exists → try to read and parse
     try {
-        const content = fs.readFileSync(TOKEN_FILE, "utf-8");
+        const content = fs.readFileSync(filePath, "utf-8");
         return JSON.parse(content) as TokenEntry;
     } catch (error) {
         // File exists but invalid/corrupted → return null (will trigger token fetch)
-        console.warn(`Failed to parse token file`, error);
+        console.warn(`⚠️ Failed to parse token file for service '${serviceName}':`, error);
         return null;
     }
 }
@@ -75,13 +70,13 @@ function loadTokenFromFile(): TokenEntry | null {
 /**
  * Save token to file
  */
-function saveTokenToFile(entry: TokenEntry): void {
-    //const filePath = getTokenFilePath(role);
+function saveTokenToFile(serviceName: ServiceName, entry: TokenEntry): void {
+    const filePath = getTokenFilePath(serviceName);
     try {
-        fs.writeFileSync(TOKEN_FILE, JSON.stringify(entry, null, 2), "utf-8");
-        console.log(`Token saved`);
+        fs.writeFileSync(filePath, JSON.stringify(entry, null, 2), "utf-8");
+        console.log(`✅ Token saved for service: ${serviceName}`);
     } catch (error) {
-        console.error(`Failed to save token`, error);
+        console.error(`❌ Failed to save token for service '${serviceName}':`, error);
     }
 }
 
@@ -98,21 +93,37 @@ function isTokenValid(entry: TokenEntry | null): boolean {
 /**
  * Fetch new token from API and save to file
  */
-async function fetchToken(): Promise<string> {
-    console.log(`Fetching new token`);
+async function fetchTokenForService(serviceName: ServiceName): Promise<string> {
+    console.log(`🔐 Fetching new token for service: ${serviceName}`);
+
+    const svc = config.services[serviceName];
+    if (!svc) {
+        throw new Error(`Unknown serviceName '${serviceName}'. Check config.service.`);
+    }
+
+    const tokenUrl = (svc as any).tokenUrl || config.url.token;
+    if (!tokenUrl) {
+        throw new Error(`Missing token URL for service '${serviceName}'. Set config.service.${serviceName}.url or config.url.token.`);
+    }
+
+    if (!svc.clientId) {
+        throw new Error(`Missing clientId for service '${serviceName}'.`);
+    }
+
+    const clientSecret = (svc as any).clientSecret;
+    if (!clientSecret) {
+        throw new Error(`Missing clientSecret for service '${serviceName}'.`);
+    }
 
     // Prepare OAuth2 password grant request
-    //const creds = config.credentials[role];
     const form = new URLSearchParams();
-    form.append("client_id", config.clientId);
-    form.append("client_secret", config.clientSecret);
-    form.append("scope", config.scope);
+    form.append("client_id", svc.clientId);
+    form.append("client_secret", svc.clientSecret);
+    form.append("scope", svc.scope);
     form.append("grant_type", "client_credentials");
-    //form.append("username", creds.username);
-    //form.append("password", creds.password);
 
     // Request token from API
-    const res = await axios.post(config.url.token, form, {
+    const res = await axios.post(tokenUrl, form, {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             Accept: "application/json",
@@ -128,11 +139,12 @@ async function fetchToken(): Promise<string> {
     const entry: TokenEntry = {
         token,
         expiresAt: exp,
+        serviceName,
         createdAt: Math.floor(Date.now() / 1000),
     };
 
     // Save to file for future use
-    saveTokenToFile(entry);
+    saveTokenToFile(serviceName, entry);
     return token;
 }
 
@@ -150,25 +162,25 @@ async function fetchToken(): Promise<string> {
  * 4. If not valid → fetch new token and save to file
  * 5. If valid → use existing token
  */
-export async function getValidToken(): Promise<string> {
+export async function getTokenForService(serviceName: ServiceName): Promise<string> {
     // Try to load token from file
-    const tokenEntry = loadTokenFromFile();
+    const tokenEntry = loadTokenFromFile(serviceName);
 
     // File doesn't exist → fetch new token
     if (!tokenEntry) {
-        console.log(`Token file not found. Fetching new token...`);
-        return await fetchToken();
+        console.log(`📁 Token file not found for service: ${serviceName}. Fetching new token...`);
+        return await fetchTokenForService(serviceName);
     }
 
     // Token is still valid → use it
     if (isTokenValid(tokenEntry)) {
-        console.log(`Using valid token from file`);
+        console.log(`✅ Using valid token for service: ${serviceName} (from file)`);
         return tokenEntry.token;
     }
 
     // Token expired → fetch new token
-    console.log(`Token expired for role. Fetching new token...`);
-    return await fetchToken();
+    console.log(`⏰ Token expired for service: ${serviceName}. Fetching new token...`);
+    return await fetchTokenForService(serviceName);
 }
 
 /**
@@ -183,9 +195,19 @@ export async function getValidToken(): Promise<string> {
  * - getToken('invalid_token') → { Authorization: 'Bearer invalid_token' }
  * - getToken('no_token') → {}
  */
-export async function getToken(status: string): Promise<Record<string, string>> {
-    // Normalize status (case insensitive, trim whitespace)
-    const normalizedStatus = status.toLowerCase().trim() as "valid_token" | "invalid_token" | "no_token";
+export async function getToken(statusOrService: string, serviceName?: ServiceName): Promise<Record<string, string>> {
+    const raw = String(statusOrService ?? "")
+        .toLowerCase()
+        .trim();
+    const normalizedStatus =
+        raw === "valid_token" || raw === "valid" || raw === "token" ? "valid_token" : raw === "invalid_token" || raw === "invalid" ? "invalid_token" : raw === "no_token" || raw === "notoken" || raw === "no" ? "no_token" : undefined;
+
+    // If caller passed a serviceName as first arg, default to "valid_token"
+    if (!normalizedStatus) {
+        const svc = String(statusOrService || "").trim() as ServiceName;
+        const token = await getTokenForService(svc);
+        return { Authorization: `Bearer ${token}` };
+    }
 
     // Case 1: no_token → don't add anything to header
     if (normalizedStatus === "no_token") {
@@ -199,21 +221,44 @@ export async function getToken(status: string): Promise<Record<string, string>> 
 
     // Case 3: valid_token → get valid token for role and add to header
     if (normalizedStatus === "valid_token") {
-        const token = await getValidToken();
+        const svc = (String(serviceName || "datasource").trim() || "datasource") as ServiceName;
+        const token = await getTokenForService(svc);
         return { Authorization: `Bearer ${token}` };
     }
 
     // Invalid status
-    throw new Error(`Invalid auth status: ${status}. Must be one of: valid_token, invalid_token, no_token`);
+    throw new Error(`Invalid auth status: ${statusOrService}. Must be one of: valid_token, invalid_token, no_token or a service name`);
+}
+
+/**
+ * Get authorization header for country-based services
+ * Priority: env token → OTP auto-login
+ */
+export async function getCountryToken(status: string, service: CountryServiceName, country: string): Promise<Record<string, string>> {
+    const normalized = String(status ?? "").toLowerCase().trim();
+
+    if (normalized === "no_token" || normalized === "no") return {};
+    if (normalized === "invalid_token" || normalized === "invalid") return { Authorization: "Bearer invalid_token" };
+
+    // Try env token first
+    const svcConfig = getCountryServiceConfig(service, country);
+    if (svcConfig.token) {
+        return { Authorization: `Bearer ${svcConfig.token}` };
+    }
+
+    // Fallback: auto-login via OTP
+    const { loginViaOtp } = await import("./otpLoginManager");
+    const token = await loginViaOtp(country);
+    return { Authorization: `Bearer ${token}` };
 }
 
 /**
  * Clear token file for a role (useful for testing token refresh)
  */
-export function clearToken(): void {
-    //const filePath = getTokenFilePath(role);
-    if (fs.existsSync(TOKEN_FILE)) {
-        fs.unlinkSync(TOKEN_FILE);
-        console.log(`🗑️ Token cleared`);
+export function clearTokenForService(serviceName: ServiceName): void {
+    const filePath = getTokenFilePath(serviceName);
+    if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+        console.log(`🗑️ Token cleared for service: ${serviceName}`);
     }
 }

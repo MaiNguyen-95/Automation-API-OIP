@@ -2,13 +2,14 @@ import { Given, When, Then, DataTable } from "@cucumber/cucumber";
 import { buildHeadersDynamic } from "../api/header/builderHeadersDynamic";
 import { buildPayload } from "../api/payload/builderPayloadDynamic";
 import { buildQueryFromTable } from "../api/queryParams/builderQueryDynamic";
-import { executeDynamicRequest } from "../api/restApi/requestExecutor";
+import { executeDynamicRequest, executeCountryRequest } from "../api/restApi/requestExecutor";
 import { readJsonPath } from "../api/response/jsonPath";
 import type { CustomWorld } from "../support/world";
 import { Utils } from "../common/utils/utils";
 import { ApiEndpoints, ApiEndpointKey } from "../api/endpoints/apiEndpoints";
 import { assertSchema } from "../api/response/validator";
 import { ApiValidator } from "../api/validator/validator";
+import { config, ServiceName, CountryServiceName } from "../support/config";
 
 type TableRow = { key: string; value: string };
 
@@ -61,9 +62,13 @@ Given("I set path params:", function (this: CustomWorld, dataTable: DataTable) {
     }
 });
 
-// Send request
-When("I send {string} request to {string}", async function (this: CustomWorld, method: string, endpoints: ApiEndpointKey) {
-    await executeDynamicRequest(this, method, endpoints);
+When("I send {string} request to {string} on {string} service", async function (this: CustomWorld, method: string, endpoint: ApiEndpointKey, service: ServiceName) {
+    await executeDynamicRequest(this, service, method, endpoint);
+});
+
+// Send request for country service
+When("I send {string} request to {string} on {string} service for {string} country", async function (this: CustomWorld, method: string, endpoint: ApiEndpointKey, service: string, country: string) {
+    await executeCountryRequest(this, service as CountryServiceName, country, method, endpoint);
 });
 
 When("I store response field {string} as {string}", function (this: CustomWorld, fieldPath: string, paramName: string) {
@@ -95,11 +100,36 @@ Then("I save response path {string} as {string}", function (this: CustomWorld, p
 
 Then("I save response body as {string}", function (this: CustomWorld, key: string) {
     const from = this.responseBody;
-    console.log(from);
+    console.log(JSON.stringify(this.response.data, null, 2));
     this.dynamicValues[key] = JSON.stringify(from);
 });
 
 Then("response matches schema {string}", function (this: CustomWorld, schemaName: string) {
     const body = this.responseBody;
     const result = assertSchema(schemaName, body);
+});
+
+Then("The response should match json {string}", function (fileName: string) {
+    ApiValidator.matchJsonFile(this.responseBody, fileName);
+});
+
+Then("The response body should contain text: {string}", function (text: string) {
+    ApiValidator.bodyContains(this.responseBody, text);
+});
+
+Then("The array {string} length should be {int}", function (path: string, expectedLength: number) {
+    ApiValidator.arrayLength(this.responseBody, path, expectedLength);
+});
+
+Then("The array {string} should have length greater than {int}", function (path: string, length: number) {
+    ApiValidator.expectArrayLengthGreaterThan(this.responseBody, path, length);
+});
+
+Then("The array {string} should have length less than {int}", function (path: string, length: number) {
+    ApiValidator.expectArrayLengthLessThan(this.responseBody, path, length);
+});
+
+Then("The response should contain:", function (dataTable: DataTable) {
+    const rows = dataTable.hashes() as TableRow[];
+    ApiValidator.containsJson(this.response.data, rows);
 });

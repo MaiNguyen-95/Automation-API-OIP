@@ -1,0 +1,22 @@
+{
+    "locationId": "1a82020c-56fd-452f-b2c8-6da9ece8ca4c",
+    "sellerShopId": "10f16b0a-811a-45a5-aea8-709c31eebd60",
+    "sellerId": "10f16b0a-811a-45a5-aea8-709c31eebd60",
+    "buyerId": "3414cc84-3c9a-4310-9bdf-be2547dcafa3",
+    "orderType": "B2C",
+    "category": "Product",
+    "orderDetails": [
+        {
+            "productId": "12cd52ee-2395-4626-9b00-f5685e99c0f3",
+            "orderedQuantity": 1,
+            "productFamilyName": "yaratera",
+            "form": "solid",
+            "volume": 1,
+            "metric": "KG"
+        }
+    ],
+    "discountId": "5341bce0-14ea-4985-8325-344ae02d41a0",
+    "discountValue": 10,
+    "couponId": "Jan2001",
+    "source": "GENERIC_FLOW"
+}

@@ -136,4 +136,41 @@ export class Utils {
     }
 
     //#endregion
+
+    //#region File / JSON Utilities
+
+    static loadJson(relativePath: string): any {
+        const fullPath = path.join(process.cwd(), relativePath);
+
+        if (!fs.existsSync(fullPath)) {
+            throw new Error(`JSON file not found: ${fullPath}`);
+        }
+
+        const raw = fs.readFileSync(fullPath, "utf-8");
+        return JSON.parse(raw);
+    }
+
+    static loadRequestPayload(name: string): any {
+        const filePath = path.join(process.cwd(), "src/data/requestPayloads", `${name}.json`);
+
+        if (!fs.existsSync(filePath)) {
+            throw new Error(`Payload file not found: ${filePath}`);
+        }
+
+        const raw = fs.readFileSync(filePath, "utf-8");
+        return JSON.parse(raw);
+    }
+
+    static loadResponsePayload(name: string): any {
+        const filePath = path.join(process.cwd(), "src/data/responsePayloads", `${name}.json`);
+
+        if (!fs.existsSync(filePath)) {
+            throw new Error(`Response file not found: ${filePath}`);
+        }
+
+        const raw = fs.readFileSync(filePath, "utf-8");
+        return JSON.parse(raw);
+    }
+
+    //#endregion
 }

@@ -24,6 +24,7 @@ export class CustomWorld extends World {
     // -------- Shared & dynamic --------
     sharedParams: Record<string, any> = {};
     dynamicValues: Record<string, string> = {};
+    countryService?: { service: string; country: string };
 
     constructor(options: IWorldOptions) {
         super(options);
