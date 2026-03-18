@@ -1,0 +1,29 @@
+{
+    "locationId": "c93fbd61-2bb3-4cb8-8061-97f9f99f5189",
+    "sellerShopId": "4b465217-0aa1-49e8-982d-f2482b4fbcaf",
+    "sellerId": "69ef5a31-0dd7-4713-88ac-5ff8dca56740",
+    "buyerId": "01baf39b-c5d7-4e1c-b09c-c6c2338e5d9a",
+    "orderType": "B2C",
+    "category": "Product",
+    "orderDetails": [
+        {
+            "productId": "108ad601-c3fa-43ae-a7ca-0cb036405886",
+            "orderedQuantity": 1,
+            "productFamilyName": "yaramila",
+            "form": "solid",
+            "volume": 50,
+            "metric": "KG"
+        }
+    ],
+    "itemDiscount": [
+        {
+            "variantId": "108ad601-c3fa-43ae-a7ca-0cb036405886",
+            "discount": 49000,
+            "quantity": 1
+        }
+    ],
+    "discountId": "70195baa-5bd0-4b32-a964-94604830ff2a",
+    "discountValue": 49000,
+    "couponId": "CoffeeDE",
+    "source": "GENERIC_FLOW"
+}
