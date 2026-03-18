@@ -74,7 +74,7 @@ function saveTokenToFile(serviceName: ServiceName, entry: TokenEntry): void {
     const filePath = getTokenFilePath(serviceName);
     try {
         fs.writeFileSync(filePath, JSON.stringify(entry, null, 2), "utf-8");
-        console.log(`✅ Token saved for service: ${serviceName}`);
+        // console.log(`✅ Token saved for service: ${serviceName}`);
     } catch (error) {
         console.error(`❌ Failed to save token for service '${serviceName}':`, error);
     }
@@ -94,7 +94,7 @@ function isTokenValid(entry: TokenEntry | null): boolean {
  * Fetch new token from API and save to file
  */
 async function fetchTokenForService(serviceName: ServiceName): Promise<string> {
-    console.log(`🔐 Fetching new token for service: ${serviceName}`);
+    // console.log(`🔐 Fetching new token for service: ${serviceName}`);
 
     const svc = config.services[serviceName];
     if (!svc) {
@@ -174,12 +174,12 @@ export async function getTokenForService(serviceName: ServiceName): Promise<stri
 
     // Token is still valid → use it
     if (isTokenValid(tokenEntry)) {
-        console.log(`✅ Using valid token for service: ${serviceName} (from file)`);
+        // console.log(`✅ Using valid token for service: ${serviceName} (from file)`);
         return tokenEntry.token;
     }
 
     // Token expired → fetch new token
-    console.log(`⏰ Token expired for service: ${serviceName}. Fetching new token...`);
+    // console.log(`⏰ Token expired for service: ${serviceName}. Fetching new token...`);
     return await fetchTokenForService(serviceName);
 }
 
@@ -235,7 +235,9 @@ export async function getToken(statusOrService: string, serviceName?: ServiceNam
  * Priority: env token → OTP auto-login
  */
 export async function getCountryToken(status: string, service: CountryServiceName, country: string): Promise<Record<string, string>> {
-    const normalized = String(status ?? "").toLowerCase().trim();
+    const normalized = String(status ?? "")
+        .toLowerCase()
+        .trim();
 
     if (normalized === "no_token" || normalized === "no") return {};
     if (normalized === "invalid_token" || normalized === "invalid") return { Authorization: "Bearer invalid_token" };

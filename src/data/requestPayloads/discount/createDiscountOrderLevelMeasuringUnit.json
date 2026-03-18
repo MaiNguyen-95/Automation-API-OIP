@@ -1,0 +1,74 @@
+{
+    "discountAppliedFor": "c97a2b9b-60ea-436a-8579-2f8a395bbe2a",
+    "discountLevels": "5adeebed-b508-436f-b532-3d6fbfb2e091",
+    "level1Locations": [],
+    "messageLocalised": {
+        "en": "test",
+        "kn": "kn test",
+        "mr": "",
+        "pa": "",
+        "ta": "",
+        "te": "",
+        "hi": "",
+        "gu": "",
+        "bn": ""
+    },
+    "name": "QA_MA",
+    "nameLocalised": {
+        "en": "test",
+        "kn": "",
+        "mr": "",
+        "pa": "",
+        "ta": "",
+        "te": "",
+        "hi": "",
+        "gu": "",
+        "bn": ""
+    },
+    "orderLevel": {},
+    "startDate": "2027-12-20T07:00:00+07:00",
+    "endDate": "2027-12-24T07:00:00+07:00",
+    "products": [
+        {
+            "productVariantId": "bcd5c320-7084-4b85-a39f-760c12debbcc",
+            "discountValueAndType": {
+                "value": 5,
+                "type": "Fixed"
+            },
+            "maximumDiscountValueAndCurrency": {
+                "value": 100,
+                "currency": "INR"
+            },
+            "minimumSkuOrderValueAndCurrency": {
+                "value": 100,
+                "currency": "INR"
+            },
+            "minimumSkuOrderQtyAndUnit": {
+                "quantity": 10,
+                "unit": ""
+            },
+            "isMandatory": false
+        }
+    ],
+    "maxUsePerUser": 1,
+    "termsAndConditionsLocalised": {
+        "en": "test",
+        "kn": "",
+        "mr": "",
+        "pa": "",
+        "ta": "",
+        "te": "",
+        "hi": "",
+        "gu": "",
+        "bn": ""
+    },
+    "couponType": "unique",
+    "couponCode": "test393",
+    "images": [""],
+    "numberOfCoupons": 12,
+    "buUserId": "1c3b01c2-a134-468f-a844-32cdb91e5631",
+    "membership": [],
+    "segmentIds": [],
+    "platform": "farmcare",
+    "isEligibleForLoyaltyCampaign": true
+}

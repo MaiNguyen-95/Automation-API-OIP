@@ -84,8 +84,8 @@ When("I store response field {string} as {string}", function (this: CustomWorld,
 
     this.sharedParams[paramName] = value;
 
-    console.log(`✅ Stored response field [${fieldPath}] → {{${paramName}}}`);
-    console.log(`📦 sharedParams:\n${JSON.stringify(this.sharedParams, null, 2)}`);
+    // console.log(`✅ Stored response field [${fieldPath}] → {{${paramName}}}`);
+    // console.log(`📦 sharedParams:\n${JSON.stringify(this.sharedParams, null, 2)}`);
 });
 
 Then("I extract from response:", function (this: CustomWorld, dataTable: DataTable) {
@@ -107,7 +107,7 @@ Then("I extract from response:", function (this: CustomWorld, dataTable: DataTab
         }
 
         this.dynamicValues[variable] = String(value);
-        console.log(`✅ Extracted [${fieldPath}] → {{${variable}}} = ${value}`);
+        // console.log(`✅ Extracted [${fieldPath}] → {{${variable}}} = ${value}`);
     }
 
     console.log(`📦 dynamicValues:\n${JSON.stringify(this.dynamicValues, null, 2)}`);
@@ -115,7 +115,7 @@ Then("I extract from response:", function (this: CustomWorld, dataTable: DataTab
 
 Then("The response status should be {int}", function (this: CustomWorld, expected: number) {
     const from = this.responseBody;
-    console.log(JSON.stringify(this.response.data, null, 2));
+    // console.log(JSON.stringify(this.response.data, null, 2));
     ApiValidator.statusCode(this.response, expected);
 });
 

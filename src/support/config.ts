@@ -68,7 +68,7 @@ export const config = {
         redirectUri: process.env.OTP_REDIRECT_URI || "https://preprod.yarafarmcare.com/auth/callback",
     },
     countryServices: {
-        order_service: {
+        marketplace_service: {
             in: {
                 baseURL: process.env.ORDER_SERVICE_IN_BASE_URL!,
                 token: process.env.ORDER_SERVICE_IN_TOKEN!,

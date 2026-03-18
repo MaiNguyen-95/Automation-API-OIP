@@ -3,8 +3,7 @@
 Feature: API create a B2C Assisted order
     @b2cAssistedOrderApisValidTokenAndData
     Scenario: B2C Assisted order in all country: The order applies coupon, YC approves the order
-        # Given I execute scenario "@GetFCTokenAll" in project "../playwright-cucumber-ts" to get token
-        Given I am authenticated with token from CSV "<FCTokenPath>"
+        Given I am '<token_status>' authenticated on 'marketplace_service' service for '<countryCode>' country
         And I build dynamic payload from "<orderPayloadFormat>" with:
             | key                             | value |
             | orderDetails[0].orderedQuantity | 2     |
@@ -15,6 +14,6 @@ Feature: API create a B2C Assisted order
             | orderId  | <orderId> |
 
         Examples:
-            | FCTokenPath                                  | assisteOrderEndpoint | orderPayloadFormat       | serviceName            | statusCode | orderId |
-            | ../playwright-cucumber-ts/data/tokenFCIN.csv | assistedOrder        | order/b2cAssistedOrderIN | in_marketplace_service | 201        | data.id |
-            | src/data/token/retailerTHToken.csv           | assistedOrderTH      | order/b2cAssistedOrderTH | th_loyalty_service     | 200        | id      |
+            | countryCode | assisteOrderEndpoint | orderPayloadFormat       | serviceName            | statusCode | orderId |
+            | in          | assistedOrder        | order/b2cAssistedOrderIN | in_marketplace_service | 201        | data.id |
+# | src/data/token/retailerTHToken.csv           | assistedOrderTH      | order/b2cAssistedOrderTH | th_loyalty_service     | 200        | id      |
