@@ -142,5 +142,8 @@ dist
 playwright-report/
 test-results/
 
+# token
+src/api/auth/saveAuth/
+
 #env
 .env

@@ -2,14 +2,14 @@ import { Given, When, Then, DataTable } from "@cucumber/cucumber";
 import { buildHeadersDynamic } from "../api/header/builderHeadersDynamic";
 import { buildPayload } from "../api/payload/builderPayloadDynamic";
 import { buildQueryFromTable } from "../api/queryParams/builderQueryDynamic";
-import { executeDynamicRequest } from "../api/restApi/requestExecutor";
+import { executeDynamicRequest, executeCountryRequest } from "../api/restApi/requestExecutor";
 import { readJsonPath } from "../api/response/jsonPath";
 import type { CustomWorld } from "../support/world";
 import { Utils } from "../common/utils/utils";
 import { ApiEndpoints, ApiEndpointKey } from "../api/endpoints/apiEndpoints";
 import { assertSchema } from "../api/response/validator";
 import { ApiValidator } from "../api/validator/validator";
-import { config, ServiceName } from "../support/config";
+import { config, ServiceName, CountryServiceName } from "../support/config";
 
 type TableRow = { key: string; value: string };
 
@@ -62,12 +62,13 @@ Given("I set path params:", function (this: CustomWorld, dataTable: DataTable) {
     }
 });
 
-// Send request
-// When("I send {string} request to {string}", async function (this: CustomWorld, method: string, endpoints: ApiEndpointKey) {
-//     await executeDynamicRequest(this, method, endpoints);
-// });
 When("I send {string} request to {string} on {string} service", async function (this: CustomWorld, method: string, endpoint: ApiEndpointKey, service: ServiceName) {
     await executeDynamicRequest(this, service, method, endpoint);
+});
+
+// Send request for country service
+When("I send {string} request to {string} on {string} service for {string} country", async function (this: CustomWorld, method: string, endpoint: ApiEndpointKey, service: string, country: string) {
+    await executeCountryRequest(this, service as CountryServiceName, country, method, endpoint);
 });
 
 When("I store response field {string} as {string}", function (this: CustomWorld, fieldPath: string, paramName: string) {

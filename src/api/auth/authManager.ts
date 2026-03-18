@@ -2,7 +2,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import fs from "node:fs";
 import path from "node:path";
-import { config, ServiceName } from "../../support/config";
+import { config, ServiceName, CountryServiceName, getCountryServiceConfig } from "../../support/config";
 
 // ============================================================================
 // TYPE DEFINITIONS
@@ -228,6 +228,28 @@ export async function getToken(statusOrService: string, serviceName?: ServiceNam
 
     // Invalid status
     throw new Error(`Invalid auth status: ${statusOrService}. Must be one of: valid_token, invalid_token, no_token or a service name`);
+}
+
+/**
+ * Get authorization header for country-based services
+ * Priority: env token → OTP auto-login
+ */
+export async function getCountryToken(status: string, service: CountryServiceName, country: string): Promise<Record<string, string>> {
+    const normalized = String(status ?? "").toLowerCase().trim();
+
+    if (normalized === "no_token" || normalized === "no") return {};
+    if (normalized === "invalid_token" || normalized === "invalid") return { Authorization: "Bearer invalid_token" };
+
+    // Try env token first
+    const svcConfig = getCountryServiceConfig(service, country);
+    if (svcConfig.token) {
+        return { Authorization: `Bearer ${svcConfig.token}` };
+    }
+
+    // Fallback: auto-login via OTP
+    const { loginViaOtp } = await import("./otpLoginManager");
+    const token = await loginViaOtp(country);
+    return { Authorization: `Bearer ${token}` };
 }
 
 /**
