@@ -1,0 +1,41 @@
+{
+    "products": [
+        {
+            "isEdited": false,
+            "productId": "1bfee49d-b3ca-435d-b258-591b91752514",
+            "orderedQuantity": 2,
+            "fulfilledQuantity": 2,
+            "mrp": 500000,
+            "sellingPrice": 4000,
+            "productName": "YaraRega (25)",
+            "variantName": "YaraRega (25)",
+            "productFamilyName": "YaraRega",
+            "productSize": "25 KG",
+            "isYaraProduct": true,
+            "photo": "https://d2potd4ihliqnc.cloudfront.net/4d1c5d95-5895-48b4-b6f9-74dd3dfc20ed/product-variants/68997937cd91a72688e205db/53c6bc38-58bc-4974-b2f9-38657d2f5de9/1754888472886-YaraRega15x325kgMockupStand_Newsmaller3.png",
+            "metric": "KG",
+            "packagingType": "Bag",
+            "volume": 25,
+            "error": false,
+            "stockAvailable": 300
+        }
+    ],
+    "action": "fulfill",
+    "fulfilledMRP": 8000,
+    "discount": 0,
+    "sellerId": "baa7e59d-938c-4e0f-bfb9-44f068a1ed65",
+    "sellerShopId": "93b25369-cf74-4767-93ac-648923bc9f87",
+    "paymentType": "Cash",
+    "payerPhoneNumber": "+919742653248",
+    "paybillOrTillNumber": "",
+    "discountId": "e3d90934-8b32-4904-9d1d-d0993e509c10",
+    "couponId": "43",
+    "farmerDiscount": 2000,
+    "ycProducts": [
+        {
+            "productId": "1bfee49d-b3ca-435d-b258-591b91752514",
+            "QRList": []
+        }
+    ],
+    "couponCode": "1773579460189"
+}

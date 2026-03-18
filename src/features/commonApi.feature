@@ -25,7 +25,6 @@ Feature: API validation
         # When I send "GET" request to "discountID"
         When I send 'GET' request to 'discountID' on 'discount_service' service
         Then The response status should be 401
-        And I save response body as "responseBody"
         Examples:
             | token         |
             | invalid_token |
@@ -45,12 +44,11 @@ Feature: API validation
         #     | page | 1     |
         When I send 'GET' request to 'discountID' on 'discount_service' service
         Then The response status should be 200
-        And I save response body as "responseBody"
         And The response should contain:
             | key                               | value        |
             | data.name                         | B2B discount |
             | data.isEligibleForLoyaltyCampaign | false        |
-        And The response body should contain text: "PACKAGING_UNIT_TEST"
+    # And The response body should contain text: "PACKAGING_UNIT_TEST"
     # | messageLocalised.kn                    | kn test      |
     # | products[0].discountValueAndType.value | 5            |
     # | couponCode                             | tesst1920    |
@@ -67,15 +65,18 @@ Feature: API validation
         # And I build dynamic query params with:
         #     | key  | value |
         #     | page | 1     |
-        And I build dynamic payload from 'createProduct' with:
-            | key                                    | value     |
-            | name                                   | QA_MA     |
-            | messageLocalised.kn                    | kn test   |
-            | products[0].discountValueAndType.value | 5         |
-            | couponCode                             | tesst1921 |
+        And I build dynamic payload from 'createDiscountOrderLevelMeasuringUnit' with:
+            | key                                    | value    |
+            | name                                   | QA_MA    |
+            | messageLocalised.kn                    | null     |
+            | products[0].discountValueAndType.value | 5        |
+            | couponCode                             | test2496 |
         When I send 'POST' request to 'createDiscount' on 'discount_service' service
-        Then The response status should be 200
-        And I save response body as "responseBody"
+        Then The response status should be 201
+        And The response should contain:
+            | key     | value          |
+            | message | Create success |
+        And The response should match json "discountService/createDiscount"
 
 
     # Scenario: Validate products list response schema

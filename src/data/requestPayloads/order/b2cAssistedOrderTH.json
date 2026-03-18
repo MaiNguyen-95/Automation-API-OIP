@@ -1,0 +1,44 @@
+{
+    "sellerId": "373cbb6d-ad91-4414-bfe9-ec22a7eb62dd",
+    "sellerShopId": "b1c7f410-5676-4cde-b5f9-eddd3a6d888a",
+    "buyerId": "931ee8e4-fc34-4c44-a594-1c755c288ba0",
+    "category": "Product",
+    "orderDetails": [
+        {
+            "variantId": "d4e9d0e0-baba-45fc-bf25-b6379faedb03",
+            "photo": "https://d2potd4ihliqnc.cloudfront.net/32c89363-b532-468a-8828-d2a72038c7c1/product-variants/6593cf0eb3bda8d148879bba/d0596d6a-80d6-4295-92a3-f018397a5750/1704350561663-BorLiv.png",
+            "variantDescription": "ยาราวีต้า บอร์ลิฟ สูตรเข้มข้น 2 อิน 1 รวม 2 พลังเข้าบำรุงพืชในขวดเดียว คุณประโยชน์ ช่วยสร้างพัฒนาดอกและผล, ช่วยผสมเกสรและทำให้เซลล์มีความยืดหยุ่น",
+            "productSize": "1 L",
+            "sellingPrice": 100,
+            "termsAndConditions": "",
+            "isTandCPresent": false,
+            "stockAvailable": 9999,
+            "variantName": "ยาราวีต้า บอร์ลิฟ",
+            "productName": "ยาราวีต้า บอร์ลิฟ",
+            "productFamilyName": "ยาราวีต้า",
+            "countError": false,
+            "isYaraProduct": true,
+            "volume": 1,
+            "metric": "L",
+            "form": "liquid",
+            "orderedQuantity": 1,
+            "fulfilledQuantity": 1,
+            "productId": "d4e9d0e0-baba-45fc-bf25-b6379faedb03",
+            "error": false
+        }
+    ],
+    "discountValue": 0,
+    "ycProducts": [
+        {
+            "productId": "d4e9d0e0-baba-45fc-bf25-b6379faedb03",
+            "QRList": []
+        }
+    ],
+    "paymentType": "Cash",
+    "payerPhoneNumber": "+66822221112",
+    "paybillOrTillNumber": "",
+    "fulfilledMRP": 100,
+    "yaraUserId": "2f98a4ae-6f1e-4069-b001-f6328c8f5e26",
+    "finalOrderValue": 100,
+    "locationId": "043aed64-80a8-416f-9601-bc8170203da3"
+}

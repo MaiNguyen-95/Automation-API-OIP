@@ -113,6 +113,8 @@ Then("I extract from response:", function (this: CustomWorld, dataTable: DataTab
 });
 
 Then("The response status should be {int}", function (this: CustomWorld, expected: number) {
+    const from = this.responseBody;
+    console.log(JSON.stringify(this.response.data, null, 2));
     ApiValidator.statusCode(this.response, expected);
 });
 
@@ -120,12 +122,6 @@ Then("I save response path {string} as {string}", function (this: CustomWorld, p
     const from = this.responseBody;
     const value = readJsonPath(from, path);
     this.dynamicValues[key] = String(value);
-});
-
-Then("I save response body as {string}", function (this: CustomWorld, key: string) {
-    const from = this.responseBody;
-    console.log(JSON.stringify(this.response.data, null, 2));
-    this.dynamicValues[key] = JSON.stringify(from);
 });
 
 Then("response matches schema {string}", function (this: CustomWorld, schemaName: string) {
