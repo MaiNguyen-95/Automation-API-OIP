@@ -10,6 +10,7 @@ import { ApiEndpoints, ApiEndpointKey } from "../api/endpoints/apiEndpoints";
 import { assertSchema } from "../api/response/validator";
 import { ApiValidator } from "../api/validator/validator";
 import { config, ServiceName, CountryServiceName } from "../support/config";
+import { randomUUID } from "crypto";
 
 type TableRow = { key: string; value: string };
 
@@ -22,6 +23,14 @@ Given("I set shared values:", function (this: CustomWorld, dataTable: DataTable)
         // Store resolved string for immediate reuse
         this.dynamicValues[k] = this.resolveValue(String(r.value ?? ""));
     }
+});
+
+Given("I generate random uuid as {string}", function (key: string) {
+    this.dynamicValues[key] = randomUUID();
+});
+
+Given("I generate random 4char4digit as {string}", function (key: string) {
+    this.dynamicValues[key] = Utils.random4Char4Digit();
 });
 
 // Dynamic headers

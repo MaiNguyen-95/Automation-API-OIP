@@ -53,12 +53,12 @@ Feature: API validation
     # | products[0].discountValueAndType.value | 5            |
     # | couponCode                             | tesst1920    |
 
-    @validTokenPost
+    @validTokenPost @uuid
     Scenario: Validate he token is valid
-        Given I build dynamic headers with:
-            | key      | value        |
-            | tenantId | {{tenantId}} |
-        Given I am 'valid_token' authenticated on 'discount_service' service
+        # Given I build dynamic headers with:
+        #     | key      | value        |
+        #     | tenantId | {{tenantId}} |
+        # Given I am 'valid_token' authenticated on 'discount_service' service
         # And I set path params:
         #     | key | value                                |
         #     | id  | 93d76a54-7ad8-49d1-a731-3f5b5f45c85e |
@@ -77,6 +77,17 @@ Feature: API validation
             | key     | value          |
             | message | Create success |
         And The response should match json "discountService/createDiscount"
+        Given I generate random uuid as 'uuid'
+        And I generate random 4char4digit as 'userId'
+        And I build dynamic payload from 'createProduct' with:
+            | key                                    | value      |
+            | name                                   | {{uuid}}   |
+            | messageLocalised.kn                    | {{userId}} |
+            | products[0].discountValueAndType.value | 5          |
+            | couponCode                             | tesst1921  |
+    # When I send 'POST' request to 'createDiscount' on 'discount_service' service
+    # Then The response status should be 200
+    # And I save response body as "responseBody"
 
 
     # Scenario: Validate products list response schema

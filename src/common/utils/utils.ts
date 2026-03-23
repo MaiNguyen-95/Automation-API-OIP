@@ -20,6 +20,14 @@ export class Utils {
         return Array.from({ length }, () => digits.charAt(Math.floor(Math.random() * digits.length))).join("");
     }
 
+    static random4Char4Digit(): string {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        const digits = "0123456789";
+        const randomChars = Array.from({ length: 4 }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join("");
+        const randomDigits = Array.from({ length: 4 }, () => digits.charAt(Math.floor(Math.random() * digits.length))).join("");
+        return randomChars + randomDigits;
+    }
+
     static splitString(text: string): string[] {
         return text
             .split(",")
@@ -38,6 +46,10 @@ export class Utils {
         return `${yyyy}-${mm}-${dd}`;
     }
 
+    private static formatDateTime(date: Date): string {
+        return `${this.format(date)} ${date.toTimeString().split(" ")[0]}`;
+    }
+
     private static clone(date: Date): Date {
         return new Date(date.getTime());
     }
@@ -45,7 +57,7 @@ export class Utils {
     // ===== Current =====
     static currentDateTime(): string {
         const d = new Date();
-        return `${this.format(d)} ${d.toTimeString().split(" ")[0]}`; // YYYY-MM-DD HH:mm:ss
+        return this.formatDateTime(d); // YYYY-MM-DD HH:mm:ss
     }
 
     static currentDate(): string {
@@ -69,6 +81,12 @@ export class Utils {
         const d = new Date();
         d.setDate(d.getDate() + days);
         return this.format(d);
+    }
+
+    static addDaysWithTime(days: number): string {
+        const d = new Date();
+        d.setDate(d.getDate() + days);
+        return this.formatDateTime(d);
     }
 
     static futureDate(days: number): string {
