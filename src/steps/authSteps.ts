@@ -15,3 +15,12 @@ Given("I am {string} authenticated on {string} service for {string} country", as
     this.dynamicHeaders = { ...(this.dynamicHeaders ?? {}), ...token };
     this.countryService = { service, country };
 });
+
+Given("I authenticate using token {string}", function (this: CustomWorld, token: string) {
+    // We add the direct token read from the CSV to the dynamicHeaders setup.
+    // Adjust 'Authorization' or 'x-jwt-token' format if needed by your API framework.
+    this.dynamicHeaders = {
+        ...(this.dynamicHeaders ?? {}),
+        Authorization: `Bearer ${token}`
+    };
+});
