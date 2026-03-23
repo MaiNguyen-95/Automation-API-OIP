@@ -1,7 +1,5 @@
 import { Given, When, Then, DataTable } from "@cucumber/cucumber";
 import type { CustomWorld } from "../support/world";
-import { execSync } from "child_process";
-import * as path from "path";
 import { getToken, getCountryToken } from "../api/auth/authManager";
 import type { ServiceName, CountryServiceName } from "../support/config";
 
@@ -21,6 +19,6 @@ Given("I authenticate using token {string}", function (this: CustomWorld, token:
     // Adjust 'Authorization' or 'x-jwt-token' format if needed by your API framework.
     this.dynamicHeaders = {
         ...(this.dynamicHeaders ?? {}),
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
     };
 });
