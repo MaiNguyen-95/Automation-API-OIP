@@ -147,3 +147,7 @@ src/api/auth/saveAuth/
 
 #env
 .env
+
+
+.dsstore
+.DS_Store
