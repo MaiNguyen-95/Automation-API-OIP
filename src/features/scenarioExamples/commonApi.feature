@@ -1,15 +1,5 @@
 @api
 Feature: API validation
-    # Scenario Outline: API validation
-    #     Given I got access token is '<token_status>' with role '<role>'
-    #     When I send "<method>" to "<path>" with payload "<payload_name>"
-    # Then response status is "<expectation_status>"
-    # And response body has to match schema "<success_schema>"
-    # And response has to error code "<error_code>"
-    # Examples:
-    #     | token_status | role | method | path         | payload_name   |
-    #     | valid_token  | bo   | get    | productsList | createCustomer |
-
     @invalidToken
     Scenario: Validate he token is invalid
         Given I build dynamic headers with:
@@ -30,7 +20,7 @@ Feature: API validation
             | invalid_token |
             | no_token      |
 
-    @validToken
+    @validTokenGet
     Scenario: Validate he token is valid
         Given I build dynamic headers with:
             | key      | value        |
@@ -39,112 +29,103 @@ Feature: API validation
         And I set path params:
             | key | value                                |
             | id  | 93d76a54-7ad8-49d1-a731-3f5b5f45c85e |
-        # And I build dynamic query params with:
-        #     | key  | value |
-        #     | page | 1     |
         When I send 'GET' request to 'discountID' on 'discount_service' service
         Then The response status should be 200
         And The response should contain:
             | key                               | value        |
             | data.name                         | B2B discount |
             | data.isEligibleForLoyaltyCampaign | false        |
-    # And The response body should contain text: "PACKAGING_UNIT_TEST"
-    # | messageLocalised.kn                    | kn test      |
-    # | products[0].discountValueAndType.value | 5            |
-    # | couponCode                             | tesst1920    |
 
-    @validTokenPost @uuid
+    @validTokenPost
     Scenario: Validate he token is valid
-        # Given I build dynamic headers with:
-        #     | key      | value        |
-        #     | tenantId | {{tenantId}} |
-        # Given I am 'valid_token' authenticated on 'discount_service' service
+        Given I build dynamic headers with:
+            | key      | value        |
+            | tenantId | {{tenantId}} |
+        Given I am 'valid_token' authenticated on 'discount_service' service
         # And I set path params:
         #     | key | value                                |
         #     | id  | 93d76a54-7ad8-49d1-a731-3f5b5f45c85e |
         # And I build dynamic query params with:
         #     | key  | value |
         #     | page | 1     |
-        And I build dynamic payload from 'createDiscountOrderLevelMeasuringUnit' with:
+        And I build dynamic payload from 'discount/createDiscountOrderLevelMeasuringUnit' with:
             | key                                    | value    |
             | name                                   | QA_MA    |
             | messageLocalised.kn                    | null     |
             | products[0].discountValueAndType.value | 5        |
-            | couponCode                             | test2496 |
+            | couponCode                             | test2499 |
         When I send 'POST' request to 'createDiscount' on 'discount_service' service
         Then The response status should be 201
         And The response should contain:
             | key     | value          |
             | message | Create success |
         And The response should match json "discountService/createDiscount"
-        Given I generate random uuid as 'uuid'
-        And I generate random 4char4digit as 'userId'
-        And I build dynamic payload from 'createProduct' with:
-            | key                                    | value      |
-            | name                                   | {{uuid}}   |
-            | messageLocalised.kn                    | {{userId}} |
-            | products[0].discountValueAndType.value | 5          |
-            | couponCode                             | tesst1921  |
-    # When I send 'POST' request to 'createDiscount' on 'discount_service' service
-    # Then The response status should be 200
-    # And I save response body as "responseBody"
 
+# Scenario Outline: API validation
+#     Given I got access token is '<token_status>' with role '<role>'
+#     When I send "<method>" to "<path>" with payload "<payload_name>"
+# Then response status is "<expectation_status>"
+# And response body has to match schema "<success_schema>"
+# And response has to error code "<error_code>"
+# Examples:
+#     | token_status | role | method | path         | payload_name   |
+#     | valid_token  | bo   | get    | productsList | createCustomer |
 
-    # Scenario: Validate products list response schema
-    #     Given I build dynamic headers with:
-    #         | key      | value        |
-    #         | tenantId | {{tenantId}} |
-    #     Given I am authenticated as 'user'
-    #     And I set path params:
-    #         | key  | value   |
-    #         | uuid | uuid123 |
-    #         | id   | 123     |
-    #     And I build dynamic query params with:
-    #         | key  | value |
-    #         | page | 1     |
-    #     When I send "GET" request to "discountID"
-    #     Then The response status should be 404
-    #     And I save response body as "responseBody"
-    # And response matches schema "productsList"
+# Scenario: Validate products list response schema
+#     Given I build dynamic headers with:
+#         | key      | value        |
+#         | tenantId | {{tenantId}} |
+#     Given I am authenticated as 'user'
+#     And I set path params:
+#         | key  | value   |
+#         | uuid | uuid123 |
+#         | id   | 123     |
+#     And I build dynamic query params with:
+#         | key  | value |
+#         | page | 1     |
+#     When I send "GET" request to "discountID"
+#     Then The response status should be 404
+#     And I save response body as "responseBody"
+# And response matches schema "productsList"
 
-    # Scenario: Get products list via dynamic API
-    # When I send "GET" request to "productsList"
-    #     Then response status should be 200
-    #     And I save response body as "responseBody"
+# Scenario: Get products list via dynamic API
+# When I send "GET" request to "productsList"
+#     Then response status should be 200
+#     And I save response body as "responseBody"
 
-    # ============================================
-    # TEST buildPayload FUNCTION - CÁC TRƯỜNG HỢP
-    # ============================================
-    # Function buildPayload có 3 trường hợp chính:
-    # 1. Load từ file JSON (payloadName) → return payload từ file
-    # 2. Load từ file + override bằng table (payloadName + rows) → merge và override
-    # 3. Chỉ dùng table (rows) → build payload từ table
-    # ============================================
+# ============================================
+# TEST buildPayload FUNCTION - TEST CASES
+# ============================================
+# Function buildPayload has 3 main scenarios:
+# 1. Load from JSON file (payloadName) → return payload from file
+# 2. Load from file + override with table (payloadName + rows) → merge and override
+# 3. Use table only (rows) → build payload from table
+# ============================================
 
-    # ============================================
-    # TRƯỜNG HỢP 1: Override 1 field đơn giản từ file base
-    # ============================================
-    # File: searchProduct.json có {"search_product": "top"}
-    # Override: thay "top" thành "tshirt"
-    # Kết quả: {"search_product": "tshirt"}
-    # ============================================
-    @payload
-    Scenario: Override single field - Change search_product from top to tshirt
-        Given I build dynamic payload from "createProduct" with:
-            | key                                    | value   |
-            | name                                   | QA_MA   |
-            | messageLocalised.kn                    | kn test |
-            | products[0].discountValueAndType.value | 5       |
+# ============================================
+# CASE 1: Override 1 simple field from base file
+# ============================================
+# File: searchProduct.json has {"search_product": "top"}
+# Override: change "top" to "tshirt"
+# Result: {"search_product": "tshirt"}
+# ============================================
+# @payload
+# Scenario: Override single field - Change search_product from top to tshirt
+#     Given I build dynamic payload from "createProduct" with:
+#         | key                                    | value   |
+#         | name                                   | QA_MA   |
+#         | messageLocalised.kn                    | kn test |
+#         | products[0].discountValueAndType.value | 5       |
 #When I send "POST" request to "searchProduct"
 #Then The response status should be 200
 #And I save response body as "responseBody"
 
 # # ============================================
-# # TRƯỜNG HỢP 2: Override nhiều fields từ file base
+# # CASE 2: Override multiple fields from base file
 # # ============================================
-# # File: verifyLogin.json có {"email": "test@example.com", "password": "password123"}
-# # Override: thay cả email và password
-# # Kết quả: {"email": "newuser@test.com", "password": "newpass123"}
+# # File: verifyLogin.json has {"email": "test@example.com", "password": "password123"}
+# # Override: change both email and password
+# # Result: {"email": "newuser@test.com", "password": "newpass123"}
 # # ============================================
 # Scenario: Override multiple fields - Change email and password
 #     Given I build dynamic payload from "verifyLogin" with:
@@ -155,11 +136,11 @@ Feature: API validation
 #     Then response status should be 200
 
 # # ============================================
-# # TRƯỜNG HỢP 3: Override với dynamic values ({{var}})
+# # CASE 3: Override with dynamic values ({{var}})
 # # ============================================
-# # File: verifyLogin.json có email và password mặc định
-# # Override: dùng {{email}} và {{pass}} từ shared values
-# # Kết quả: payload sẽ resolve {{email}} và {{pass}} thành giá trị thực
+# # File: verifyLogin.json has default email and password
+# # Override: use {{email}} and {{pass}} from shared values
+# # Result: payload will resolve {{email}} and {{pass}} to real values
 # # ============================================
 # Scenario: Override with dynamic values using {{var}} syntax
 #     Given I set shared values:
@@ -174,11 +155,11 @@ Feature: API validation
 #     Then response status should be 200
 
 # # ============================================
-# # TRƯỜNG HỢP 4: Override một số fields trong payload phức tạp
+# # CASE 4: Override partial fields in complex payload
 # # ============================================
-# # File: createAccount.json có nhiều fields (name, email, address, etc.)
-# # Override: chỉ thay đổi một số fields (email, name, city)
-# # Các fields khác giữ nguyên từ file
+# # File: createAccount.json has multiple fields (name, email, address, etc.)
+# # Override: change only specific fields (email, name, city)
+# # Other fields remain unchanged from the file
 # # ============================================
 # Scenario: Override partial fields in complex payload - Keep other fields from file
 #     Given I build dynamic payload from "createAccount" with:
@@ -190,10 +171,10 @@ Feature: API validation
 #     Then response status should be 201
 
 # # ============================================
-# # TRƯỜNG HỢP 5: Override nhiều fields trong payload phức tạp
+# # CASE 5: Override many fields in complex payload
 # # ============================================
-# # File: createAccount.json có đầy đủ thông tin
-# # Override: thay đổi nhiều fields cùng lúc
+# # File: createAccount.json contains full information
+# # Override: change multiple fields at once
 # # ============================================
 # Scenario: Override many fields in complex payload
 #     Given I build dynamic payload from "createAccount" with:
@@ -210,10 +191,10 @@ Feature: API validation
 #     Then response status should be 201
 
 # # ============================================
-# # TRƯỜNG HỢP 6: Override với dynamic values từ response trước
+# # CASE 6: Override with dynamic values from previous response
 # # ============================================
-# # Bước 1: Lấy dữ liệu từ API trước
-# # Bước 2: Dùng dữ liệu đó để override payload
+# # Step 1: Get data from previous API
+# # Step 2: Use that data to override payload
 # # ============================================
 # Scenario: Override using data from previous API response
 #     When I send "GET" request to "productsList"
@@ -226,10 +207,10 @@ Feature: API validation
 #     Then response status should be 200
 
 # # ============================================
-# # TRƯỜNG HỢP 7: Override nested fields (nếu payload có nested structure)
+# # CASE 7: Override nested fields (if payload has nested structure)
 # # ============================================
-# # File: updateAccount.json có các fields phẳng
-# # Override: có thể override bất kỳ field nào
+# # File: updateAccount.json has flat fields
+# # Override: can override any field
 # # ============================================
 # Scenario: Override fields in update account payload
 #     Given I set shared values:
@@ -245,11 +226,11 @@ Feature: API validation
 #     Then response status should be 200
 
 # # ============================================
-# # TRƯỜNG HỢP 8: Override nested fields với dot notation
+# # CASE 8: Override nested fields using dot notation
 # # ============================================
-# # Nếu payload có nested structure như {"user": {"profile": {"name": "John"}}}
-# # Có thể override bằng "user.profile.name" = "Jane"
-# # Function setNestedValue hỗ trợ dot notation và bracket notation
+# # If payload has nested structure like {"user": {"profile": {"name": "John"}}}
+# # Can override by "user.profile.name" = "Jane"
+# # Function setNestedValue supports dot notation and bracket notation
 # # ============================================
 # Scenario: Override nested field using dot notation (if payload has nested structure)
 #     Given I build dynamic payload from "createAccount" with:
@@ -260,10 +241,10 @@ Feature: API validation
 #     Then response status should be 201
 
 # # ============================================
-# # TRƯỜNG HỢP 9: Override với giá trị boolean và number
+# # CASE 9: Override with boolean and number values
 # # ============================================
-# # Test với các kiểu dữ liệu khác nhau (string, number, boolean)
-# # Function parseDynamicValue sẽ tự động convert:
+# # Test with different data types (string, number, boolean)
+# # Function parseDynamicValue will automatically convert:
 # # - "true" → boolean true
 # # - "false" → boolean false
 # # - "123" → number 123

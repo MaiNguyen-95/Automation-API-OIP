@@ -93,11 +93,38 @@ When("I store response field {string} as {string}", function (this: CustomWorld,
 
     this.sharedParams[paramName] = value;
 
-    console.log(`✅ Stored response field [${fieldPath}] → {{${paramName}}}`);
-    console.log(`📦 sharedParams:\n${JSON.stringify(this.sharedParams, null, 2)}`);
+    // console.log(`✅ Stored response field [${fieldPath}] → {{${paramName}}}`);
+    // console.log(`📦 sharedParams:\n${JSON.stringify(this.sharedParams, null, 2)}`);
+});
+
+Then("I extract from response:", function (this: CustomWorld, dataTable: DataTable) {
+    if (!this.response?.data) {
+        throw new Error("❌ Response data is empty");
+    }
+    const rows = dataTable.hashes() as { variable: string; path: string }[];
+
+    for (const row of rows) {
+        const variable = String(row.variable || "").trim();
+        const fieldPath = String(row.path || "").trim();
+
+        if (!variable || !fieldPath) continue;
+
+        const value = ApiValidator.getValueByPath(this.response.data, fieldPath);
+
+        if (value === undefined) {
+            throw new Error(`❌ Field '${fieldPath}' not found in response`);
+        }
+
+        this.dynamicValues[variable] = String(value);
+        // console.log(`✅ Extracted [${fieldPath}] → {{${variable}}} = ${value}`);
+    }
+
+    console.log(`📦 dynamicValues:\n${JSON.stringify(this.dynamicValues, null, 2)}`);
 });
 
 Then("The response status should be {int}", function (this: CustomWorld, expected: number) {
+    const from = this.responseBody;
+    // console.log(JSON.stringify(this.response.data, null, 2));
     ApiValidator.statusCode(this.response, expected);
 });
 
@@ -105,12 +132,6 @@ Then("I save response path {string} as {string}", function (this: CustomWorld, p
     const from = this.responseBody;
     const value = readJsonPath(from, path);
     this.dynamicValues[key] = String(value);
-});
-
-Then("I save response body as {string}", function (this: CustomWorld, key: string) {
-    const from = this.responseBody;
-    console.log(JSON.stringify(this.response.data, null, 2));
-    this.dynamicValues[key] = JSON.stringify(from);
 });
 
 Then("response matches schema {string}", function (this: CustomWorld, schemaName: string) {

@@ -1,10 +1,10 @@
 {
-    "discountAppliedFor": "19696a18-9ab8-4a88-ac9c-1bcad8b597ba",
-    "discountLevels": "ca28d6a3-fc38-41b6-b93f-e7d894b6fd70",
+    "discountAppliedFor": "c97a2b9b-60ea-436a-8579-2f8a395bbe2a",
+    "discountLevels": "5adeebed-b508-436f-b532-3d6fbfb2e091",
     "level1Locations": [],
     "messageLocalised": {
         "en": "test",
-        "kn": "",
+        "kn": "kn test",
         "mr": "",
         "pa": "",
         "ta": "",
@@ -13,7 +13,7 @@
         "gu": "",
         "bn": ""
     },
-    "name": "test",
+    "name": "QA_MA",
     "nameLocalised": {
         "en": "test",
         "kn": "",
@@ -26,13 +26,13 @@
         "bn": ""
     },
     "orderLevel": {},
-    "startDate": "2025-12-20T07:00:00+07:00",
-    "endDate": "2025-12-24T07:00:00+07:00",
+    "startDate": "2027-12-20T07:00:00+07:00",
+    "endDate": "2027-12-24T07:00:00+07:00",
     "products": [
         {
             "productVariantId": "bcd5c320-7084-4b85-a39f-760c12debbcc",
             "discountValueAndType": {
-                "value": 10,
+                "value": 5,
                 "type": "Fixed"
             },
             "maximumDiscountValueAndCurrency": {
@@ -63,7 +63,7 @@
         "bn": ""
     },
     "couponType": "unique",
-    "couponCode": "testa",
+    "couponCode": "test393",
     "images": [""],
     "numberOfCoupons": 12,
     "buUserId": "1c3b01c2-a134-468f-a844-32cdb91e5631",

@@ -23,6 +23,34 @@ export const config = {
             clientSecret: process.env.DISCOUNT_SERVICE_CLIENT_SECRET!,
             scope: process.env.DISCOUNT_SERVICE_SCOPE!,
         },
+        in_marketplace_service: {
+            baseURL: process.env.IN_MARKETPLACE_SERVICE_BASE_URL!,
+            tokenUrl: process.env.IN_MARKETPLACE_SERVICE_TOKEN_URL!,
+            clientId: process.env.IN_MARKETPLACE_SERVICE_CLIENT_ID!,
+            clientSecret: process.env.IN_MARKETPLACE_SERVICE_CLIENT_SECRET!,
+            scope: process.env.IN_MARKETPLACE_SERVICE_SCOPE!,
+        },
+        id_marketplace_service: {
+            baseURL: process.env.ID_MARKETPLACE_SERVICE_BASE_URL!,
+            tokenUrl: process.env.ID_MARKETPLACE_SERVICE_TOKEN_URL!,
+            clientId: process.env.ID_MARKETPLACE_SERVICE_CLIENT_ID!,
+            clientSecret: process.env.ID_MARKETPLACE_SERVICE_CLIENT_SECRET!,
+            scope: process.env.ID_MARKETPLACE_SERVICE_SCOPE!,
+        },
+        th_marketplace_service: {
+            baseURL: process.env.TH_MARKETPLACE_SERVICE_BASE_URL!,
+            tokenUrl: process.env.TH_MARKETPLACE_SERVICE_TOKEN_URL!,
+            clientId: process.env.TH_MARKETPLACE_SERVICE_CLIENT_ID!,
+            clientSecret: process.env.TH_MARKETPLACE_SERVICE_CLIENT_SECRET!,
+            scope: process.env.TH_MARKETPLACE_SERVICE_SCOPE!,
+        },
+        th_loyalty_service: {
+            baseURL: process.env.TH_LOYALTY_SERVICE_BASE_URL!,
+            tokenUrl: process.env.TH_LOYALTY_SERVICE_TOKEN_URL!,
+            clientId: process.env.TH_LOYALTY_SERVICE_CLIENT_ID!,
+            clientSecret: process.env.TH_LOYALTY_SERVICE_CLIENT_SECRET!,
+            scope: process.env.TH_LOYALTY_SERVICE_SCOPE!,
+        },
         farmer_service: {
             baseURL: process.env.FARMER_SERVICE_BASE_URL!,
             tokenUrl: process.env.FARMER_SERVICE_TOKEN_URL!,
@@ -40,7 +68,7 @@ export const config = {
         redirectUri: process.env.OTP_REDIRECT_URI || "https://preprod.yarafarmcare.com/auth/callback",
     },
     countryServices: {
-        order_service: {
+        marketplace_service: {
             in: {
                 baseURL: process.env.ORDER_SERVICE_IN_BASE_URL!,
                 token: process.env.ORDER_SERVICE_IN_TOKEN!,

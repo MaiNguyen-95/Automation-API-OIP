@@ -1,0 +1,35 @@
+{
+    "locationId": "fe65483d-a303-4ded-b1f6-d6fea1e182f9",
+    "sellerShopId": "b1c7f410-5676-4cde-b5f9-eddd3a6d888a",
+    "sellerId": "373cbb6d-ad91-4414-bfe9-ec22a7eb62dd",
+    "buyerId": "df17e6ed-9ea7-4940-aae1-2484d1bd675a",
+    "orderType": "B2C",
+    "category": "Product",
+    "orderDetails": [
+        {
+            "productId": "YARA_MILA_14_14_21#BAG_50KG",
+            "orderedQuantity": 1,
+            "productFamilyName": "ยารามีร่า",
+            "volume": 50,
+            "metric": "KG"
+        },
+        {
+            "productId": "d24fde69-ebe7-4360-a105-cbeb74555507",
+            "orderedQuantity": 1,
+            "productFamilyName": "ยาราวีต้า",
+            "volume": 1,
+            "metric": "L"
+        }
+    ],
+    "itemDiscount": [
+        {
+            "variantId": "YARA_MILA_14_14_21#BAG_50KG",
+            "discount": 10,
+            "quantity": 1
+        }
+    ],
+    "discountId": "f5aca1b2-64d6-409c-b05b-7f4c7549e0c4",
+    "discountValue": 10,
+    "couponId": "10OFFYARA1",
+    "source": "GENERIC_FLOW"
+}

@@ -59,7 +59,7 @@ function loadCachedToken(country: string): string | null {
     try {
         const entry: OtpTokenEntry = JSON.parse(fs.readFileSync(filePath, "utf-8"));
         if (entry.expiresAt > Math.floor(Date.now() / 1000) + 60) {
-            console.log(`✅ Using cached OTP token for country: ${country}`);
+            // console.log(`✅ Using cached OTP token for country: ${country}`);
             return entry.token;
         }
     } catch {}
@@ -70,7 +70,7 @@ function saveCachedToken(country: string, token: string, expiresIn = 3600): void
     const now = Math.floor(Date.now() / 1000);
     const entry: OtpTokenEntry = { token, country, createdAt: now, expiresAt: now + expiresIn };
     fs.writeFileSync(getCachePath(country), JSON.stringify(entry, null, 2), "utf-8");
-    console.log(`💾 Token cached for country: ${country}`);
+    // console.log(`💾 Token cached for country: ${country}`);
 }
 
 // ============================================================================
@@ -89,7 +89,7 @@ async function sendOtp(phone: string, domain: string, authClientId: string, coun
         country,
     };
 
-    console.log(`📤 Sending OTP to ${phone} (${country})...`);
+    // console.log(`📤 Sending OTP to ${phone} (${country})...`);
     const res = await axios.post(url, body, {
         headers: { "Content-Type": "application/json", "x-country-code": country, "x-app-platform": "web", "x-app-version": "bodega" },
         validateStatus: () => true,
@@ -98,7 +98,7 @@ async function sendOtp(phone: string, domain: string, authClientId: string, coun
     if (res.status >= 400) {
         throw new Error(`Send OTP failed: ${res.status} ${JSON.stringify(res.data)}`);
     }
-    console.log(`✅ OTP sent`);
+    // console.log(`✅ OTP sent`);
 }
 
 // ============================================================================
@@ -110,7 +110,7 @@ async function readOtp(phone: string, maxRetries = 5, delayMs = 3000): Promise<s
     const smsEnv = ENV_MAP[config.otp.environment]?.[config.otp.authService] || config.otp.environment;
 
     for (let i = 1; i <= maxRetries; i++) {
-        console.log(`📩 Reading OTP (${i}/${maxRetries})...`);
+        // console.log(`📩 Reading OTP (${i}/${maxRetries})...`);
 
         const body = JSON.stringify({ recipient: phone, environment: smsEnv, vendor });
         const hmac = generateHMAC(body, config.otp.hmacSecret);
@@ -122,7 +122,7 @@ async function readOtp(phone: string, maxRetries = 5, delayMs = 3000): Promise<s
 
         const match = JSON.stringify(res.data).match(/(?<!\d)\d{5}(?!\d)/);
         if (match) {
-            console.log(`✅ OTP: ${match[0]}`);
+            // console.log(`✅ OTP: ${match[0]}`);
             return match[0];
         }
 
@@ -159,7 +159,7 @@ async function verifyOtp(phone: string, otp: string, domain: string, authClientI
         country,
     };
 
-    console.log(`🔐 Verifying OTP for ${phone}...`);
+    // console.log(`🔐 Verifying OTP for ${phone}...`);
     const res = await axios.post(url, body, {
         headers: { "Content-Type": "application/json", "x-country-code": country, "x-app-platform": "web", "x-app-version": "bodega" },
         validateStatus: () => true,
@@ -172,18 +172,18 @@ async function verifyOtp(phone: string, otp: string, domain: string, authClientI
     // Case 1: Direct token in response
     const directToken = res.data?.access_token || res.data?.token || res.data?.accessToken;
     if (directToken) {
-        console.log(`✅ Token obtained directly from verify-otp`);
+        // console.log(`✅ Token obtained directly from verify-otp`);
         return directToken;
     }
 
     // Case 2: redirectUrl → follow redirect to get auth code → exchange for token
     const redirectUrl = res.data?.redirectUrl || res.data?.redirect_url;
     if (redirectUrl) {
-        console.log(`🔄 Got redirectUrl, following to get auth code...`);
+        // console.log(`🔄 Got redirectUrl, following to get auth code...`);
         return await exchangeRedirectForToken(redirectUrl, domain, authClientId, codeChallenge);
     }
 
-    console.log("Response:", JSON.stringify(res.data, null, 2));
+    // console.log("Response:", JSON.stringify(res.data, null, 2));
     throw new Error("No access_token or redirectUrl in verify-otp response");
 }
 
@@ -213,16 +213,18 @@ async function exchangeRedirectForToken(redirectUrl: string, _domain: string, au
     const b2cBase = `${parsed.origin}/${tenant}/${policy}`;
 
     // Step 1: GET authorize URL → Azure B2C sets session cookies then redirects to login page
-    console.log(`📄 Step 1: GET authorize URL...`);
+    // console.log(`📄 Step 1: GET authorize URL...`);
 
     // Step 1a: Initial request — capture B2C session cookies (don't follow redirects)
-    const initRes = await axios.get(redirectUrl, {
-        maxRedirects: 0,
-        validateStatus: () => true,
-    }).catch((err) => {
-        if (err.response && [301, 302].includes(err.response.status)) return err.response;
-        throw err;
-    });
+    const initRes = await axios
+        .get(redirectUrl, {
+            maxRedirects: 0,
+            validateStatus: () => true,
+        })
+        .catch((err) => {
+            if (err.response && [301, 302].includes(err.response.status)) return err.response;
+            throw err;
+        });
 
     let cookies = extractCookies(initRes.headers);
     let html = "";
@@ -252,58 +254,57 @@ async function exchangeRedirectForToken(redirectUrl: string, _domain: string, au
     // code_verifier = codeVerifier passed from verifyOtp (same value sent as code_challenge)
 
     if (!csrf || !transId) {
-        console.log("HTML (first 500 chars):", html.substring(0, 500));
+        // console.log("HTML (first 500 chars):", html.substring(0, 500));
         throw new Error(`Missing csrf (${csrf ? "found" : "missing"}) or transId (${transId ? "found" : "missing"}) from authorize page`);
     }
 
-    console.log(`✅ Got csrf & transId`);
+    // console.log(`✅ Got csrf & transId`);
 
     // Step 2: POST to SelfAsserted → submit credentials
-    console.log(`📄 Step 2: POST SelfAsserted (login)...`);
+    // console.log(`📄 Step 2: POST SelfAsserted (login)...`);
     const selfAssertedUrl = `${b2cBase}/SelfAsserted?tx=${transId}&p=${policy}`;
 
-    const selfAssertedRes = await axios.post(selfAssertedUrl,
-        new URLSearchParams({ signInName: username, password }),
-        {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "x-csrf-token": csrf,
-                Cookie: cookies,
-            },
-            maxRedirects: 0,
-            validateStatus: () => true,
+    const selfAssertedRes = await axios.post(selfAssertedUrl, new URLSearchParams({ signInName: username, password }), {
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "x-csrf-token": csrf,
+            Cookie: cookies,
         },
-    );
-
-    cookies = mergeCookies(cookies, extractCookies(selfAssertedRes.headers));
-    console.log(`✅ SelfAsserted status: ${selfAssertedRes.status}`);
-
-    // Step 3: GET confirmed → Azure B2C redirects to redirect_uri with code
-    console.log(`📄 Step 3: GET confirmed → get auth code...`);
-    const confirmedUrl = `${b2cBase}/api/CombinedSigninAndSignup/confirmed?rememberMe=false&csrf_token=${csrf}&tx=${transId}&p=${policy}`;
-
-    const confirmedRes = await axios.get(confirmedUrl, {
-        headers: { Cookie: cookies },
         maxRedirects: 0,
         validateStatus: () => true,
-    }).catch((err) => {
-        if (err.response && [301, 302].includes(err.response.status)) return err.response;
-        throw err;
     });
+
+    cookies = mergeCookies(cookies, extractCookies(selfAssertedRes.headers));
+    // console.log(`✅ SelfAsserted status: ${selfAssertedRes.status}`);
+
+    // Step 3: GET confirmed → Azure B2C redirects to redirect_uri with code
+    // console.log(`📄 Step 3: GET confirmed → get auth code...`);
+    const confirmedUrl = `${b2cBase}/api/CombinedSigninAndSignup/confirmed?rememberMe=false&csrf_token=${csrf}&tx=${transId}&p=${policy}`;
+
+    const confirmedRes = await axios
+        .get(confirmedUrl, {
+            headers: { Cookie: cookies },
+            maxRedirects: 0,
+            validateStatus: () => true,
+        })
+        .catch((err) => {
+            if (err.response && [301, 302].includes(err.response.status)) return err.response;
+            throw err;
+        });
 
     const location = confirmedRes.headers?.location || "";
     const codeMatch = location.match(/[?&]code=([^&]+)/);
     if (!codeMatch) {
-        console.log("Confirmed status:", confirmedRes.status);
-        console.log("Redirect Location:", location.substring(0, 200));
+        // console.log("Confirmed status:", confirmedRes.status);
+        // console.log("Redirect Location:", location.substring(0, 200));
         throw new Error("No authorization code found in redirect");
     }
 
     const authCode = decodeURIComponent(codeMatch[1]);
-    console.log(`✅ Got auth code: ${authCode.substring(0, 30)}...`);
+    // console.log(`✅ Got auth code: ${authCode.substring(0, 30)}...`);
 
     // Step 4: Exchange auth code for access token
-    console.log(`🔑 Step 4: Exchanging code for token...`);
+    // console.log(`🔑 Step 4: Exchanging code for token...`);
     const tokenUrl = `${b2cBase}/oauth2/v2.0/token`;
 
     const form = new URLSearchParams();
@@ -327,7 +328,7 @@ async function exchangeRedirectForToken(redirectUrl: string, _domain: string, au
         throw new Error("No access_token in token exchange response");
     }
 
-    console.log(`✅ Token obtained via code exchange`);
+    // console.log(`✅ Token obtained via code exchange`);
     return token;
 }
 
