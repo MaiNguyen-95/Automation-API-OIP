@@ -1,0 +1,11 @@
+{
+    "status": "SUCCESS",
+    "data": {
+        "id": "8a39f16b-a3db-4fc7-abea-cfc3043ffadb",
+        "orderId": "001-28032026-0002",
+        "rewardPointsEarned": 0,
+        "pointsEarnedByQRScan": 0,
+        "totalPoints": 9998,
+        "pointsStatusForQRScan": "NA"
+    }
+}

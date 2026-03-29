@@ -13,7 +13,7 @@
         "gu": "",
         "bn": ""
     },
-    "name": "QA_MA",
+    "name": "test discount_1",
     "nameLocalised": {
         "en": "test",
         "kn": "",
@@ -63,7 +63,7 @@
         "bn": ""
     },
     "couponType": "unique",
-    "couponCode": "test393",
+    "couponCode": "atest000",
     "images": [""],
     "numberOfCoupons": 12,
     "buUserId": "1c3b01c2-a134-468f-a844-32cdb91e5631",

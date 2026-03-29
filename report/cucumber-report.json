@@ -4,11 +4,24 @@
     "elements": [
       {
         "description": "",
-        "id": "api-validation;validate-he-token-is-valid",
+        "id": "api-create-a-b2c-assisted-order;b2c-assisted-order-in-in-country:-valid-token",
         "keyword": "Scenario",
-        "line": 35,
-        "name": "Validate he token is valid",
+        "line": 40,
+        "name": "B2C Assisted order in IN country: Valid token",
         "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I am 'valid_token' authenticated on 'marketplace_service' service for 'in' country",
+            "match": {
+              "location": "src/steps/authSteps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 17031167
+            }
+          },
           {
             "arguments": [
               {
@@ -21,35 +34,114 @@
                   },
                   {
                     "cells": [
-                      "tenantId",
-                      "{{tenantId}}"
+                      "orderDetails[0].orderedQuantity",
+                      "2"
                     ]
                   }
                 ]
               }
             ],
-            "keyword": "Given ",
-            "line": 36,
-            "name": "I build dynamic headers with:",
+            "keyword": "And ",
+            "line": 6,
+            "name": "I build dynamic payload from \"order/b2cAssistedOrderIN\" with:",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:28"
+              "location": "src/steps/dynamicApiSteps.ts:54"
             },
             "result": {
               "status": "passed",
-              "duration": 364625
+              "duration": 1547708
             }
           },
           {
             "arguments": [],
-            "keyword": "Given ",
-            "line": 39,
-            "name": "I am 'valid_token' authenticated on 'discount_service' service",
+            "keyword": "When ",
+            "line": 9,
+            "name": "I send \"POST\" request to \"assistedOrderMP\" on \"in_marketplace_service\" service",
             "match": {
-              "location": "src/steps/authSteps.ts:11"
+              "location": "src/steps/dynamicApiSteps.ts:93"
             },
             "result": {
               "status": "passed",
-              "duration": 840500
+              "duration": 941922749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "The response status should be 201",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:144"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2598250
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "status",
+                      "SUCCESS"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 11,
+            "name": "The response should contain:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:185"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1502417
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "variable",
+                      "path"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "orderId",
+                      "data.id"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "numberOrderID",
+                      "data.orderId"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "I extract from response:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:119"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 391540
             }
           },
           {
@@ -65,60 +157,47 @@
                   {
                     "cells": [
                       "id",
-                      "93d76a54-7ad8-49d1-a731-3f5b5f45c85e"
+                      "{{orderId}}"
                     ]
                   }
                 ]
               }
             ],
-            "keyword": "And ",
-            "line": 40,
+            "keyword": "Given ",
+            "line": 20,
             "name": "I set path params:",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:55"
+              "location": "src/steps/dynamicApiSteps.ts:66"
             },
             "result": {
               "status": "passed",
-              "duration": 84959
+              "duration": 190249
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 46,
-            "name": "I send 'GET' request to 'discountID' on 'discount_service' service",
+            "line": 23,
+            "name": "I send \"GET\" request to \"getOrderID\" on \"in_marketplace_service\" service",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:69"
+              "location": "src/steps/dynamicApiSteps.ts:93"
             },
             "result": {
               "status": "passed",
-              "duration": 356301500
+              "duration": 108815166
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 47,
+            "line": 24,
             "name": "The response status should be 200",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:90"
+              "location": "src/steps/dynamicApiSteps.ts:144"
             },
             "result": {
               "status": "passed",
-              "duration": 1142291
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 48,
-            "name": "I save response body as \"responseBody\"",
-            "match": {
-              "location": "src/steps/dynamicApiSteps.ts:100"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3256041
+              "duration": 520957
             }
           },
           {
@@ -133,23 +212,82 @@
                   },
                   {
                     "cells": [
-                      "data.name",
-                      "B2B discount"
+                      "status",
+                      "SUCCESS"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "data.orderNumber",
+                      "{{numberOrderID}}"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "data.OrderStatus",
+                      "FULFILLED"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "data.deliveryType",
+                      "PICKUP"
                     ]
                   }
                 ]
               }
             ],
-            "keyword": "And ",
-            "line": 49,
-            "name": "the response should contain:",
+            "keyword": "Then ",
+            "line": 25,
+            "name": "The response should contain data:",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:131"
+              "location": "src/steps/dynamicApiSteps.ts:190"
             },
             "result": {
-              "status": "failed",
-              "duration": 1902540,
-              "error_message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\nExpected: \u001b[32m{\"key\": \"data.name\", \"value\": \"B2B discount\"}\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n    at Proxy.<anonymous> (/Users/abcmacbooktest/Documents/GitHub_s/Automation-API/node_modules/playwright/lib/matchers/expect.js:224:24)\n    at /Users/abcmacbooktest/Documents/GitHub_s/Automation-API/src/api/validator/validator.ts:52:28\n    at ApiValidator.containsJson (/Users/abcmacbooktest/Documents/GitHub_s/Automation-API/src/api/validator/validator.ts:50:34)\n    at CustomWorld.<anonymous> (/Users/abcmacbooktest/Documents/GitHub_s/Automation-API/src/steps/dynamicApiSteps.ts:133:18)"
+              "status": "passed",
+              "duration": 1015041
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "data.orderNumber",
+                      "{{numberOrderID}}"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "data.orderDate",
+                      "IGNORE"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "totalPoints",
+                      "IGNORE"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 31,
+            "name": "The response should match json \"orders/getOrderIN\" with:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:165"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5489041
             }
           }
         ],
@@ -159,23 +297,23 @@
             "line": 1
           },
           {
-            "name": "@validToken",
-            "line": 34
+            "name": "@b2cAODatainMPServiceValidToken",
+            "line": 3
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "api-validation",
+    "id": "api-create-a-b2c-assisted-order",
     "line": 2,
     "keyword": "Feature",
-    "name": "API validation",
+    "name": "API create a B2C Assisted order",
     "tags": [
       {
         "name": "@api",
         "line": 1
       }
     ],
-    "uri": "src/features/commonApi.feature"
+    "uri": "src/features/orderApis/b2cAssistedOrderApis.feature"
   }
 ]

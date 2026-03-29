@@ -51,6 +51,27 @@ export const config = {
             clientSecret: process.env.TH_LOYALTY_SERVICE_CLIENT_SECRET!,
             scope: process.env.TH_LOYALTY_SERVICE_SCOPE!,
         },
+        tz_loyalty_service: {
+            baseURL: process.env.TZ_LOYALTY_SERVICE_BASE_URL!,
+            tokenUrl: process.env.TZ_LOYALTY_SERVICE_TOKEN_URL!,
+            clientId: process.env.TZ_LOYALTY_SERVICE_CLIENT_ID!,
+            clientSecret: process.env.TZ_LOYALTY_SERVICE_CLIENT_SECRET!,
+            scope: process.env.TZ_LOYALTY_SERVICE_SCOPE!,
+        },
+        id_loyalty_service: {
+            baseURL: process.env.ID_LOYALTY_SERVICE_BASE_URL!,
+            tokenUrl: process.env.ID_LOYALTY_SERVICE_TOKEN_URL!,
+            clientId: process.env.ID_LOYALTY_SERVICE_CLIENT_ID!,
+            clientSecret: process.env.ID_LOYALTY_SERVICE_CLIENT_SECRET!,
+            scope: process.env.ID_LOYALTY_SERVICE_SCOPE!,
+        },
+        ke_loyalty_service: {
+            baseURL: process.env.KE_LOYALTY_SERVICE_BASE_URL!,
+            tokenUrl: process.env.KE_LOYALTY_SERVICE_TOKEN_URL!,
+            clientId: process.env.KE_LOYALTY_SERVICE_CLIENT_ID!,
+            clientSecret: process.env.KE_LOYALTY_SERVICE_CLIENT_SECRET!,
+            scope: process.env.KE_LOYALTY_SERVICE_SCOPE!,
+        },
         farmer_service: {
             baseURL: process.env.FARMER_SERVICE_BASE_URL!,
             tokenUrl: process.env.FARMER_SERVICE_TOKEN_URL!,

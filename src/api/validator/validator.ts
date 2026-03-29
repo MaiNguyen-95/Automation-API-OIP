@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
 import { AxiosResponse } from "axios";
 import { Utils } from "../../common/utils/utils";
+import { parseDynamicValue, getNestedValue, setNestedValue } from "../../common/utils/dynamicUtils";
 
 type TableRow = { key: string; value: any };
 
@@ -91,5 +92,28 @@ export class ApiValidator {
         const arr = this.getValueByPath(body, path);
         expect(Array.isArray(arr)).toBeTruthy();
         expect(arr.length).toBeLessThan(maxLength);
+    }
+
+    // ======DYNAMIC JSON COMPARE========
+    static matchDynamicResponseJsonFile(actual: any, fileName: string, rows: TableRow[], resolveFn: (val: string) => string) {
+        // Load the json file
+        const expected = Utils.loadResponsePayload(fileName);
+        // Override data or get from Response (if IGNORE)
+        rows.forEach(({ key, value }) => {
+            key = String(key || "").trim();
+            if (!key) return;
+            if (value === "IGNORE") {
+                // Get data from response to Json file
+                const actualValue = this.getValueByPath(actual, key);
+                setNestedValue(expected, key, actualValue);
+            } else {
+                // Convert from variant
+                const existingValue = getNestedValue(expected, key);
+                const resolvedValue = parseDynamicValue(value, resolveFn, existingValue);
+                setNestedValue(expected, key, resolvedValue);
+            }
+        });
+        // Compare 100%
+        expect(actual).toEqual(expected);
     }
 }

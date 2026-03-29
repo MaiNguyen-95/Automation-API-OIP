@@ -10,7 +10,7 @@ export interface CountryConfig {
 export const COUNTRY_CONFIG: Record<string, CountryConfig> = {
     in: {
         countryCode: "in",
-        phone: "3335445444",
+        phone: "4335445444",
         dialCode: "+91",
         domain: "stage-farmer-india.eu.auth0.com",
         authClientId: "df232b28-c3e4-45e4-940d-31fc15f66cd7",

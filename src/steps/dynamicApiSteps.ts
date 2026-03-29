@@ -11,6 +11,8 @@ import { assertSchema } from "../api/response/validator";
 import { ApiValidator } from "../api/validator/validator";
 import { config, ServiceName, CountryServiceName } from "../support/config";
 import { randomUUID } from "crypto";
+import { execSync } from "child_process";
+import * as path from "path";
 
 type TableRow = { key: string; value: string };
 
@@ -71,6 +73,23 @@ Given("I set path params:", function (this: CustomWorld, dataTable: DataTable) {
     }
 });
 
+Given("I run tag {string}", function (tag: string) {
+    const cwd = path.resolve(__dirname, "../../");
+    console.log(`🚀 Running scenarios with tag: ${tag}`);
+
+    try {
+        const result = execSync(`npx cucumber-js --tags "${tag}"`, {
+            cwd,
+            encoding: "utf-8",
+            stdio: "pipe",
+        });
+        console.log(`✅ Done:\n${result}`);
+    } catch (err: any) {
+        console.error(`❌ Failed:\n${err.stdout || err.message}`);
+        throw new Error(`Sub-scenario [${tag}] failed`);
+    }
+});
+
 When("I send {string} request to {string} on {string} service", async function (this: CustomWorld, method: string, endpoint: ApiEndpointKey, service: ServiceName) {
     await executeDynamicRequest(this, service, method, endpoint);
 });
@@ -124,7 +143,7 @@ Then("I extract from response:", function (this: CustomWorld, dataTable: DataTab
 
 Then("The response status should be {int}", function (this: CustomWorld, expected: number) {
     const from = this.responseBody;
-    // console.log(JSON.stringify(this.response.data, null, 2));
+    console.log(JSON.stringify(this.response.data, null, 2));
     ApiValidator.statusCode(this.response, expected);
 });
 
@@ -143,6 +162,10 @@ Then("The response should match json {string}", function (fileName: string) {
     ApiValidator.matchJsonFile(this.responseBody, fileName);
 });
 
+Then("The response should match json {string} with:", function (this: CustomWorld, fileName: string, dataTable: DataTable) {
+    const rows = dataTable.hashes() as TableRow[];
+    ApiValidator.matchDynamicResponseJsonFile(this.response.data, fileName, rows, this.resolveValue.bind(this));
+});
 Then("The response body should contain text: {string}", function (text: string) {
     ApiValidator.bodyContains(this.responseBody, text);
 });
@@ -162,4 +185,15 @@ Then("The array {string} should have length less than {int}", function (path: st
 Then("The response should contain:", function (dataTable: DataTable) {
     const rows = dataTable.hashes() as TableRow[];
     ApiValidator.containsJson(this.response.data, rows);
+});
+
+Then("The response should contain data:", function (this: CustomWorld, dataTable: DataTable) {
+    const rows = dataTable.hashes() as TableRow[];
+    // Convert the data from variable to data
+
+    const resolvedRows = rows.map((row) => ({
+        key: row.key,
+        value: this.resolveValue(String(row.value)),
+    }));
+    ApiValidator.containsJson(this.response.data, resolvedRows);
 });
