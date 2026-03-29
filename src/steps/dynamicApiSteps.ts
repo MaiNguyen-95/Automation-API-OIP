@@ -6,6 +6,8 @@ import { executeDynamicRequest, executeCountryRequest } from "../api/restApi/req
 import { readJsonPath } from "../api/response/jsonPath";
 import type { CustomWorld } from "../support/world";
 import { Utils } from "../common/utils/utils";
+import { DateTimeUtils } from "../common/utils/dateTimeUtils";
+import { parseDynamicValue } from "../common/utils/dynamicUtils";
 import { ApiEndpoints, ApiEndpointKey } from "../api/endpoints/apiEndpoints";
 import { assertSchema } from "../api/response/validator";
 import { ApiValidator } from "../api/validator/validator";
@@ -18,15 +20,20 @@ type TableRow = { key: string; value: string };
 Given("I set shared values:", function (this: CustomWorld, dataTable: DataTable) {
     const rows = dataTable.hashes() as TableRow[];
     for (const r of rows) {
-        const k = String(r.key || "").trim();
-        if (!k) continue;
-        // Store resolved string for immediate reuse
-        this.dynamicValues[k] = this.resolveValue(String(r.value ?? ""));
+        const key = String(r.key || "").trim();
+        if (!key) {
+            throw new Error("Key is empty in shared values table");
+        }
+        const parsed = parseDynamicValue(r.value, this.resolveValue.bind(this));
+        this.dynamicValues[key] = parsed;
+        console.log("[Shared] dynamicValues =\n", JSON.stringify(this.dynamicValues, null, 2));
     }
 });
 
 Given("I generate random uuid as {string}", function (key: string) {
-    this.dynamicValues[key] = randomUUID();
+    let uuid = randomUUID();
+    this.dynamicValues[key] = uuid;
+    console.log(`[UUID] ${key} =`, uuid);
 });
 
 Given("I generate random 4char4digit as {string}", function (key: string) {

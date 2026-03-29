@@ -13,6 +13,9 @@ export function parseDynamicValue(raw: string, resolve: (rawValue: string) => st
     if (raw === undefined || raw === null) return raw;
 
     const resolved = resolve(String(raw));
+    if (typeof resolved !== "string") {
+        return resolved;
+    }
     const trimmed = resolved.trim();
 
     if (trimmed.length === 0) return "";
@@ -141,7 +144,10 @@ export function getNestedValue(target: Record<string, any>, path: string): any {
             }
             if (bracketStart > 0) segments.push(remaining.substring(0, bracketStart));
             const bracketEnd = remaining.indexOf("]", bracketStart + 1);
-            if (bracketEnd === -1) { segments.push(remaining.substring(bracketStart)); break; }
+            if (bracketEnd === -1) {
+                segments.push(remaining.substring(bracketStart));
+                break;
+            }
             const indexStr = remaining.substring(bracketStart + 1, bracketEnd).trim();
             const indexNum = Number(indexStr);
             segments.push(Number.isNaN(indexNum) || indexStr === "" ? remaining.substring(bracketStart, bracketEnd + 1) : indexNum);
