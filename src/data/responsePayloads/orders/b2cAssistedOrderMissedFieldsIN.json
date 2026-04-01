@@ -1,0 +1,4 @@
+{
+    "msg": ["should be string in sellerId"],
+    "errorCode": 400
+}

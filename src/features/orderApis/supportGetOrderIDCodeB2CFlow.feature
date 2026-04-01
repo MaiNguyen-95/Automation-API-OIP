@@ -32,7 +32,7 @@ Feature: Get Order ID and Coupon Code Flow
             | couponCode | couponCode |
 
         # Finally, update the tokens locally back to the CSV at EXACT ROW
-        And I save "orderId" and "couponCode" back to CSV "src/data/csvData/tokenFCID.csv" for token '<token>'
+        And I append "orderId" and "couponCode" to CSV "src/data/csvData/NewOutput.csv"
 
         # Note: Using the generateB2CFeature.ts script will regenerate the examples dynamically
         Examples:

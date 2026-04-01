@@ -81,3 +81,40 @@ Then(
         updateCsvLocally(absolutePath, tokenVal, orderIdValue, couponCodeValue);
     }
 );
+
+/**
+ * Helper to append orderId and couponCode to a CSV file.
+ * Creates the file with headers if it doesn't exist.
+ */
+function appendCsvLocally(filePath: string, orderId: string, coupon: string) {
+    // Create directory if it doesn't exist
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+
+    if (!fs.existsSync(filePath)) {
+        // Create file with headers if it doesn't exist
+        fs.writeFileSync(filePath, "orderId,couponCode\n", "utf-8");
+    }
+
+    // Append the new row
+    fs.appendFileSync(filePath, `${orderId},${coupon}\n`, "utf-8");
+    console.log(`[CSV Logger] Appended orderId=${orderId} & couponCode=${coupon} to ${filePath}.`);
+}
+
+Then(
+    "I append {string} and {string} to CSV {string}",
+    async function (this: CustomWorld, varOrder: string, varCoupon: string, csvRelativePath: string) {
+        // 1. Get extracted data from CustomWorld instance
+        const orderIdValue = this.dynamicValues?.[varOrder] || "FAILED_OR_EMPTY";
+        const couponCodeValue = this.dynamicValues?.[varCoupon] || "FAILED_OR_EMPTY";
+
+        // 2. Resolve absolute path in case framework is run from a nested folder
+        const absolutePath = path.resolve(process.cwd(), csvRelativePath);
+        
+        // 3. Append to File
+        appendCsvLocally(absolutePath, orderIdValue, couponCodeValue);
+    }
+);
+
