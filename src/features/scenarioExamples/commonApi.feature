@@ -61,6 +61,36 @@ Feature: API validation
             | message | Create success |
         And The response should match json "discountService/createDiscount"
 
+
+    @validTokenPost @uuid
+    Scenario: Validate he token is valid
+        # Given I build dynamic headers with:
+        #     | key      | value        |
+        #     | tenantId | {{tenantId}} |
+        # Given I am 'valid_token' authenticated on 'discount_service' service
+        # And I set path params:
+        #     | key | value                                |
+        #     | id  | 93d76a54-7ad8-49d1-a731-3f5b5f45c85e |
+        # And I build dynamic query params with:
+        #     | key  | value |
+        #     | page | 1     |
+        Given I generate random uuid as "uuid"
+        And I set shared values:
+            | key         | value                   |
+            | orderId     | {{$uuid}}               |
+            | userId      | {{$uuid}}               |
+            | quantity    | 10                      |
+            | isActive    | true                    |
+            | text        | test                    |
+            | timestamp   | {{$timestamp}}          |
+            | now         | {{$now}}                |
+            | expireDate  | {{$now+1d+2h+07:00}}    |
+            | expireDate1 | {{$now+1d+07:00}}       |
+            | expireDate2 | {{$now+2h-05:00}}       |
+            | expireDate3 | {{$now-1d-2h-1m+07:00}} |
+            | expireDate4 | {{$now+1y+1M+07:00}}    |
+
+
 # Scenario Outline: API validation
 #     Given I got access token is '<token_status>' with role '<role>'
 #     When I send "<method>" to "<path>" with payload "<payload_name>"

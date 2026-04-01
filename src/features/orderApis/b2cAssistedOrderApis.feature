@@ -28,7 +28,6 @@ Feature: API create a B2C Assisted order
             | data.orderDate   | IGNORE            |
             | totalPoints      | IGNORE            |
 
-
         Examples:
             | orderPayloadFormat       | serviceName            |
             | order/b2cAssistedOrderIN | in_marketplace_service |

@@ -10,6 +10,7 @@ Feature: Create discount
         And I build dynamic payload from "discount/createDiscountOrderLevelMeasuringUnit" with:
             | key        | value               |
             | couponCode | {{couponCodeValue}} |
+            | startDate  | {{$now+1h+1m}}      |
         When I send "POST" request to "createDiscount" on "discount_service" service
         Then The response status should be 201
 # Then I extract from response:
