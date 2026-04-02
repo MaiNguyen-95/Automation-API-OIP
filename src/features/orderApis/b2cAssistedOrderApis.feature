@@ -60,20 +60,20 @@ Feature: API create a B2C Assisted order
             | key         | value           |
             | <key field> | <error message> |
         Examples:
-            | orderPayloadFormat       | serviceName            | response file                          | field                             | key field             | error message                                                     |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | sellerId                          | msg[0]                | should be string in sellerId                                      |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | sellerShopId                      | msg[0]                | should be string in sellerShopId                                  |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | source                            | error.responseMessage | source: Invalid literal value, expected "RETAILER_ASSISTED"       |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | orderType                         | error.responseMessage | orderType: Invalid literal value, expected "B2C"                  |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | orderDetails                      | msg[0]                | should be array in orderDetails                                   |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | orderDetails[0].productId         | msg[0]                | should be string in orderDetails[0].productId                     |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | orderDetails[0].orderedQuantity   | msg[0]                | should be number in orderDetails[0].orderedQuantity               |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | orderDetails[0].productFamilyName | error.responseMessage | orderDetails[0].productFamilyName: Expected string, received null |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | fulfilledMRP                      | msg[0]                | should be number in fulfilledMRP                                  |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | paymentType                       | msg[0]                | should be string in paymentType                                   |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | discountId                        | msg[0]                | should be string in discountId                                    |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | discountValue                     | error.responseMessage | discountValue: Expected number, received null                     |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | couponId                          | msg[0]                | should be string in couponId                                      |
+            | orderPayloadFormat       | serviceName            | response file                    | field                             | key field             | error message                                                     |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | sellerId                          | msg[0]                | should be string in sellerId                                      |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | sellerShopId                      | msg[0]                | should be string in sellerShopId                                  |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | source                            | error.responseMessage | source: Invalid literal value, expected "RETAILER_ASSISTED"       |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | orderType                         | error.responseMessage | orderType: Invalid literal value, expected "B2C"                  |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | orderDetails                      | msg[0]                | should be array in orderDetails                                   |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | orderDetails[0].productId         | msg[0]                | should be string in orderDetails[0].productId                     |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | orderDetails[0].orderedQuantity   | msg[0]                | should be number in orderDetails[0].orderedQuantity               |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | orderDetails[0].productFamilyName | error.responseMessage | orderDetails[0].productFamilyName: Expected string, received null |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | fulfilledMRP                      | msg[0]                | should be number in fulfilledMRP                                  |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | paymentType                       | msg[0]                | should be string in paymentType                                   |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | discountId                        | msg[0]                | should be string in discountId                                    |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | discountValue                     | error.responseMessage | discountValue: Expected number, received null                     |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | couponId                          | msg[0]                | should be string in couponId                                      |
 
     @b2cAODatainMPServiceInvalidData
     Scenario: B2C Assisted order in IN country: invalid value
@@ -87,21 +87,46 @@ Feature: API create a B2C Assisted order
             | key         | value           |
             | <key field> | <error message> |
         Examples:
-            | orderPayloadFormat       | serviceName            | response file                          | field                           | key field             | error message                                                                                                                |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | sellerId                        | msg[0]                | should match format "uuid" in sellerId                                                                                       |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | sellerShopId                    | msg[0]                | should match format "uuid" in sellerShopId                                                                                   |
-            # | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | category     | error.responseMessage | category: Invalid enum value. Expected 'Product'            | 'Service' | 'Product-Service' | 'Loan' | 'Mechanization', received 'test' |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | source                          | error.responseMessage | source: Invalid literal value, expected "RETAILER_ASSISTED"                                                                  |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | orderType                       | error.responseMessage | orderType: Invalid literal value, expected "B2C"                                                                             |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | orderDetails[0].productId       | error.responseMessage | Product ID must be UUID                                                                                                      |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | orderDetails[0].orderedQuantity | msg[0]                | should be number in orderDetails[0].orderedQuantity                                                                          |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | orderDetails[0].volume          | error.responseMessage | orderDetails[0].volume: Expected number, received string                                                                     |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | fulfilledMRP                    | msg[0]                | should be number in fulfilledMRP                                                                                             |
-            # | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | paymentType     | error.responseMessage | paymentType: Invalid enum value. Expected 'Cash' | 'Mpesa-offline' | 'Mpesa-online', received 'test |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN  | discountId                      | msg[0]                | should match format "uuid" in discountId                                                                                     |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | discountValue                   | error.responseMessage | discountValue: Expected number, received string                                                                              |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderMissedFieldsIN2 | locationId                      | error.responseMessage | locationId: Invalid uuid                                                                                                     |
-            | order/b2cAssistedOrderIN | in_marketplace_service | orders/responsefail                    | couponId                        | error.responseMessage | Failed to apply coupon test and discount c8f1ad97-eb65-4959-9fe3-df89397b9f1f: 1019: Add more quantity to apply this coupon. |
+            | orderPayloadFormat       | serviceName            | response file                    | field                           | key field             | error message                                                                                                                |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | sellerId                        | msg[0]                | should match format "uuid" in sellerId                                                                                       |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | sellerShopId                    | msg[0]                | should match format "uuid" in sellerShopId                                                                                   |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | source                          | error.responseMessage | source: Invalid literal value, expected "RETAILER_ASSISTED"                                                                  |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | orderType                       | error.responseMessage | orderType: Invalid literal value, expected "B2C"                                                                             |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | orderDetails[0].productId       | error.responseMessage | Product ID must be UUID                                                                                                      |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | orderDetails[0].orderedQuantity | msg[0]                | should be number in orderDetails[0].orderedQuantity                                                                          |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | orderDetails[0].volume          | error.responseMessage | orderDetails[0].volume: Expected number, received string                                                                     |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | fulfilledMRP                    | msg[0]                | should be number in fulfilledMRP                                                                                             |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | discountId                      | msg[0]                | should match format "uuid" in discountId                                                                                     |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | discountValue                   | error.responseMessage | discountValue: Expected number, received string                                                                              |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | locationId                      | error.responseMessage | locationId: Invalid uuid                                                                                                     |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/responsefail              | couponId                        | error.responseMessage | Failed to apply coupon test and discount c8f1ad97-eb65-4959-9fe3-df89397b9f1f: 1019: Add more quantity to apply this coupon. |
+
+    @b2cAODatainMPServiceInvalidCategoryValue
+    Scenario: B2C Assisted order in IN country: invalid value
+        Given I am 'valid_token' authenticated on 'marketplace_service' service for 'in' country
+        And I build dynamic payload from "<orderPayloadFormat>" with:
+            | key      | value |
+            | category | test  |
+        When I send "POST" request to "assistedOrderMP" on "<serviceName>" service
+        Then The response status should be 400
+        Then The response should match json "orders/b2cAssistedOrderErrorCategory"
+        Examples:
+            | orderPayloadFormat       | serviceName            |
+            | order/b2cAssistedOrderIN | in_marketplace_service |
+
+    @b2cAODatainMPServiceInvalidPaymentTypeValue
+    Scenario: B2C Assisted order in IN country: invalid value
+        Given I am 'valid_token' authenticated on 'marketplace_service' service for 'in' country
+        And I build dynamic payload from "<orderPayloadFormat>" with:
+            | key         | value |
+            | paymentType | test  |
+        When I send "POST" request to "assistedOrderMP" on "<serviceName>" service
+        Then The response status should be 400
+        Then The response should match json "orders/b2cAssistedOrderErrorPaymentType"
+        Examples:
+            | orderPayloadFormat       | serviceName            |
+            | order/b2cAssistedOrderIN | in_marketplace_service |
+
 
     @b2cAssistedOrderApisValidTokenAndDatainLoyaltyService
     Scenario: B2C Assisted order in TZ, TH country: The order applies coupon, YC approves the order
@@ -120,8 +145,3 @@ Feature: API create a B2C Assisted order
             | order/b2cAssistedOrderTH | th_loyalty_service |
             | order/b2cAssistedOrderID | id_loyalty_service |
             | order/b2cAssistedOrderKE | ke_loyalty_service |
-# valid data
-# authorization
-# required: null, empty
-# Biz: data limitation,
-# data type

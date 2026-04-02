@@ -1,7 +1,5 @@
 @api
 Feature: API create a B2C order
-    # Background:
-    #     Given I execute scenario "@GetFCTokenIN" in project "../playwright-cucumber-ts" to get token
 
     @b2cOrderApisValidTokenAndData
     Scenario: B2C order in all country: The order applies coupon, YC approves the order
@@ -44,10 +42,6 @@ Feature: API create a B2C order
             | in          | order/b2cOrdersIN  | in_marketplace_service | src/data/token/retailerINToken.csv | order/b2cFulfillsIN  |
             | id          | order/b2cOrdersID  | id_marketplace_service | src/data/token/retailerIDToken.csv | order/b2cFulfillsID  |
             | th          | order/b2cOrdersTH  | th_marketplace_service | src/data/token/retailerTHToken.csv | order/b2cFulfillsTH  |
-
-    # Chị Diễm ới
-    # ============================================
-    # AUTHENTICATION CASES
     # ============================================
 
     @b2c_order_auth

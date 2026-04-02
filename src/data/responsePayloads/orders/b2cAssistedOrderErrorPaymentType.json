@@ -1,0 +1,8 @@
+{
+    "status": "FAILURE",
+    "error": {
+        "code": 400,
+        "message": "Bad Request",
+        "responseMessage": "paymentType: Invalid enum value. Expected 'Cash' | 'Mpesa-offline' | 'Mpesa-online', received 'test'"
+    }
+}
