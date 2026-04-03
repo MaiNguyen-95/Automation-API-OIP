@@ -1,0 +1,8 @@
+{
+    "status": "FAILURE",
+    "error": {
+        "code": 400,
+        "message": "Bad Request",
+        "responseMessage": "category: Invalid enum value. Expected 'Product' | 'Service' | 'Product-Service' | 'Loan' | 'Mechanization', received 'test'"
+    }
+}

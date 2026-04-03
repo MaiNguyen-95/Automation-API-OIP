@@ -1,0 +1,54 @@
+{
+    "status": "SUCCESS",
+    "errors": {},
+    "data": {
+        "orderNumber": "001-28032026-0014",
+        "retailerInfo": {
+            "shopName": "Automation shop 3",
+            "address": "Street address, Krishna Raja Mohalla S.O, Mysore, Mysore, Karnataka",
+            "phoneNumber": "+915555511801"
+        },
+        "orderDate": "28 March 2026, 09:25",
+        "orderItems": [
+            {
+                "productName": "Automation - Deltaspray (18:18:18)",
+                "familyName": "YaraTera",
+                "variantName": "Automation - Deltaspray (18:18:18)",
+                "size": "25 KG",
+                "mediaUrls": ["https://d2potd4ihliqnc.cloudfront.net/ee92fab8-985f-4b0b-931d-d1d19151be45/product-variants/634ff2eeec8f28093b5b2e81/ed23b054-24c4-4e54-9336-9e5d05acd7ad/1770710057259-1698664919531-181818deltaspray.jpeg"],
+                "quantity": 2,
+                "fulfilledQuantity": 2,
+                "fulfilledItemValue": "₹7400",
+                "itemValue": "₹7400",
+                "orderedSellingPrice": "₹14000",
+                "fulfilledSellingPrice": "₹14000",
+                "estimatedTotal": 14000,
+                "strikeOrderedMrp": true,
+                "strikeFulfilledMrp": true,
+                "isInputFinanceAvailable": false
+            }
+        ],
+        "orderedEstimatedTotal": 14000,
+        "fulfilledEstimatedTotal": 14800,
+        "total": 7000,
+        "couponId": "224",
+        "discountValue": 1000,
+        "estimatedFinalTotal": 6000,
+        "finalOrderValue": 6000,
+        "totalOrderValue": 7000,
+        "hasDiscount": true,
+        "currencySymbol": "₹",
+        "language": "en",
+        "category": "Product",
+        "OrderStatus": "FULFILLED",
+        "deliveryType": "PICKUP",
+        "hasDelivery": false,
+        "showMRP": true,
+        "isPendingLoanOrder": false,
+        "isInputFinanceOpted": false,
+        "totalApprovedLoanAmount": 0,
+        "isMpesaPayment": false,
+        "paymentType": "Cash",
+        "paymentStatus": null
+    }
+}

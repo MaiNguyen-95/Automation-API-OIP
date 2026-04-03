@@ -1,0 +1,46 @@
+{
+    "sellerId": "f7f01cef-3780-4a01-becb-fd094fcd2d59",
+    "sellerShopId": "65cb5ecd-a14e-45b8-9f54-7b3346da4ab2",
+    "buyerId": "4f32132b-ec1c-47df-a249-80a1f6145d3f",
+    "category": "Product",
+    "orderDetails": [
+        {
+            "variantId": "f0eae6ca-8fec-4b5e-8867-8323bb1e6041",
+            "photo": "https://d2potd4ihliqnc.cloudfront.net/d6d6a632-b66f-4894-a27e-3aef6d5c387b/product-variants/634ff364ec8f28093b5b4671/c5feaf7d-d344-4c71-84b5-97633ddfc37f/1723796671325-otesha.jpeg",
+            "variantDescription": "<p>YaraMila Otesha is a high quality compound NPK, specifically designed for planting all crops. It contain combinations of (NPK 13-24-10 + 2MgO +4.5S +0.3 Zn) %.It has Non aciditfying Nitrate Nitrogen Important for healthier soils which gives high yield from balanced nutrition.</p>",
+            "productSize": "50 KG",
+            "sellingPrice": 100,
+            "termsAndConditions": "",
+            "isTandCPresent": false,
+            "stockAvailable": 111,
+            "variantName": "Otesha",
+            "productName": "Otesha",
+            "productFamilyName": "YaraMila",
+            "countError": false,
+            "isYaraProduct": true,
+            "volume": 50,
+            "metric": "KG",
+            "form": "solid",
+            "orderedQuantity": 1,
+            "fulfilledQuantity": 1,
+            "productId": "f0eae6ca-8fec-4b5e-8867-8323bb1e6041",
+            "error": false
+        }
+    ],
+    "discountId": "3f7e06a8-755e-4da1-b64b-e8a096a18b66",
+    "discountValue": 20,
+    "couponId": "B2C20",
+    "ycProducts": [
+        {
+            "productId": "f0eae6ca-8fec-4b5e-8867-8323bb1e6041",
+            "QRList": []
+        }
+    ],
+    "paymentType": "Cash",
+    "payerPhoneNumber": "+255123456789",
+    "paybillOrTillNumber": "",
+    "fulfilledMRP": 100,
+    "yaraUserId": "f571bb46-8070-41f0-b217-aa6062498ca2",
+    "finalOrderValue": 80,
+    "locationId": "c5b6bb0a-702e-468b-bb47-034b21dd661f"
+}
