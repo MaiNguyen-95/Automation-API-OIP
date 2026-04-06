@@ -4,65 +4,22 @@
     "elements": [
       {
         "description": "",
-        "id": "create-discount;admin-creates-discount",
+        "id": "api-create-a-b2c-assisted-order;b2c-assisted-order-in-in-country:-business-rules",
         "keyword": "Scenario",
-        "line": 4,
-        "name": "Admin creates discount",
+        "line": 180,
+        "name": "B2C Assisted order in IN country: Business rules",
         "steps": [
           {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "key",
-                      "value"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "tenantId",
-                      "{{tenantId}}"
-                    ]
-                  }
-                ]
-              }
-            ],
+            "arguments": [],
             "keyword": "Given ",
-            "line": 5,
-            "name": "I build dynamic headers with:",
+            "line": 168,
+            "name": "I am 'valid_token' authenticated on 'marketplace_service' service for 'in' country",
             "match": {
-              "location": "src/steps/dynamicApiSteps.ts:46"
+              "location": "src/steps/authSteps.ts:11"
             },
             "result": {
               "status": "passed",
-              "duration": 1229457
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 8,
-            "name": "I am 'valid_token' authenticated on 'discount_service' service",
-            "match": {
-              "location": "src/steps/authSteps.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1809933332
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 9,
-            "name": "I generate random 4char4digit as \"couponCodeValue\"",
-            "match": {
-              "location": "src/steps/dynamicApiSteps.ts:41"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 379917
+              "duration": 9529586541
             }
           },
           {
@@ -77,48 +34,78 @@
                   },
                   {
                     "cells": [
-                      "couponCode",
-                      "{{couponCodeValue}}"
+                      "sellerShopId",
+                      "b10cf47a-f4f3-425e-b844-c53084d4b0f6"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "And ",
-            "line": 10,
-            "name": "I build dynamic payload from \"discount/createDiscountOrderLevelMeasuringUnit\" with:",
+            "line": 169,
+            "name": "I build dynamic payload from \"order/b2cAssistedOrderIN\" with:",
             "match": {
               "location": "src/steps/dynamicApiSteps.ts:61"
             },
             "result": {
               "status": "passed",
-              "duration": 8708625
+              "duration": 2626707
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 13,
-            "name": "I send \"POST\" request to \"createDiscount\" on \"discount_service\" service",
+            "line": 172,
+            "name": "I send \"POST\" request to \"assistedOrderMP\" on \"in_marketplace_service\" service",
             "match": {
               "location": "src/steps/dynamicApiSteps.ts:100"
             },
             "result": {
               "status": "passed",
-              "duration": 618757458
+              "duration": 488812500
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 14,
-            "name": "The response status should be 201",
+            "line": 173,
+            "name": "The response status should be 400",
             "match": {
               "location": "src/steps/dynamicApiSteps.ts:151"
             },
             "result": {
               "status": "passed",
-              "duration": 2987208
+              "duration": 2625749
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "error.responseMessage",
+                      "No shop found with this information"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 174,
+            "name": "The response should match json \"orders/b2cAssistedOrderErrorBody\" with:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:172"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7793625
             }
           }
         ],
@@ -128,23 +115,261 @@
             "line": 1
           },
           {
-            "name": "@createDiscount",
-            "line": 3
+            "name": "@b2cAODatainMPServiceBussinessRulesValidate",
+            "line": 163
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "api-create-a-b2c-assisted-order;b2c-assisted-order-in-in-country:-business-rules",
+        "keyword": "Scenario",
+        "line": 181,
+        "name": "B2C Assisted order in IN country: Business rules",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 168,
+            "name": "I am 'valid_token' authenticated on 'marketplace_service' service for 'in' country",
+            "match": {
+              "location": "src/steps/authSteps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1404249
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "orderDetails[0].productId",
+                      "eb8a2896-46fb-4f0c-82d7-aaaaaae06e86"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 169,
+            "name": "I build dynamic payload from \"order/b2cAssistedOrderIN\" with:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 463833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 172,
+            "name": "I send \"POST\" request to \"assistedOrderMP\" on \"in_marketplace_service\" service",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 183681916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 173,
+            "name": "The response status should be 400",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:151"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 715249
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "error.responseMessage",
+                      "Products [eb8a2896-46fb-4f0c-82d7-aaaaaae06e86] not found from shop 608b7286-0df6-4df3-8d1d-c167e46b286e or ProductCatalog"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 174,
+            "name": "The response should match json \"orders/b2cAssistedOrderErrorBody\" with:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:172"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1057791
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@b2cAODatainMPServiceBussinessRulesValidate",
+            "line": 163
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "api-create-a-b2c-assisted-order;b2c-assisted-order-in-in-country:-business-rules",
+        "keyword": "Scenario",
+        "line": 182,
+        "name": "B2C Assisted order in IN country: Business rules",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 168,
+            "name": "I am 'valid_token' authenticated on 'marketplace_service' service for 'in' country",
+            "match": {
+              "location": "src/steps/authSteps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 615000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "orderDetails[0].productId",
+                      "3ccb4b1c-6578-4617-a3e3-5c588545d54a"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 169,
+            "name": "I build dynamic payload from \"order/b2cAssistedOrderIN\" with:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 812541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 172,
+            "name": "I send \"POST\" request to \"assistedOrderMP\" on \"in_marketplace_service\" service",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 155785583
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 173,
+            "name": "The response status should be 400",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:151"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 423332
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "error.responseMessage",
+                      "Products [3ccb4b1c-6578-4617-a3e3-5c588545d54a] not found from shop 608b7286-0df6-4df3-8d1d-c167e46b286e or ProductCatalog"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 174,
+            "name": "The response should match json \"orders/b2cAssistedOrderErrorBody\" with:",
+            "match": {
+              "location": "src/steps/dynamicApiSteps.ts:172"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 639250
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@b2cAODatainMPServiceBussinessRulesValidate",
+            "line": 163
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "create-discount",
+    "id": "api-create-a-b2c-assisted-order",
     "line": 2,
     "keyword": "Feature",
-    "name": "Create discount",
+    "name": "API create a B2C Assisted order",
     "tags": [
       {
         "name": "@api",
         "line": 1
       }
     ],
-    "uri": "src/features/discountApis/createDiscountOrderLevelMeasuringUnit.feature"
+    "uri": "src/features/orderApis/b2cAssistedOrderApis.feature"
   }
 ]
