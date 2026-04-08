@@ -101,31 +101,85 @@ Feature: API create a B2C Assisted order
             | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | locationId                      | error.responseMessage | locationId: Invalid uuid                                                                                                     |
             | order/b2cAssistedOrderIN | in_marketplace_service | orders/responsefail              | couponId                        | error.responseMessage | Failed to apply coupon test and discount c8f1ad97-eb65-4959-9fe3-df89397b9f1f: 1019: Add more quantity to apply this coupon. |
 
-    @b2cAODatainMPServiceInvalidCategoryValue
+    @b2cAODatainMPServiceInvalidSpecificField
     Scenario: B2C Assisted order in IN country: invalid value
         Given I am 'valid_token' authenticated on 'marketplace_service' service for 'in' country
         And I build dynamic payload from "<orderPayloadFormat>" with:
-            | key      | value |
-            | category | test  |
+            | key     | value |
+            | <field> | test  |
         When I send "POST" request to "assistedOrderMP" on "<serviceName>" service
         Then The response status should be 400
-        Then The response should match json "orders/b2cAssistedOrderErrorCategory"
+        Then The response should match json "<response>"
         Examples:
-            | orderPayloadFormat       | serviceName            |
-            | order/b2cAssistedOrderIN | in_marketplace_service |
+            | orderPayloadFormat       | serviceName            | field       | response                                |
+            | order/b2cAssistedOrderIN | in_marketplace_service | category    | orders/b2cAssistedOrderErrorCategory    |
+            | order/b2cAssistedOrderIN | in_marketplace_service | paymentType | orders/b2cAssistedOrderErrorPaymentType |
 
-    @b2cAODatainMPServiceInvalidPaymentTypeValue
-    Scenario: B2C Assisted order in IN country: invalid value
+    @b2cAODatainMPServiceBussinessRulesIGONRE
+    # =Scenario 1: SelerId and SellerShopId are not belong to one -> IGNORE
+    # =Scenario 2: BuyerId is not existed -> IGNORE
+    # =Scenario 3: productFamilyName and productId are not belong to one -> IGNORE
+    # =Scenario 4: form and productId are not belong to one -> IGNORE
+    # =Scenario 5: volume and productId are not belong to one -> IGNORE
+    # =Scenario 6: metric and productId are not belong to one -> IGNORE
+    # =Scenario 7: action is invalid data -> IGNORE
+    Scenario: B2C Assisted order in IN country: Business rules
         Given I am 'valid_token' authenticated on 'marketplace_service' service for 'in' country
         And I build dynamic payload from "<orderPayloadFormat>" with:
-            | key         | value |
-            | paymentType | test  |
+            | key     | value         |
+            | <field> | <field value> |
+        When I send "POST" request to "assistedOrderMP" on "<serviceName>" service
+        Then The response status should be 201
+        Then The response should contain:
+            | key    | value   |
+            | status | SUCCESS |
+        Then I extract from response:
+            | variable      | path         |
+            | orderId       | data.id      |
+            | numberOrderID | data.orderId |
+
+        # Confirm the order is created and fulfiledd status
+        Given I set path params:
+            | key | value       |
+            | id  | {{orderId}} |
+        When I send "GET" request to "getOrderID" on "<serviceName>" service
+        Then The response status should be 200
+        Then The response should match json "orders/getOrderIN" with:
+            | key              | value             |
+            | data.orderNumber | {{numberOrderID}} |
+            | data.orderDate   | IGNORE            |
+            | totalPoints      | IGNORE            |
+
+        Examples:
+            | orderPayloadFormat       | serviceName            | response file                    | field                             | field value                          |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | sellerId                          | b10cf47a-f4f3-425e-b844-c53084d4b0f6 |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | buyerId                           | aada3715-89f7-41a2-a71b-5717c06df002 |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | orderDetails[0].productFamilyName | yarate2ra                            |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | orderDetails[0].form              | test                                 |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | orderDetails[0].volume            | 50                                   |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | orderDetails[0].metric            | L                                    |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorMsg  | action                            | test                                 |
+
+    @b2cAODatainMPServiceBussinessRulesValidate
+    # =Scenario 1: SellerShopId is not a shop
+    # =Scenario 2: productId is not a product
+    # =Scenario 3: productId and sellerShopID are not belong to one
+    Scenario: B2C Assisted order in IN country: Business rules
+        Given I am 'valid_token' authenticated on 'marketplace_service' service for 'in' country
+        And I build dynamic payload from "<orderPayloadFormat>" with:
+            | key     | value         |
+            | <field> | <field value> |
         When I send "POST" request to "assistedOrderMP" on "<serviceName>" service
         Then The response status should be 400
-        Then The response should match json "orders/b2cAssistedOrderErrorPaymentType"
+        Then The response should match json "<response file>" with:
+            | key         | value           |
+            | <key field> | <error message> |
+
         Examples:
-            | orderPayloadFormat       | serviceName            |
-            | order/b2cAssistedOrderIN | in_marketplace_service |
+            | orderPayloadFormat       | serviceName            | response file                    | field                     | field value                          | key field             | error message                                                                                                              |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | sellerShopId              | b10cf47a-f4f3-425e-b844-c53084d4b0f6 | error.responseMessage | No shop found with this information                                                                                        |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | orderDetails[0].productId | eb8a2896-46fb-4f0c-82d7-aaaaaae06e86 | error.responseMessage | Products [eb8a2896-46fb-4f0c-82d7-aaaaaae06e86] not found from shop 608b7286-0df6-4df3-8d1d-c167e46b286e or ProductCatalog |
+            | order/b2cAssistedOrderIN | in_marketplace_service | orders/b2cAssistedOrderErrorBody | orderDetails[0].productId | 3ccb4b1c-6578-4617-a3e3-5c588545d54a | error.responseMessage | Products [3ccb4b1c-6578-4617-a3e3-5c588545d54a] not found from shop 608b7286-0df6-4df3-8d1d-c167e46b286e or ProductCatalog |
 
 
     @b2cAssistedOrderApisValidTokenAndDatainLoyaltyService
