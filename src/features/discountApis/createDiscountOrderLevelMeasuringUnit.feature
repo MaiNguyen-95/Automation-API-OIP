@@ -1,6 +1,6 @@
 @api
 Feature: Create discount
-    @createDiscountValidToken
+    @createDiscountỎrdcreateDiscountỎrdcreateDiscountỎrdcreateDiscountỎrd
     Scenario: Admin creates discount
         Given I build dynamic headers with:
             | key      | value        |
@@ -14,6 +14,7 @@ Feature: Create discount
         When I send "POST" request to "createDiscount" on "discount_service" service
         Then The response status should be 201
         Then The response should match json "discountService/createDiscount"
+
     @createDiscountInvalidToken
     Scenario: Admin creates discount
         Given I build dynamic headers with:

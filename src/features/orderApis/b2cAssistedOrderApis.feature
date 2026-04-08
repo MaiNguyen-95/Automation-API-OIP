@@ -105,11 +105,11 @@ Feature: API create a B2C Assisted order
     Scenario: B2C Assisted order in IN country: invalid value
         Given I am 'valid_token' authenticated on 'marketplace_service' service for 'in' country
         And I build dynamic payload from "<orderPayloadFormat>" with:
-            | key      | value |
-            | category | test  |
+            | key     | value |
+            | <field> | test  |
         When I send "POST" request to "assistedOrderMP" on "<serviceName>" service
         Then The response status should be 400
-        Then The response should match json "orders/b2cAssistedOrderErrorCategory"
+        Then The response should match json "<response>"
         Examples:
             | orderPayloadFormat       | serviceName            | field       | response                                |
             | order/b2cAssistedOrderIN | in_marketplace_service | category    | orders/b2cAssistedOrderErrorCategory    |
