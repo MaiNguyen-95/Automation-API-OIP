@@ -10,3 +10,7 @@ import { config } from "../support/config";
 // Before({ tags: "not @api" }, async function () {
 //     executedUiScenarios++;
 // });
+
+// --- chạy sau mỗi scenario ---
+
+// --- cleanup sau toàn bộ feature ---

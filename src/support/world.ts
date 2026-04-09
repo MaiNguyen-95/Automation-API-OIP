@@ -1,7 +1,6 @@
 import { setWorldConstructor, setDefaultTimeout, IWorldOptions, World } from "@cucumber/cucumber";
 import { config } from "../support/config";
 import { AxiosResponse } from "axios";
-import { DynamicValueEngine } from "../common/utils/dynamicValueEngineUtils";
 
 setDefaultTimeout(120000);
 
@@ -24,18 +23,22 @@ export class CustomWorld extends World {
 
     // -------- Shared & dynamic --------
     sharedParams: Record<string, any> = {};
-    dynamicValues: Record<string, any> = {};
-    //timezone?: string;
-    countryService?: { service: string; country: string };
+    dynamicValues: Record<string, string> = {};
 
     constructor(options: IWorldOptions) {
         super(options);
         this.dynamicValues["tenantId"] = config.tenantId!;
     }
 
-    resolveValue(raw: string): any {
-        const engine = new DynamicValueEngine(this.dynamicValues);
-        return engine.resolve(raw);
+    resolveValue(raw: string): string {
+        if (!raw) return raw;
+
+        return raw.replace(/\{\{(.+?)\}\}/g, (_, key: string) => {
+            if (!(key in this.dynamicValues)) {
+                throw new Error(`Dynamic value '${key}' not found`);
+            }
+            return this.dynamicValues[key];
+        });
     }
 }
 

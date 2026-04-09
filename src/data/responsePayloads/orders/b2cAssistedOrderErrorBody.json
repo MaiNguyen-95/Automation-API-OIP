@@ -1,8 +1,0 @@
-{
-    "status": "FAILURE",
-    "error": {
-        "code": 400,
-        "message": "Bad Request",
-        "responseMessage": "source: Invalid literal value, expected \"RETAILER_ASSISTED\""
-    }
-}

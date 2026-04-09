@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { parseDynamicValue, setNestedValue, getNestedValue } from "../../common/utils/dynamicUtils";
+import { parseDynamicValue, setNestedValue } from "../../common/utils/dynamicUtils";
 import { Utils } from "../../common/utils/utils";
 
 type TableRow = { key: string; value: string };
@@ -23,8 +23,7 @@ export function buildPayload(options: { payloadName?: string; rows?: TableRow[];
         const key = String(row.key || "").trim();
         if (!key) continue;
 
-        const existingValue = getNestedValue(payload, key);
-        const value = parseDynamicValue(row.value, options.resolve, existingValue);
+        const value = parseDynamicValue(row.value, options.resolve);
         setNestedValue(payload, key, value);
     }
     // ✅ Log payload cuối cùng

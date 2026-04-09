@@ -1,4 +1,0 @@
-{
-    "code": "Unauthorized",
-    "message": "Unauthorized: This api requires authentication.token required."
-}

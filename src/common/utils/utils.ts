@@ -1,3 +1,4 @@
+import assert from "assert";
 import fs from "fs";
 import path from "path";
 
@@ -19,19 +20,98 @@ export class Utils {
         return Array.from({ length }, () => digits.charAt(Math.floor(Math.random() * digits.length))).join("");
     }
 
-    static random4Char4Digit(): string {
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        const digits = "0123456789";
-        const randomChars = Array.from({ length: 4 }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join("");
-        const randomDigits = Array.from({ length: 4 }, () => digits.charAt(Math.floor(Math.random() * digits.length))).join("");
-        return randomChars + randomDigits;
-    }
-
     static splitString(text: string): string[] {
         return text
             .split(",")
             .map((t) => t.trim())
             .filter(Boolean);
+    }
+
+    //#endregion
+
+    //#region Date/Time Utilities
+
+    private static format(date: Date): string {
+        const yyyy = date.getFullYear();
+        const mm = String(date.getMonth() + 1).padStart(2, "0");
+        const dd = String(date.getDate()).padStart(2, "0");
+        return `${yyyy}-${mm}-${dd}`;
+    }
+
+    private static clone(date: Date): Date {
+        return new Date(date.getTime());
+    }
+
+    // ===== Current =====
+    static currentDateTime(): string {
+        const d = new Date();
+        return `${this.format(d)} ${d.toTimeString().split(" ")[0]}`; // YYYY-MM-DD HH:mm:ss
+    }
+
+    static currentDate(): string {
+        return this.format(new Date());
+    }
+
+    static getCurrentMonth(): string {
+        return String(new Date().getMonth() + 1).padStart(2, "0");
+    }
+
+    static currentYear(): string {
+        return String(new Date().getFullYear());
+    }
+
+    static timestamp(): number {
+        return Date.now();
+    }
+
+    // ===== Day operations =====
+    static addDays(days: number): string {
+        const d = new Date();
+        d.setDate(d.getDate() + days);
+        return this.format(d);
+    }
+
+    static futureDate(days: number): string {
+        return this.addDays(days);
+    }
+
+    static pastDate(days: number): string {
+        return this.addDays(-days);
+    }
+
+    static getDate(keyword: "yesterday" | "today" | "tomorrow"): string {
+        switch (keyword) {
+            case "yesterday":
+                return this.addDays(-1);
+            case "today":
+                return this.currentDate();
+            case "tomorrow":
+                return this.addDays(1);
+        }
+    }
+
+    // ===== Month operations) =====
+    private static shiftMonth(offset: number): Date {
+        const d = new Date();
+        const day = d.getDate();
+
+        d.setDate(1);
+        d.setMonth(d.getMonth() + offset);
+
+        const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        d.setDate(Math.min(day, lastDay));
+
+        return d;
+    }
+
+    static getNextMonth(): string {
+        const d = this.shiftMonth(1);
+        return String(d.getMonth() + 1).padStart(2, "0");
+    }
+
+    static getLastMonth(): string {
+        const d = this.shiftMonth(-1);
+        return String(d.getMonth() + 1).padStart(2, "0");
     }
 
     //#endregion

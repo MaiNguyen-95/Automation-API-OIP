@@ -1,13 +1,9 @@
 import { expect } from "@playwright/test";
 import { AxiosResponse } from "axios";
 import { Utils } from "../../common/utils/utils";
-import { parseDynamicValue, getNestedValue, setNestedValue } from "../../common/utils/dynamicUtils";
-
-type TableRow = { key: string; value: any };
 
 export class ApiValidator {
     // ===== INTERNAL HELPER =====
-
     static getValueByPath(obj: any, path: string): any {
         if (!obj || !path) return undefined;
 
@@ -24,16 +20,6 @@ export class ApiValidator {
         }, obj);
     }
 
-    // ===== PARSE DATATABLE VALUE =====
-    static parseValue(value: any): any {
-        if (value === "true") return true;
-        if (value === "false") return false;
-        if (value === "null") return null;
-
-        if (!isNaN(Number(value))) return Number(value);
-
-        return value;
-    }
     // ===== STATUS CODE =====
     static statusCode(response: AxiosResponse, expected: number) {
         expect(response.status).toBe(expected);
@@ -60,18 +46,10 @@ export class ApiValidator {
     }
 
     // ===== BODY CONTAINS JSON PATH VALUES =====
-    // static containsJson(body: any, expected: Record<string, any>) {
-    //     Object.entries(expected).forEach(([path, value]) => {
-    //         const actual = this.getValueByPath(body, path);
-    //         expect(actual).toEqual(value);
-    //     });
-    // }
-
-    static containsJson(body: any, rows: TableRow[]) {
-        rows.forEach(({ key, value }) => {
-            const actual = this.getValueByPath(body, key);
-            const expected = this.parseValue(value);
-            expect(actual).toEqual(expected);
+    static containsJson(body: any, expected: Record<string, any>) {
+        Object.entries(expected).forEach(([path, value]) => {
+            const actual = this.getValueByPath(body, path);
+            expect(actual).toEqual(value);
         });
     }
 
@@ -92,28 +70,5 @@ export class ApiValidator {
         const arr = this.getValueByPath(body, path);
         expect(Array.isArray(arr)).toBeTruthy();
         expect(arr.length).toBeLessThan(maxLength);
-    }
-
-    // ======DYNAMIC JSON COMPARE========
-    static matchDynamicResponseJsonFile(actual: any, fileName: string, rows: TableRow[], resolveFn: (val: string) => string) {
-        // Load the json file
-        const expected = Utils.loadResponsePayload(fileName);
-        // Override data or get from Response (if IGNORE)
-        rows.forEach(({ key, value }) => {
-            key = String(key || "").trim();
-            if (!key) return;
-            if (value === "IGNORE") {
-                // Get data from response to Json file
-                const actualValue = this.getValueByPath(actual, key);
-                setNestedValue(expected, key, actualValue);
-            } else {
-                // Convert from variant
-                const existingValue = getNestedValue(expected, key);
-                const resolvedValue = parseDynamicValue(value, resolveFn, existingValue);
-                setNestedValue(expected, key, resolvedValue);
-            }
-        });
-        // Compare 100%
-        expect(actual).toEqual(expected);
     }
 }

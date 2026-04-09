@@ -1,21 +1,10 @@
 // Utilities to parse values and set nested object paths
 
 // Parse a string into a typed value with simple heuristics and placeholder resolution
-/**
- * Parse a raw string value into its typed equivalent.
- * @param raw          - raw string from feature DataTable
- * @param resolve      - placeholder resolver (e.g. {{orderId}} → actual value)
- * @param existingValue - current value of this field in the JSON template (used to
- *                        preserve the template's intended type, e.g. keep a string
- *                        field as string even when the resolved value looks numeric)
- */
-export function parseDynamicValue(raw: string, resolve: (rawValue: string) => string, existingValue?: any): any {
+export function parseDynamicValue(raw: string, resolve: (rawValue: string) => string): any {
     if (raw === undefined || raw === null) return raw;
 
     const resolved = resolve(String(raw));
-    if (typeof resolved !== "string") {
-        return resolved;
-    }
     const trimmed = resolved.trim();
 
     if (trimmed.length === 0) return "";
@@ -33,13 +22,9 @@ export function parseDynamicValue(raw: string, resolve: (rawValue: string) => st
         }
     }
 
-    // number (int/float) — but respect template type:
-    // if the template already defined this field as a string, keep it as string
+    // number (int/float)
     const number = Number(trimmed);
-    if (!Number.isNaN(number) && trimmed !== "") {
-        if (typeof existingValue === "string") return trimmed; // preserve string type
-        return number;
-    }
+    if (!Number.isNaN(number) && trimmed !== "") return number;
 
     return trimmed;
 }
@@ -121,44 +106,4 @@ export function setNestedValue(target: Record<string, any>, path: string, value:
         }
         cursor = cursor[segment];
     }
-}
-
-/**
- * Read a nested value from an object using dot/bracket notation.
- * Returns undefined if the path does not exist.
- * (mirrors the path parsing in setNestedValue)
- */
-export function getNestedValue(target: Record<string, any>, path: string): any {
-    if (!path || path.trim() === "") return undefined;
-
-    const segments: (string | number)[] = [];
-    const parts = path.split(".");
-
-    for (const part of parts) {
-        let remaining = part;
-        while (remaining.length > 0) {
-            const bracketStart = remaining.indexOf("[");
-            if (bracketStart === -1) {
-                if (remaining.length > 0) segments.push(remaining);
-                break;
-            }
-            if (bracketStart > 0) segments.push(remaining.substring(0, bracketStart));
-            const bracketEnd = remaining.indexOf("]", bracketStart + 1);
-            if (bracketEnd === -1) {
-                segments.push(remaining.substring(bracketStart));
-                break;
-            }
-            const indexStr = remaining.substring(bracketStart + 1, bracketEnd).trim();
-            const indexNum = Number(indexStr);
-            segments.push(Number.isNaN(indexNum) || indexStr === "" ? remaining.substring(bracketStart, bracketEnd + 1) : indexNum);
-            remaining = remaining.substring(bracketEnd + 1);
-        }
-    }
-
-    let cursor: any = target;
-    for (const segment of segments) {
-        if (cursor === undefined || cursor === null) return undefined;
-        cursor = cursor[segment];
-    }
-    return cursor;
 }

@@ -1,0 +1,626 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "api-validation;validate-api-response-with-invalid-token",
+        "keyword": "Scenario",
+        "line": 14,
+        "name": "Validate API response with invalid token",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "tenantId",
+                      "{{tenantId}}"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 15,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 502299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 18,
+            "name": "I am 'valid_token' authenticated on 'discount_service' service",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1375900
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "id",
+                      "uuid13"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 19,
+            "name": "I set path params:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:55"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 169700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 26,
+            "name": "I send 'GET' request to 'discountID' on 'discount_service' service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 236316799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 27,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 920100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 28,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 320200
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@validtoken",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "api-validation;validate-he-token-is-invalid",
+        "keyword": "Scenario",
+        "line": 48,
+        "name": "Validate he token is invalid",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "tenantId",
+                      "{{tenantId}}"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 32,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 90500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 35,
+            "name": "I am 'invalid_token' authenticated on 'discount_service' service",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 205000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "id",
+                      "uuid123"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 36,
+            "name": "I set path params:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:55"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 70699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 43,
+            "name": "I send 'GET' request to 'discountID' on 'discount_service' service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 50082300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 44,
+            "name": "The response status should be 401",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 775600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 45,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 489700
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@invalidToken",
+            "line": 30
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "api-validation;validate-he-token-is-invalid",
+        "keyword": "Scenario",
+        "line": 49,
+        "name": "Validate he token is invalid",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "tenantId",
+                      "{{tenantId}}"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 32,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 143299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 35,
+            "name": "I am 'invalid_token' authenticated on 'discount_service' service",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 377700
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "id",
+                      "uuid123"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 36,
+            "name": "I set path params:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:55"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 187799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 43,
+            "name": "I send 'GET' request to 'discountID' on 'discount_service' service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 50209299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 44,
+            "name": "The response status should be 401",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 479800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 45,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 649300
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@invalidToken",
+            "line": 30
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "api-validation;validate-he-token-is-valid",
+        "keyword": "Scenario",
+        "line": 74,
+        "name": "Validate he token is valid",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "tenantId",
+                      "{{tenantId}}"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 75,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 181199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 78,
+            "name": "I am 'valid_token' authenticated on 'discount_service' service",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 767600
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "name",
+                      "QA_MA"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "messageLocalised.kn",
+                      "kn test"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "products[0].discountValueAndType.value",
+                      "5"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "couponCode",
+                      "tesst1920"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 85,
+            "name": "I build dynamic payload from 'createProduct' with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1781799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 91,
+            "name": "I send 'POST' request to 'createDiscount' on 'discount_service' service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 54189800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 92,
+            "name": "The response status should be 400",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 477900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 93,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 589899
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@validTokenPost",
+            "line": 73
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "api-validation;override-single-field---change-search_product-from-top-to-tshirt",
+        "keyword": "Scenario",
+        "line": 135,
+        "name": "Override single field - Change search_product from top to tshirt",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "name",
+                      "QA_MA"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "messageLocalised.kn",
+                      "kn test"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "products[0].discountValueAndType.value",
+                      "5"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 136,
+            "name": "I build dynamic payload from \"createProduct\" with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2020500
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@payload",
+            "line": 134
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "api-validation",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "API validation",
+    "tags": [
+      {
+        "name": "@api",
+        "line": 1
+      }
+    ],
+    "uri": "src\\features\\commonApi.feature"
+  }
+]
