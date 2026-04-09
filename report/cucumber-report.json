@@ -4,10 +4,10 @@
     "elements": [
       {
         "description": "",
-        "id": "api-validation;validate-api-response-with-invalid-token",
+        "id": "oip-api-dashboard;valid-request",
         "keyword": "Scenario",
-        "line": 14,
-        "name": "Validate API response with invalid token",
+        "line": 17,
+        "name": "Valid request",
         "steps": [
           {
             "arguments": [
@@ -21,35 +21,35 @@
                   },
                   {
                     "cells": [
-                      "tenantId",
-                      "{{tenantId}}"
+                      "x-tenant-id",
+                      "3080adbb-1127-4101-b0b3-47e0a747f0e2"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "Given ",
-            "line": 15,
+            "line": 5,
             "name": "I build dynamic headers with:",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:28"
             },
             "result": {
               "status": "passed",
-              "duration": 502299
+              "duration": 516799
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 18,
-            "name": "I am 'valid_token' authenticated on 'discount_service' service",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
             "match": {
               "location": "src\\steps\\authSteps.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 1375900
+              "duration": 764000
             }
           },
           {
@@ -64,82 +64,78 @@
                   },
                   {
                     "cells": [
-                      "id",
-                      "uuid13"
+                      "timeScale",
+                      "1h"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "And ",
-            "line": 19,
-            "name": "I set path params:",
+            "line": 9,
+            "name": "I build dynamic query params with:",
             "match": {
-              "location": "src\\steps\\dynamicApiSteps.ts:55"
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
             },
             "result": {
               "status": "passed",
-              "duration": 169700
+              "duration": 175499
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 26,
-            "name": "I send 'GET' request to 'discountID' on 'discount_service' service",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:69"
             },
             "result": {
               "status": "passed",
-              "duration": 236316799
+              "duration": 1474796000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 27,
+            "line": 13,
             "name": "The response status should be 200",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 920100
+              "duration": 1894099
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 28,
+            "line": 14,
             "name": "I save response body as \"responseBody\"",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:100"
             },
             "result": {
               "status": "passed",
-              "duration": 320200
+              "duration": 94847699
             }
           }
         ],
         "tags": [
           {
-            "name": "@api",
-            "line": 1
-          },
-          {
-            "name": "@validtoken",
-            "line": 13
+            "name": "@tenantvalid",
+            "line": 3
           }
         ],
         "type": "scenario"
       },
       {
         "description": "",
-        "id": "api-validation;validate-he-token-is-invalid",
+        "id": "oip-api-dashboard;valid-request",
         "keyword": "Scenario",
-        "line": 48,
-        "name": "Validate he token is invalid",
+        "line": 18,
+        "name": "Valid request",
         "steps": [
           {
             "arguments": [
@@ -153,15 +149,3087 @@
                   },
                   {
                     "cells": [
-                      "tenantId",
-                      "{{tenantId}}"
+                      "x-tenant-id",
+                      "3080adbb-1127-4101-b0b3-47e0a747f0e2"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "Given ",
-            "line": 32,
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 124599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 582600
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "24h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 148900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 642413700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 391900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 108753999
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 19,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "3080adbb-1127-4101-b0b3-47e0a747f0e2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 93499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 442799
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "7d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 79199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 539560600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 517499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 47288099
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "3080adbb-1127-4101-b0b3-47e0a747f0e2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 147300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 605199
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "30d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 91200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1004090300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 320000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 142946100
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 21,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "ee92fab8-985f-4b0b-931d-d1d19151be45"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 130699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 462499
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "1h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 81499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 557173399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 481400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 100746400
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 22,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "ee92fab8-985f-4b0b-931d-d1d19151be45"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 65200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 424999
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "24h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 55199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 420387399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 278800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 100218499
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 23,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "ee92fab8-985f-4b0b-931d-d1d19151be45"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 128200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 570200
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "7d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 111399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 306727800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 650499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 47143700
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 24,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "ee92fab8-985f-4b0b-931d-d1d19151be45"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 89199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 412500
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "30d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 52699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 926950899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 358500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 135920799
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 25,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "884fab4d-cd56-40ed-ac47-830eac9bf9f9"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 78000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 541400
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "1h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 120600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 154049500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 458099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43418300
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 26,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "884fab4d-cd56-40ed-ac47-830eac9bf9f9"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 59799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 606600
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "24h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 64499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 383447300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 405600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 46734899
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 27,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "884fab4d-cd56-40ed-ac47-830eac9bf9f9"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 182400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 513700
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "7d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 137000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 124071699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 540899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 12970499
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 28,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "884fab4d-cd56-40ed-ac47-830eac9bf9f9"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 71300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 399900
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "30d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 61500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 170456599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 192600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 46590499
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 29,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "74336175-95c1-4daf-811d-c7ce180f6235"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 97100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 506400
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "1h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 69900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 128762500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 350500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 50897800
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 30,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "74336175-95c1-4daf-811d-c7ce180f6235"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 138700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 504100
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "24h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 99899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 164733500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 333300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 46076100
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 31,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "74336175-95c1-4daf-811d-c7ce180f6235"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 55100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 301499
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "7d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 125871900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 347600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19691899
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 32,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "74336175-95c1-4daf-811d-c7ce180f6235"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 78199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 485800
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "30d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 174700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 150942499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 370899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43573899
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 33,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "d6d6a632-b66f-4894-a27e-3aef6d5c387b"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 54000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 304599
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "1h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 89200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 361017399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 186899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 96378099
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 34,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "d6d6a632-b66f-4894-a27e-3aef6d5c387b"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 81000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 465799
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "24h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 95099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 267007399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 282600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 77417599
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 35,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "d6d6a632-b66f-4894-a27e-3aef6d5c387b"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 85499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 439900
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "7d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 62799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 240396999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 322400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 41816100
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 36,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "d6d6a632-b66f-4894-a27e-3aef6d5c387b"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 61600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 293499
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "30d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 46299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 831403100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 208800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 105740700
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 37,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "1acc963f-a736-4235-9baa-e3c581514f19"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 60600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 339400
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "1h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 41700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 219247100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 351899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 63545599
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 38,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "1acc963f-a736-4235-9baa-e3c581514f19"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 178299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 666699
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "24h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 96799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 165596799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 450600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 44367500
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 39,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "1acc963f-a736-4235-9baa-e3c581514f19"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 73899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 431000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "7d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 153299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 135332000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 369499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22671699
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 40,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "1acc963f-a736-4235-9baa-e3c581514f19"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 47800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 295000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "30d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 80700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 198958500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 279000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 60163000
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 41,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "281f8a07-4b13-465e-8b04-426ee8fd3430"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 58199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 443100
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "1h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 58899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 208862399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 288800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 74638699
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 42,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "281f8a07-4b13-465e-8b04-426ee8fd3430"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
             "name": "I build dynamic headers with:",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:28"
@@ -174,14 +3242,14 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 35,
-            "name": "I am 'invalid_token' authenticated on 'discount_service' service",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
             "match": {
               "location": "src\\steps\\authSteps.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 205000
+              "duration": 398299
             }
           },
           {
@@ -196,82 +3264,78 @@
                   },
                   {
                     "cells": [
-                      "id",
-                      "uuid123"
+                      "timeScale",
+                      "24h"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "And ",
-            "line": 36,
-            "name": "I set path params:",
+            "line": 9,
+            "name": "I build dynamic query params with:",
             "match": {
-              "location": "src\\steps\\dynamicApiSteps.ts:55"
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
             },
             "result": {
               "status": "passed",
-              "duration": 70699
+              "duration": 122300
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 43,
-            "name": "I send 'GET' request to 'discountID' on 'discount_service' service",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:69"
             },
             "result": {
               "status": "passed",
-              "duration": 50082300
+              "duration": 182880100
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 44,
-            "name": "The response status should be 401",
+            "line": 13,
+            "name": "The response status should be 200",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 775600
+              "duration": 353999
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 45,
+            "line": 14,
             "name": "I save response body as \"responseBody\"",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:100"
             },
             "result": {
               "status": "passed",
-              "duration": 489700
+              "duration": 68682799
             }
           }
         ],
         "tags": [
           {
-            "name": "@api",
-            "line": 1
-          },
-          {
-            "name": "@invalidToken",
-            "line": 30
+            "name": "@tenantvalid",
+            "line": 3
           }
         ],
         "type": "scenario"
       },
       {
         "description": "",
-        "id": "api-validation;validate-he-token-is-invalid",
+        "id": "oip-api-dashboard;valid-request",
         "keyword": "Scenario",
-        "line": 49,
-        "name": "Validate he token is invalid",
+        "line": 43,
+        "name": "Valid request",
         "steps": [
           {
             "arguments": [
@@ -285,35 +3349,35 @@
                   },
                   {
                     "cells": [
-                      "tenantId",
-                      "{{tenantId}}"
+                      "x-tenant-id",
+                      "281f8a07-4b13-465e-8b04-426ee8fd3430"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "Given ",
-            "line": 32,
+            "line": 5,
             "name": "I build dynamic headers with:",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:28"
             },
             "result": {
               "status": "passed",
-              "duration": 143299
+              "duration": 90900
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 35,
-            "name": "I am 'invalid_token' authenticated on 'discount_service' service",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
             "match": {
               "location": "src\\steps\\authSteps.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 377700
+              "duration": 391399
             }
           },
           {
@@ -328,82 +3392,78 @@
                   },
                   {
                     "cells": [
-                      "id",
-                      "uuid123"
+                      "timeScale",
+                      "7d"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "And ",
-            "line": 36,
-            "name": "I set path params:",
+            "line": 9,
+            "name": "I build dynamic query params with:",
             "match": {
-              "location": "src\\steps\\dynamicApiSteps.ts:55"
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
             },
             "result": {
               "status": "passed",
-              "duration": 187799
+              "duration": 57600
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 43,
-            "name": "I send 'GET' request to 'discountID' on 'discount_service' service",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:69"
             },
             "result": {
               "status": "passed",
-              "duration": 50209299
+              "duration": 209595900
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 44,
-            "name": "The response status should be 401",
+            "line": 13,
+            "name": "The response status should be 200",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 479800
+              "duration": 379399
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 45,
+            "line": 14,
             "name": "I save response body as \"responseBody\"",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:100"
             },
             "result": {
               "status": "passed",
-              "duration": 649300
+              "duration": 30722999
             }
           }
         ],
         "tags": [
           {
-            "name": "@api",
-            "line": 1
-          },
-          {
-            "name": "@invalidToken",
-            "line": 30
+            "name": "@tenantvalid",
+            "line": 3
           }
         ],
         "type": "scenario"
       },
       {
         "description": "",
-        "id": "api-validation;validate-he-token-is-valid",
+        "id": "oip-api-dashboard;valid-request",
         "keyword": "Scenario",
-        "line": 74,
-        "name": "Validate he token is valid",
+        "line": 44,
+        "name": "Valid request",
         "steps": [
           {
             "arguments": [
@@ -417,35 +3477,35 @@
                   },
                   {
                     "cells": [
-                      "tenantId",
-                      "{{tenantId}}"
+                      "x-tenant-id",
+                      "281f8a07-4b13-465e-8b04-426ee8fd3430"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "Given ",
-            "line": 75,
+            "line": 5,
             "name": "I build dynamic headers with:",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:28"
             },
             "result": {
               "status": "passed",
-              "duration": 181199
+              "duration": 68400
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 78,
-            "name": "I am 'valid_token' authenticated on 'discount_service' service",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
             "match": {
               "location": "src\\steps\\authSteps.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 767600
+              "duration": 294200
             }
           },
           {
@@ -460,100 +3520,78 @@
                   },
                   {
                     "cells": [
-                      "name",
-                      "QA_MA"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "messageLocalised.kn",
-                      "kn test"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "products[0].discountValueAndType.value",
-                      "5"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "couponCode",
-                      "tesst1920"
+                      "timeScale",
+                      "30d"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "And ",
-            "line": 85,
-            "name": "I build dynamic payload from 'createProduct' with:",
+            "line": 9,
+            "name": "I build dynamic query params with:",
             "match": {
-              "location": "src\\steps\\dynamicApiSteps.ts:43"
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
             },
             "result": {
               "status": "passed",
-              "duration": 1781799
+              "duration": 38999
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 91,
-            "name": "I send 'POST' request to 'createDiscount' on 'discount_service' service",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:69"
             },
             "result": {
               "status": "passed",
-              "duration": 54189800
+              "duration": 624923600
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 92,
-            "name": "The response status should be 400",
+            "line": 13,
+            "name": "The response status should be 200",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 477900
+              "duration": 384000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 93,
+            "line": 14,
             "name": "I save response body as \"responseBody\"",
             "match": {
               "location": "src\\steps\\dynamicApiSteps.ts:100"
             },
             "result": {
               "status": "passed",
-              "duration": 589899
+              "duration": 95942199
             }
           }
         ],
         "tags": [
           {
-            "name": "@api",
-            "line": 1
-          },
-          {
-            "name": "@validTokenPost",
-            "line": 73
+            "name": "@tenantvalid",
+            "line": 3
           }
         ],
         "type": "scenario"
       },
       {
         "description": "",
-        "id": "api-validation;override-single-field---change-search_product-from-top-to-tshirt",
+        "id": "oip-api-dashboard;valid-request",
         "keyword": "Scenario",
-        "line": 135,
-        "name": "Override single field - Change search_product from top to tshirt",
+        "line": 45,
+        "name": "Valid request",
         "steps": [
           {
             "arguments": [
@@ -567,60 +3605,505 @@
                   },
                   {
                     "cells": [
-                      "name",
-                      "QA_MA"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "messageLocalised.kn",
-                      "kn test"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "products[0].discountValueAndType.value",
-                      "5"
+                      "x-tenant-id",
+                      "4d1c5d95-5895-48b4-b6f9-74dd3dfc20ed"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "Given ",
-            "line": 136,
-            "name": "I build dynamic payload from \"createProduct\" with:",
+            "line": 5,
+            "name": "I build dynamic headers with:",
             "match": {
-              "location": "src\\steps\\dynamicApiSteps.ts:43"
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
             },
             "result": {
               "status": "passed",
-              "duration": 2020500
+              "duration": 87700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 478799
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "1h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 74599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 392721799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 290199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 89744999
             }
           }
         ],
         "tags": [
           {
-            "name": "@api",
-            "line": 1
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 46,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "4d1c5d95-5895-48b4-b6f9-74dd3dfc20ed"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 69700
+            }
           },
           {
-            "name": "@payload",
-            "line": 134
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 330200
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "24h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 46499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 318261800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 479400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 84752200
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 47,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "4d1c5d95-5895-48b4-b6f9-74dd3dfc20ed"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 113400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 472499
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "7d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 190200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 274663000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 384399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 30166400
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "oip-api-dashboard;valid-request",
+        "keyword": "Scenario",
+        "line": 48,
+        "name": "Valid request",
+        "steps": [
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "x-tenant-id",
+                      "4d1c5d95-5895-48b4-b6f9-74dd3dfc20ed"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I build dynamic headers with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 77699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I am 'valid_token' authenticated on 'oip_service' service is",
+            "match": {
+              "location": "src\\steps\\authSteps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 448399
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "key",
+                      "value"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "timeScale",
+                      "30d"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I build dynamic query params with:",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:49"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 104499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send \"GET\" request to \"oipmodule\" on \"oip_service\" service",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:69"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 923493100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "The response status should be 200",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 186000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I save response body as \"responseBody\"",
+            "match": {
+              "location": "src\\steps\\dynamicApiSteps.ts:100"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 105216999
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tenantvalid",
+            "line": 3
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "api-validation",
-    "line": 2,
+    "id": "oip-api-dashboard",
+    "line": 1,
     "keyword": "Feature",
-    "name": "API validation",
-    "tags": [
-      {
-        "name": "@api",
-        "line": 1
-      }
-    ],
-    "uri": "src\\features\\commonApi.feature"
+    "name": "OIP API DASHBOARD",
+    "tags": [],
+    "uri": "src\\features\\oipdashboardApi.feature"
   }
 ]

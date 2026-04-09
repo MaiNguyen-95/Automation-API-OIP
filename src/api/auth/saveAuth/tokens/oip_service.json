@@ -1,0 +1,6 @@
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJlMGVkY2ZlNy1lZTk1LTRlMGEtYWYzOC0wMjYzZWUwMzIyMGEiLCJlbWFpbCI6Imh1eWVuLmxlQHlhcmEuY29tIiwicm9sZSI6Im9wcyIsImp0aSI6ImI1OTNjYmU3LTllN2ItNDU2NS04MWYyLTJiNjcxOGRkMjU1MiIsInNlc3Npb25JZCI6IjUwMzYwNTM5LTk3OTQtNGQ2NS04N2EwLThlMTJiNTA5MzdiNyIsImlhdCI6MTc3NTcwNzY1MSwiZXhwIjoxNzc1NzExMjUxfQ.JsOngQFrEfqAGRsgegGoVihZ468fdmayY9Pdr9OgaM8",
+    "expiresAt": 1773716662,
+    "serviceName": "discount_service",
+    "createdAt": 1773630267
+}

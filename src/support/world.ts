@@ -27,9 +27,19 @@ export class CustomWorld extends World {
 
     constructor(options: IWorldOptions) {
         super(options);
+
+        // ✅ tenant
         this.dynamicValues["tenantId"] = config.tenantId!;
+        this.dynamicValues["x-tenant-id"] = config.tenantId!;
+
+        // ✅ thêm cookie cần thiết (fix 403)
+        this.dynamicValues["moe_uuid"] = process.env.MOE_UUID || "";
+        this.dynamicValues["refreshToken"] = process.env.REFRESH_TOKEN || "";
     }
 
+    /**
+     * Resolve dynamic value {{key}}
+     */
     resolveValue(raw: string): string {
         if (!raw) return raw;
 
@@ -39,6 +49,26 @@ export class CustomWorld extends World {
             }
             return this.dynamicValues[key];
         });
+    }
+
+    /**
+     * ✅ Helper: set header (auto normalize tenant)
+     */
+    setHeader(key: string, value: string) {
+        const normalizedKey = key.toLowerCase() === "tenantid" ? "x-tenant-id" : key;
+
+        this.dynamicHeaders[normalizedKey] = value;
+    }
+
+    /**
+     * ✅ Helper: build cookie đầy đủ (QUAN TRỌNG)
+     */
+    buildCookie(accessToken: string) {
+        const cookies = [`accessToken=${accessToken}`, this.dynamicValues["refreshToken"] ? `refreshToken=${this.dynamicValues["refreshToken"]}` : "", this.dynamicValues["moe_uuid"] ? `moe_uuid=${this.dynamicValues["moe_uuid"]}` : ""]
+            .filter(Boolean)
+            .join("; ");
+
+        this.dynamicHeaders["Cookie"] = cookies;
     }
 }
 
